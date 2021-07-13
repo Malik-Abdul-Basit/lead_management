@@ -28,6 +28,7 @@
 # php files
 /includes/connection.php
 
+/.idea/*
 /database/*
 /storage/*
 /zrough/*
