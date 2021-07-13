@@ -69,7 +69,7 @@ include_once("../includes/mobile_menu.php");
                                                     }
                                                     echo 'Add ' . ucwords(str_replace("_", " ", $page));
 
-                                                    $Q = "SELECT MAX(employee_code)+1 AS employee_code FROM employees";
+                                                    $Q = "SELECT MAX(employee_code)+1 AS employee_code FROM users";
                                                     $Qry = mysqli_query($db, $Q);
                                                     if (mysqli_num_rows($Qry) > 0) {
                                                         $Result = mysqli_fetch_object($Qry);

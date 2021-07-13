@@ -44,7 +44,7 @@ class users
                     4 => 'Suspended by admin',
                     5 => 'Blocked',
                     6 => 'Blocked by admin',
-                    /*7 => 'Deleted'*/
+                    7 => 'Deleted'
                 ],
                 "value" => [
                     'pending' => '0',
@@ -54,7 +54,7 @@ class users
                     'suspended by admin' => '4',
                     'blocked' => '5',
                     'blocked by admin' => '6',
-                    /*'deleted' => '7'*/
+                    'deleted' => '7'
                 ],
                 "class" => [
                     0 => 'primary',
@@ -64,7 +64,7 @@ class users
                     4 => 'warning',
                     5 => 'danger',
                     6 => 'danger',
-                    /*7 => 'danger'*/
+                    7 => 'danger'
                 ],
                 "icon" => [
                     999 => '<div style="margin: -3px 0 0 0;" class="Tool-Tip">
@@ -263,7 +263,7 @@ class users
 	                    </svg>
 	                    <span class="Tool-Tip-Text Tool-Danger">Blocked by admin</span>
                     </div>',
-                    /*7 => '<div style="margin: -3px 0 0 0;" class="Tool-Tip">
+                    7 => '<div style="margin: -3px 0 0 0;" class="Tool-Tip">
                         <svg version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 923.38 1000" style="enable-background:new 0 0 923.38 1000;height:20px;width:34px;" xml:space="preserve">
                             <style type="text/css">.sf7{fill:#FFFFFF;}.so7{opacity:0.6;}.si7{fill:#F64E60;}</style>
 	                        <g>
@@ -289,7 +289,7 @@ class users
 	                        </g>
 	                    </svg>
 	                    <span class="Tool-Tip-Text Tool-Danger">Deleted</span>
-                    </div>',*/
+                    </div>',
                 ],
             ],
             "type" => [

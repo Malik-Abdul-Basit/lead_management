@@ -1,10 +1,10 @@
 <?php
 
 
-class sources
+class campaign_types
 {
     public $return = [
-        "sources" => [
+        "campaign_types" => [
             "type" => [
                 "title" => [
                     'seo'=>'Search Engine Optimization',

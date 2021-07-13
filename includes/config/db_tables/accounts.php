@@ -1,10 +1,10 @@
 <?php
 
 
-class sources
+class accounts
 {
     public $return = [
-        "sources" => [
+        "accounts" => [
             "type" => [
                 "title" => [
                     'seo'=>'Search Engine Optimization',
