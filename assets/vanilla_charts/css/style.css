@@ -1,0 +1,30 @@
+.PieChartWrapper {
+    display: table;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.PieChartWrapper span {
+    align-items: center;
+    display: table-cell;
+    font-size: 13px;
+    height: 100%;
+    text-align: center;
+    padding: 0 0 0 3px;
+    vertical-align: middle;
+    width: 100%;
+    z-index: 2;
+}
+
+.PieChartWrapper span:after {
+    content: '%';
+    margin-left: 0.1em;
+    font-size: .8em;
+}
+
+.PieChartWrapper canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
