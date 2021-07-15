@@ -7,9 +7,37 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteCond %{REQUEST_URI} !^/images
+
 RewriteRule ^login/?$ signin.php [NC,L]
 RewriteRule ^forgot_password/?$ request_password_reset.php [NC,L]
 RewriteRule ^email_confirmation/?$ email_verification.php [NC,L]
+
+RewriteRule ^admin/seo_source/?$ admin/source.php [NC,L]
+RewriteRule ^admin/seo_source_list/?$ admin/source_list.php [NC,L]
+
+RewriteRule ^admin/smm_source/?$ admin/source.php [NC,L]
+RewriteRule ^admin/smm_source_list/?$ admin/source_list.php [NC,L]
+RewriteRule ^admin/smm_account/?$ admin/account.php [NC,L]
+RewriteRule ^admin/smm_account_list/?$ admin/account_list.php [NC,L]
+RewriteRule ^admin/smm_campaign_type/?$ admin/campaign_type.php [NC,L]
+RewriteRule ^admin/smm_campaign_type_list/?$ admin/campaign_type_list.php [NC,L]
+RewriteRule ^admin/smm_campaign/?$ admin/campaign.php [NC,L]
+RewriteRule ^admin/smm_campaign_list/?$ admin/campaign_list.php [NC,L]
+RewriteRule ^admin/smm_lead/?$ admin/lead.php [NC,L]
+RewriteRule ^admin/smm_lead_list/?$ admin/lead_list.php [NC,L]
+
+RewriteRule ^admin/em_source/?$ admin/source.php [NC,L]
+RewriteRule ^admin/em_source_list/?$ admin/source_list.php [NC,L]
+RewriteRule ^admin/em_account/?$ admin/account.php [NC,L]
+RewriteRule ^admin/em_account_list/?$ admin/account_list.php [NC,L]
+RewriteRule ^admin/em_campaign_type/?$ admin/campaign_type.php [NC,L]
+RewriteRule ^admin/em_campaign_type_list/?$ admin/campaign_type_list.php [NC,L]
+RewriteRule ^admin/em_campaign/?$ admin/campaign.php [NC,L]
+RewriteRule ^admin/em_campaign_list/?$ admin/campaign_list.php [NC,L]
+RewriteRule ^admin/em_lead/?$ admin/lead.php [NC,L]
+RewriteRule ^admin/em_lead_list/?$ admin/lead_list.php [NC,L]
+
+
 RewriteRule ^404_not_found/?$ 404.php [NC,L]
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
