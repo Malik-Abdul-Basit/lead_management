@@ -552,7 +552,7 @@ if (!function_exists('getEmployeeInfoFromId')) {
         u.id AS user_id, u.email AS user_email, u.status AS user_status, u.type AS user_type, u.email_verified_at,
         u.employee_code, CONCAT(u.first_name,' ',u.last_name) AS full_name, u.first_name, u.last_name, u.pseudo_name, u.email, u.email AS official_email,
         country.country_name, state.state_name, time_zone.time_zone, city.city_name,
-        email_verification.id AS email_verification_detail_id, email_verification.verification_code, email_verification.signed_url
+        email_verification.id AS email_verification_detail_id, email_verification.page_signature, email_verification.link_signature
         FROM
             users AS u
         INNER JOIN 
