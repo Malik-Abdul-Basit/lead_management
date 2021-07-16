@@ -106,8 +106,6 @@ $ApplyMaxLengthAndTouchSpin = ' type="text" class="form-control apply_touch_spin
 $ApplyMaxLength = ' type="text" class="form-control apply_max_length" ';
 $ApplyTouchSpin = ' type="text" class="form-control apply_touch_spin" ';
 
-
-
 $ApplySelect2 = ' class="form-control apply_select2" ';
 $ApplyEmailMask = ' type="text" class="form-control apply_email_mask" ';
 $ApplyMobileMask = ' type="text" class="form-control apply_mobile_mask" ';
