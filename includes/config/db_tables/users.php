@@ -44,7 +44,7 @@ class users
                     4 => 'Suspended by admin',
                     5 => 'Blocked',
                     6 => 'Blocked by admin',
-                    7 => 'Deleted'
+                    /*7 => 'Deleted'*/
                 ],
                 "value" => [
                     'pending' => '0',

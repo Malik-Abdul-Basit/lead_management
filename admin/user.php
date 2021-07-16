@@ -99,7 +99,7 @@ include_once("../includes/mobile_menu.php");
                                                                 <input tabindex="10" maxlength="20"
                                                                        onkeypress="allowNumberOnly(event)"
                                                                        id="employee_code"
-                                                                       value="<?php echo $employee_code; ?>" <?php echo $TAttrs . $onblur; ?>
+                                                                       value="<?php echo $employee_code; ?>" <?php echo $ApplyMaxLengthAndTouchSpin . $onblur; ?>
                                                                        placeholder="Employee Code"/>
                                                                 <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -111,7 +111,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="title">* Title:</label>
                                                                 <select tabindex="20"
-                                                                        id="title" <?php echo $TAttrs . $onblur; ?>>
+                                                                        id="title" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <option selected="selected" value="">Select
                                                                     </option>
                                                                     <?php
@@ -134,7 +134,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="first_name">* First Name:</label>
                                                                 <input tabindex="30" maxlength="50" id="first_name"
-                                                                       value="<?php echo $first_name; ?>" <?php echo $TAttrs . $onblur; ?>
+                                                                       value="<?php echo $first_name; ?>" <?php echo $ApplyMaxLength . $onblur; ?>
                                                                        placeholder="First Name"/>
                                                                 <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -146,7 +146,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="last_name"> Last Name:</label>
                                                                 <input tabindex="40" maxlength="50" id="last_name"
-                                                                       value="<?php echo $last_name; ?>" <?php echo $TAttrs; ?>
+                                                                       value="<?php echo $last_name; ?>" <?php echo $ApplyMaxLength; ?>
                                                                        placeholder="Last Name"/>
                                                                 <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -161,7 +161,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="pseudo_name"> Pseudo Name:</label>
                                                                 <input tabindex="50" maxlength="50" id="pseudo_name"
-                                                                       value="<?php echo $pseudo_name; ?>" <?php echo $TAttrs; ?>
+                                                                       value="<?php echo $pseudo_name; ?>" <?php echo $ApplyMaxLength; ?>
                                                                        placeholder="Pseudo Name"/>
                                                                 <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -178,7 +178,7 @@ include_once("../includes/mobile_menu.php");
                                                                                     class="la la-at"></i></span>
                                                                     </div>
                                                                     <input tabindex="75" id="email"
-                                                                           value="<?php echo $email; ?>" <?php echo $TAttrs . $onblur; ?>
+                                                                           value="<?php echo $email; ?>" <?php echo $ApplyEmailMask . $onblur; ?>
                                                                            placeholder="Email"/>
                                                                 </div>
                                                                 <div class="error_wrapper">
@@ -191,7 +191,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="gender">* Gender:</label>
                                                                 <select tabindex="90"
-                                                                        id="gender" <?php echo $TAttrs . $onblur; ?>>
+                                                                        id="gender" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <option selected="selected" value="">Select
                                                                     </option>
                                                                     <?php
@@ -217,7 +217,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="country_id">* Select Country:</label>
                                                                 <select tabindex="100"
-                                                                        id="country_id" <?php echo $Select2 . $onblur; ?>>
+                                                                        id="country_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <option selected="selected" value="">Select
                                                                     </option>
                                                                     <?php
@@ -248,7 +248,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="state_id">* Select State:</label>
                                                                 <select tabindex="110" onchange="getCities(event)"
-                                                                        id="state_id" <?php echo $Select2 . $onblur; ?>>
+                                                                        id="state_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <?php
                                                                     if (!empty($country_id)) {
                                                                         echo getStates($country_id, $state_id);
@@ -268,7 +268,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="city_id">* Select City:</label>
                                                                 <select tabindex="120"
-                                                                        id="city_id" <?php echo $Select2 . $onblur; ?>>
+                                                                        id="city_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <?php
                                                                     if (!empty($country_id) && !empty($state_id)) {
                                                                         echo getCities($state_id, $city_id);
@@ -291,7 +291,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="status">* Status</label>
                                                                 <select tabindex="130"
-                                                                        id="status" <?php echo $Select2 . $onblur; ?>>
+                                                                        id="status" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <?php
                                                                     foreach (config('users.status.title') as $key => $val) {
                                                                         $selected = $status == $key ? 'selected="selected"' : '';
@@ -309,7 +309,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="type">* Roles</label>
                                                                 <select tabindex="150"
-                                                                        id="type" <?php echo $Select2 . $onblur; ?>>
+                                                                        id="type" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <?php
                                                                     $roles = config('users.type.title');
                                                                     unset($roles[1]);
@@ -366,28 +366,24 @@ include_once("../includes/footer_script.php");
 ?>
     <script>
         function saveFORM() {
-
-            var validName = /[^a-zA-Z0-9-.@_&' ]/;
-            var validEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            var A = '<?php echo hasRight($user_right_title, 'add') ?>';
+            var E = '<?php echo hasRight($user_right_title, 'edit') ?>';
 
             var titleArray = [<?php echo '"' . implode('","', array_values(config('users.title.value'))) . '"' ?>];
             var genderArray = [<?php echo '"' . implode('","', array_values(config('users.gender.value'))) . '"' ?>];
             var statusArray = [<?php echo '"' . implode('","', array_values(config('users.status.value'))) . '"' ?>];
             var typeArray = [<?php echo '"' . implode('","', array_values(config('users.type.value'))) . '"' ?>];
 
-            var error = '';
-
             var id = document.getElementById('id');
-            var A = '<?php echo hasRight($user_right_title, 'add') ?>';
-            var E = '<?php echo hasRight($user_right_title, 'edit') ?>';
-
             var employee_code = document.getElementById('employee_code');
             var title = document.getElementById('title');
+            var select2_title_container = document.querySelector("[aria-labelledby='select2-title-container']");
             var first_name = document.getElementById('first_name');
             var last_name = document.getElementById('last_name');
             var pseudo_name = document.getElementById('pseudo_name');
             var email = document.getElementById('email');
             var gender = document.getElementById('gender');
+            var select2_gender_container = document.querySelector("[aria-labelledby='select2-gender-container']");
             var country_id = document.getElementById('country_id');
             var select2_country_id_container = document.querySelector("[aria-labelledby='select2-country_id-container']");
             var state_id = document.getElementById('state_id');
@@ -395,7 +391,9 @@ include_once("../includes/footer_script.php");
             var city_id = document.getElementById('city_id');
             var select2_city_id_container = document.querySelector("[aria-labelledby='select2-city_id-container']");
             var status = document.getElementById('status');
+            var select2_status_container = document.querySelector("[aria-labelledby='select2-status-container']");
             var type = document.getElementById('type');
+            var select2_type_container = document.querySelector("[aria-labelledby='select2-type-container']");
 
             var errorMessageEmployeeCode = document.getElementById('errorMessageEmployeeCode');
             var errorMessageTitle = document.getElementById('errorMessageTitle');
@@ -410,13 +408,16 @@ include_once("../includes/footer_script.php");
             var errorMessageStatus = document.getElementById('errorMessageStatus');
             var errorMessageType = document.getElementById('errorMessageType');
 
-            employee_code.style.borderColor = title.style.borderColor = first_name.style.borderColor = last_name.style.borderColor = pseudo_name.style.borderColor = '#E4E6EF';
-            email.style.borderColor = gender.style.borderColor = select2_country_id_container.style.borderColor = select2_state_id_container.style.borderColor = select2_city_id_container.style.borderColor = '#E4E6EF';
-            status.style.borderColor = type.style.borderColor = '#E4E6EF';
+            employee_code.style.borderColor = select2_title_container.style.borderColor = first_name.style.borderColor = last_name.style.borderColor = pseudo_name.style.borderColor = '#E4E6EF';
+            email.style.borderColor = select2_gender_container.style.borderColor = select2_country_id_container.style.borderColor = select2_state_id_container.style.borderColor = select2_city_id_container.style.borderColor = '#E4E6EF';
+            select2_status_container.style.borderColor = select2_type_container.style.borderColor = '#E4E6EF';
 
             errorMessageEmployeeCode.innerText = errorMessageTitle.innerText = errorMessageFirstName.innerText = errorMessageLastName.innerText = errorMessagePseudoName.innerText = errorMessageEmail.innerText = "";
             errorMessageGender.innerText = errorMessageCountry.innerText = errorMessageState.innerText = errorMessageCity.innerText = "";
             errorMessageStatus.innerText = errorMessageType.innerText = "";
+
+            var error = '';
+            var toasterType = 'error';
 
             if (id.value == 0 && A == '') {
                 toasterTrigger('warning', 'Sorry! You have no right to add record.');
@@ -426,151 +427,151 @@ include_once("../includes/footer_script.php");
                 employee_code.style.borderColor = '#F00';
                 error = "Employee Code field is required.";
                 errorMessageEmployeeCode.innerText = error;
-                toasterTrigger('error', error);
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (isNaN(employee_code.value) === true || employee_code.value < 1 || employee_code.value.length > 20) {
                 employee_code.style.borderColor = '#F00';
                 error = "Invalid Employee Code.";
-                toasterTrigger('error', error);
                 errorMessageEmployeeCode.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (title.value == '') {
-                title.style.borderColor = '#F00';
+                select2_title_container.style.borderColor = '#F00';
                 error = "Title field is required.";
-                toasterTrigger('error', error);
                 errorMessageTitle.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (titleArray.includes(title.value) == false || title.value.length > 5) {
-                title.style.borderColor = '#F00';
+                select2_title_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
                 errorMessageTitle.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (first_name.value == '') {
                 first_name.style.borderColor = '#F00';
                 error = "First Name field is required.";
-                toasterTrigger('error', error);
                 errorMessageFirstName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (validName.test(first_name.value)) {
+            } else if (invalidName(first_name.value)) {
                 first_name.style.borderColor = '#F00';
                 error = "Special Characters are not Allowed.";
-                toasterTrigger('error', error);
                 errorMessageFirstName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (first_name.value.length > 50) {
                 first_name.style.borderColor = '#F00';
                 error = "Length should not exceed 50 characters.";
-                toasterTrigger('error', error);
                 errorMessageFirstName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (last_name.value != '' && validName.test(last_name.value)) {
+            } else if (last_name.value != '' && invalidName(last_name.value)) {
                 last_name.style.borderColor = '#F00';
                 error = "Special Characters are not Allowed.";
-                toasterTrigger('error', error);
                 errorMessageLastName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (last_name.value != '' && last_name.value.length > 50) {
                 last_name.style.borderColor = '#F00';
                 error = "Length should not exceed 50 characters.";
-                toasterTrigger('error', error);
                 errorMessageLastName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (pseudo_name.value != '' && validName.test(pseudo_name.value)) {
+            } else if (pseudo_name.value != '' && invalidName(pseudo_name.value)) {
                 pseudo_name.style.borderColor = '#F00';
                 error = "Special Characters are not Allowed.";
-                toasterTrigger('error', error);
                 errorMessagePseudoName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (pseudo_name.value != '' && pseudo_name.value.length > 50) {
                 pseudo_name.style.borderColor = '#F00';
                 error = "Length should not exceed 50 characters.";
-                toasterTrigger('error', error);
                 errorMessagePseudoName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (email.value == '') {
                 email.style.borderColor = '#F00';
                 error = "Email field is required.";
-                toasterTrigger('error', error);
                 errorMessageEmail.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (validEmail.test(email.value) == false) {
+            } else if (invalidEmail(email.value)) {
                 email.style.borderColor = '#F00';
                 error = "Invalid Email Address.";
-                toasterTrigger('error', error);
                 errorMessageEmail.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (gender.value == '') {
-                gender.style.borderColor = '#F00';
+                select2_gender_container.style.borderColor = '#F00';
                 error = "Gender field is required.";
-                toasterTrigger('error', error);
                 errorMessageGender.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (genderArray.includes(gender.value) == false || gender.value.length !== 1) {
-                gender.style.borderColor = '#F00';
+                select2_gender_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
                 errorMessageGender.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (country_id.value == '') {
                 select2_country_id_container.style.borderColor = '#F00';
                 error = "Country field is required.";
-                toasterTrigger('error', error);
                 errorMessageCountry.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (isNaN(country_id.value) === true || country_id.value <= 0 || country_id.value.length > 10) {
                 select2_country_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
                 errorMessageCountry.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (state_id.value == '') {
                 select2_state_id_container.style.borderColor = '#F00';
                 error = "State field is required.";
-                toasterTrigger('error', error);
                 errorMessageState.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (isNaN(state_id.value) === true || state_id.value <= 0 || state_id.value.length > 10) {
                 select2_state_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
                 errorMessageState.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (city_id.value == '') {
                 select2_city_id_container.style.borderColor = '#F00';
                 error = "City field is required.";
-                toasterTrigger('error', error);
                 errorMessageCity.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (isNaN(city_id.value) === true || city_id.value <= 0 || city_id.value.length > 10) {
                 select2_city_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
                 errorMessageCity.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (status.value == '') {
-                status.style.borderColor = '#F00';
+                select2_status_container.style.borderColor = '#F00';
                 error = "Status field is required.";
-                toasterTrigger('error', error);
                 errorMessageStatus.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (statusArray.includes(status.value) == false || status.value.length !== 1) {
-                status.style.borderColor = '#F00';
+                select2_status_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
                 errorMessageStatus.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (type.value == '') {
-                type.style.borderColor = '#F00';
+                select2_type_container.style.borderColor = '#F00';
                 error = "Type field is required.";
-                toasterTrigger('error', error);
                 errorMessageType.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (typeArray.includes(type.value) == false || type.value.length !== 1) {
-                type.style.borderColor = '#F00';
+                select2_type_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
                 errorMessageType.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else {
                 loader(true);
@@ -609,18 +610,41 @@ include_once("../includes/footer_script.php");
                                     if (obj.responseMessage !== undefined && obj.responseMessage != '') {
                                         if (obj.form_reset !== undefined && obj.form_reset) {
                                             document.getElementById("myFORM").reset();
-                                            var select2_country_id_container = document.getElementById("select2-country_id-container");
-                                            var select2_state_id_container = document.getElementById("select2-state_id-container");
-                                            var select2_city_id_container = document.getElementById("select2-city_id-container");
-
-                                            if (select2_country_id_container && select2_state_id_container && select2_city_id_container) {
-                                                select2_country_id_container.removeAttribute("title");
-                                                select2_state_id_container.removeAttribute("title");
-                                                select2_city_id_container.removeAttribute("title");
-                                                select2_country_id_container.innerHTML = select2_state_id_container.innerHTML = select2_city_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                            var country_id_container = document.getElementById("select2-country_id-container");
+                                            var state_id_container = document.getElementById("select2-state_id-container");
+                                            var city_id_container = document.getElementById("select2-city_id-container");
+                                            if (country_id_container && state_id_container && city_id_container) {
+                                                country_id_container.removeAttribute("title");
+                                                state_id_container.removeAttribute("title");
+                                                city_id_container.removeAttribute("title");
+                                                country_id_container.innerHTML = state_id_container.innerHTML = city_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                country_id.value = 0;
+                                                state_id.innerHTML = city_id.innerHTML = '';
                                             }
-                                            state_id.innerHTML = city_id.innerHTML = '';
-                                            country_id.value = '';
+                                            var status_container = document.getElementById("select2-status-container");
+                                            if (status_container) {
+                                                status_container.removeAttribute("title");
+                                                status_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                status.value = '';
+                                            }
+                                            var type_container = document.getElementById("select2-type-container");
+                                            if (type_container) {
+                                                type_container.removeAttribute("title");
+                                                type_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                type.value = '';
+                                            }
+                                            var title_container = document.getElementById("select2-title-container");
+                                            if (title_container) {
+                                                title_container.removeAttribute("title");
+                                                title_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                title.value = '';
+                                            }
+                                            var gender_container = document.getElementById("select2-gender-container");
+                                            if (gender_container) {
+                                                gender_container.removeAttribute("title");
+                                                gender_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                gender.value = '';
+                                            }
                                         }
                                         loader(false);
                                         toasterTrigger(obj.toasterClass, obj.responseMessage);

@@ -92,7 +92,7 @@ include_once("../includes/mobile_menu.php");
 
                                                                 <div class="form-group">
                                                                     <label>* Company Status:</label>
-                                                                    <select id="status" <?php echo $Select2 . $onblur; ?>>
+                                                                    <select id="status" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <option selected="selected" value="">Select
                                                                         </option>
                                                                         <?php
@@ -157,24 +157,27 @@ include_once("../includes/footer_script.php");
 ?>
     <script>
         function saveFORM() {
-            var checkValidName = /[^a-zA-Z0-9-.@_&' ]/;
-            var statusArray = [<?php echo '"'.implode('","', array_values(config('companies.status.value'))).'"' ?>];
-
-            var id = document.getElementById('id');
             var A = '<?php echo hasRight($user_right_title, 'add') ?>';
             var E = '<?php echo hasRight($user_right_title, 'edit') ?>';
 
+            var statusArray = [<?php echo '"'.implode('","', array_values(config('companies.status.value'))).'"' ?>];
+
+            var id = document.getElementById('id');
             var name = document.getElementById('name');
             var status = document.getElementById('status');
+            var select2_status_container = document.querySelector("[aria-labelledby='select2-status-container']");
 
             var errorMessageName = document.getElementById('errorMessageName');
             var errorMessageStatus = document.getElementById('errorMessageStatus');
             var responseMessageWrapper = document.getElementById('responseMessageWrapper');
             var responseMessage = document.getElementById('responseMessage');
 
-            name.style.borderColor = status.style.borderColor = '#E4E6EF';
+            name.style.borderColor = select2_status_container.style.borderColor = '#E4E6EF';
             errorMessageName.innerText = errorMessageStatus.innerText = responseMessage.innerText = "";
             responseMessageWrapper.style.display = "none";
+
+            var error = '';
+            var toasterType = 'error';
 
             if (id.value == 0 && A == '') {
                 toasterTrigger('warning', 'Sorry! You have no right to add record.');
@@ -182,27 +185,42 @@ include_once("../includes/footer_script.php");
                 toasterTrigger('warning', 'Sorry! You have no right to update record.');
             } else if (name.value == '') {
                 name.style.borderColor = '#F00';
-                errorMessageName.innerText = "Name field is required.";
+                error = "Name field is required.";
+                errorMessageName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (checkValidName.test(name.value)) {
+            } else if (invalidName(name.value)) {
                 name.style.borderColor = '#F00';
-                errorMessageName.innerText = "Special Characters are not Allowed.";
+                error = "Special Characters are not Allowed.";
+                errorMessageName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (name.value.length > 50) {
                 name.style.borderColor = '#F00';
-                errorMessageName.innerText = "Length should not exceed 50 characters.";
+                error = "Length should not exceed 50 characters.";
+                errorMessageName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (status.value == '') {
-                status.style.borderColor = '#F00';
-                errorMessageStatus.innerText = "Status field is required.";
+                select2_status_container.style.borderColor = '#F00';
+                error = "Status field is required.";
+                errorMessageStatus.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (statusArray.includes(status.value) == false || status.value.length > 2) {
-                status.style.borderColor = '#F00';
-                errorMessageStatus.innerText = "Please select a valid option.";
+                select2_status_container.style.borderColor = '#F00';
+                error = "Please select a valid option.";
+                errorMessageStatus.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else {
                 loader(true);
-                var postData = {"id": id.value, "name": name.value, "status": status.value,"user_right_title": '<?php echo $user_right_title; ?>'};
+                var postData = {
+                    "id": id.value,
+                    "name": name.value.trim(),
+                    "status": status.value,
+                    "user_right_title": '<?php echo $user_right_title; ?>'
+                };
                 $.ajax({
                     type: "POST", url: "ajax/company.php",
                     data: {'postData': postData},
@@ -223,6 +241,12 @@ include_once("../includes/footer_script.php");
                                     if (obj.responseMessage !== undefined && obj.responseMessage != '') {
                                         if (obj.form_reset !== undefined && obj.form_reset) {
                                             document.getElementById("myFORM").reset();
+                                            var status_container = document.getElementById("select2-status-container");
+                                            if (status_container) {
+                                                status_container.removeAttribute("title");
+                                                status_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                status.value = '';
+                                            }
                                         }
                                         toasterTrigger(obj.toasterClass, obj.responseMessage);
                                     }

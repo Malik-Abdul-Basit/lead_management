@@ -6,7 +6,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
 
     $pageNo = 1;
     $perPage = 10;
-    $sortColumn = 'id';
+    $sortColumn = 'name';
     $sortOrder = 'ASC';
     $condition = " WHERE `deleted_at` IS NULL";
     if (isset($filters->SearchQuery) && $filters->SearchQuery != '' && strlen($filters->SearchQuery) > 0) {
@@ -153,7 +153,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                     $c_sort = '';
                     $c_text = (isset($c->text) && !empty($c->text)) ? ' datatable-cell-' . $c->text : '';
                     $c_style = (isset($c->style) && !empty($c->style)) ? $c->style : '';
-                    $data .= '<td data-field="' . $c->field . '" class="datatable-cell' . $c_sort . $c_text . '">';
+                    $data .= '<td data-id="' . $result['id'] . '" data-field="' . $c->field . '" class="datatable-cell' . $c_sort . $c_text . '">';
                     if ($c->field == 'status') {
                         $data .= '<span ' . $c_style . '>';
                         $data .= '<span class="label label-lg font-weight-bold ' . config("companies.status.class." . $f) . ' label-inline">' . config("companies.status.title." . $f) . '</span>';

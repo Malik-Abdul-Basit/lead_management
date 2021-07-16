@@ -9,7 +9,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
 
     $pageNo = 1;
     $perPage = 10;
-    $sortColumn = 'b.id';
+    $sortColumn = 'name';
     $sortOrder = 'ASC';
     $condition = " WHERE b.company_id='{$global_company_id}' AND b.deleted_at IS NULL ";
     if (isset($filters->SearchQuery) && !empty($filters->SearchQuery) && strlen($filters->SearchQuery) > 0) {
@@ -174,9 +174,10 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                     } else {
                         $innerHTML = $result[$f];
                     }
+
                     $c_text = (isset($c->text) && !empty($c->text)) ? ' datatable-cell-' . $c->text : '';
                     $c_style = (isset($c->style) && !empty($c->style)) ? $c->style : '';
-                    $data .= '<td data-field="' . $c->field . '" class="datatable-cell' . $c_text . '">';
+                    $data .= '<td data-id="' . $result['id'] . '"  data-field="' . $c->field . '" class="datatable-cell' . $c_text . '">';
                     $data .= '<span ' . $c_style . '>' . $innerHTML . '</span>';
                     $data .= '</td>';
                 }
