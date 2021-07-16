@@ -468,7 +468,7 @@ include_once("../includes/footer_script.php");
                 name.style.borderColor = '#F00';
                 errorMessageName.innerText = "Name field is required.";
                 return false;
-            } else if (checkValidName.test(name.value)) {
+            } else if (invalidName(name.value)) {
                 name.style.borderColor = '#F00';
                 errorMessageName.innerText = "Special Characters are not Allowed.";
                 return false;
@@ -480,7 +480,7 @@ include_once("../includes/footer_script.php");
                 company_email.style.borderColor = '#F00';
                 errorMessageCompanyEmail.innerText = "Company Email field is required.";
                 return false;
-            } else if (validEmail.test(company_email.value) == false) {
+            } else if (invalidEmail(company_email.value)) {
                 company_email.style.borderColor = '#F00';
                 errorMessageCompanyEmail.innerText = "Invalid Email Address.";
                 return false;
@@ -488,11 +488,11 @@ include_once("../includes/footer_script.php");
                 hr_email.style.borderColor = '#F00';
                 errorMessageHREmail.innerText = "HR Email field is required.";
                 return false;
-            } else if (validEmail.test(hr_email.value) == false) {
+            } else if (invalidEmail(hr_email.value)) {
                 hr_email.style.borderColor = '#F00';
                 errorMessageHREmail.innerText = "Invalid Email Address.";
                 return false;
-            } else if (other_email.value != '' && validEmail.test(other_email.value) == false) {
+            } else if (other_email.value != '' && invalidEmail(other_email.value)) {
                 other_email.style.borderColor = '#F00';
                 errorMessageOtherEmail.innerText = "Invalid Email Address.";
                 return false;
@@ -524,19 +524,19 @@ include_once("../includes/footer_script.php");
                 mobile.style.borderColor = '#F00';
                 errorMessageMobile.innerText = "Mobile field is required.";
                 return false;
-            } else if (validContactNumber.test(mobile.value) == false || mobile.value.length != 12) {
+            } else if (invalidContactNumber(mobile.value) || mobile.value.length != 12) {
                 mobile.style.borderColor = '#F00';
                 errorMessageMobile.innerText = "Invalid Mobile No.";
                 return false;
-            } else if (phone.value != '' && (validContactNumber.test(phone.value) == false || phone.value.length != 14)) {
+            } else if (phone.value != '' && (invalidContactNumber(phone.value) || phone.value.length != 14)) {
                 phone.style.borderColor = '#F00';
                 errorMessagePhone.innerText = "Invalid Phone number.";
                 return false;
-            } else if (fax.value != '' && (validContactNumber.test(fax.value) == false || fax.value.length != 14)) {
+            } else if (fax.value != '' && (invalidContactNumber(fax.value) || fax.value.length != 14)) {
                 fax.style.borderColor = '#F00';
                 errorMessageFax.innerText = "Invalid Fax number.";
                 return false;
-            } else if (web.value != '' && validURL.test(web.value) == false) {
+            } else if (web.value != '' && invalidURL(web.value)) {
                 web.style.borderColor = '#F00';
                 errorMessageWeb.innerText = "Invalid Web link.";
                 return false;
@@ -560,7 +560,7 @@ include_once("../includes/footer_script.php");
                 address.style.borderColor = '#F00';
                 errorMessageAddress.innerText = "Address field is required.";
                 return false;
-            } else if (validAddress.test(address.value)) {
+            } else if (invalidAddress(address.value)) {
                 address.style.borderColor = '#F00';
                 errorMessageAddress.innerText = "Special Characters are not Allowed.";
                 return false;
