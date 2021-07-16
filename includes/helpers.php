@@ -126,7 +126,7 @@ if (!function_exists('getUserImage')) {
 if (!function_exists('validName')) {
     function validName($value)
     {
-        return preg_match("/^[a-zA-Z0-9-.@_&' ]+$/", $value);
+        return preg_match("/^[a-zA-Z0-9-.@_&)(' ]+$/", $value);
     }
 }
 

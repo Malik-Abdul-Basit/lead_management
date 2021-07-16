@@ -16,7 +16,7 @@
               echo ' | ' . $global_employee_info->company_name;
           } ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="noindex, nofollow"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
 
     <?php
@@ -26,15 +26,10 @@
                                      type="text/css"/>
         <?php
     }
-    if (in_array($page, ['start_evaluation'])) {
-        ?>
-        <link <?php echo $css_atr ?> href="<?php echo $tm_assets ?>plugins/custom/jstree/jstree.bundle.css"/>
-        <?php
-    }
     ?>
 
-    <link <?php echo $css_atr ?> href="<?php echo $base_url ?>assets/time_picker/css/time_picker_style.css">
-    <link <?php echo $css_atr ?> href="<?php echo $base_url ?>assets/time_picker/css/timepicki.css">
+<!--    <link --><?php //echo $css_atr ?><!-- href="--><?php //echo $base_url ?><!--assets/time_picker/css/time_picker_style.css">-->
+<!--    <link --><?php //echo $css_atr ?><!-- href="--><?php //echo $base_url ?><!--assets/time_picker/css/timepicki.css">-->
 
     <link <?php echo $css_atr ?> href="<?php echo $tm_assets ?>plugins/global/plugins.bundle.css"/>
     <link <?php echo $css_atr ?> href="<?php echo $tm_assets ?>plugins/custom/prismjs/prismjs.bundle.css"/>
@@ -50,32 +45,23 @@
     if (in_array($page, ['dashboard'])) {
         ?>
         <script type="text/javascript" src="<?php echo $base_url ?>assets/high_charts/code/highcharts.js"></script>
-        <script type="text/javascript" src="<?php echo $base_url ?>assets/high_charts/code/modules/exporting.js"></script>
-        <script type="text/javascript" src="<?php echo $base_url ?>assets/high_charts/code/modules/export-data.js"></script>
+        <script type="text/javascript"
+                src="<?php echo $base_url ?>assets/high_charts/code/modules/exporting.js"></script>
+        <script type="text/javascript"
+                src="<?php echo $base_url ?>assets/high_charts/code/modules/export-data.js"></script>
         <?php
     }
-    ?>
 
-
-    <?php
-    if (in_array($page, ['employee_image'])) {//,'employee_family_info','employee_qualification', 'employee_experience', 'employee_payroll'
+    if (in_array($page, ['employee_image', 'sales_person'])) {
         ?>
         <link <?php echo $css_atr ?> href="<?php echo $base_url ?>assets/croppie_assets/css/croppie.css"/>
-        <!--<link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/croppie.css">-->
         <?php
     }
-    /*if(in_array($page, ['employee','employee_qualification', 'employee_experience']) ){*/
     ?>
-    <!--<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">-->
-    <!--<script type="text/javascript" src="<?php //echo $base_url; ?>assets/date_picker_assets/js/es5-shim.min.js"></script>
-    <script type="text/javascript" src="<?php //echo $base_url; ?>assets/date_picker_assets/js/date-time-picker.min.js"></script>-->
 
-
-    <?php
-    /*}*/
-    ?>
     <link <?php echo $css_atr ?> href="<?php echo $base_url; ?>assets/date_picker_assets/css/datepicker.css">
     <link <?php echo $css_atr ?> href="<?php echo $ct_assets ?>css/style.css"/>
+    <link <?php echo $css_atr ?> href="<?php echo $ct_assets ?>css/new_theme.css"/>
     <link <?php echo $css_atr ?> href="<?php echo $ct_assets ?>css/collapse_card.css"/>
     <link rel="shortcut icon" href="<?php echo $tm_assets ?>media/logos/favicon.ico"/>
 </head>
