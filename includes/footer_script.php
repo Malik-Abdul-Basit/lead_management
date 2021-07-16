@@ -65,7 +65,7 @@
         <!--end::Global Config-->
 
         <?php
-        if(in_array($page, ['employee_image']) ){//,'employee_family_info','employee_qualification', 'employee_experience', 'employee_payroll'
+        if(in_array($page, ['employee_image', 'sales_person']) ){
             ?>
             <script src="<?php echo $base_url ?>assets/croppie_assets/js/jquery.js"></script>
             <?php
@@ -85,17 +85,8 @@
         <script src="<?php echo $ct_assets; ?>js/select2.js"></script>
         <script src="<?php echo $ct_assets; ?>js/touch_spin.js"></script>
 
-        <script src="<?php echo $base_url; ?>assets/time_picker/js/timepicki.js"></script>
-        <script> $('.timepicker').timepicki(); </script>
-
-        <?php
-        if(in_array($page, ['start_evaluation']) ){
-            ?>
-            <script src="<?php echo $tm_assets ?>plugins/custom/jstree/jstree.bundle.js"></script>
-            <!--<script src="<?php //echo $tm_assets ?>js/pages/features/miscellaneous/treeview.js"></script>-->
-            <?php
-        }
-        ?>
+<!--        <script src="--><?php //echo $base_url; ?><!--assets/time_picker/js/timepicki.js"></script>-->
+<!--        <script> $('.timepicker').timepicki(); </script>-->
 
         <script type="text/javascript">
 
@@ -210,35 +201,6 @@
                             if (obj.code !== undefined && obj.code != '' && obj.code === 200) {
                                 if (obj.CitiesList !== undefined && obj.CitiesList != '') {
                                     document.getElementById('city_id').innerHTML = obj.CitiesList;
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            function getTeamsAndDesignations(e) {
-                var id = e.target.value;
-                var postData = {"departmentId":id};
-                $.ajax({
-                    type: "POST", url: "ajax/common.php",
-                    data: {'postData':postData,'getTeamsAndDesignations':true},
-                    success: function (resPonse) {
-                        if (resPonse !== undefined && resPonse != '') {
-                            var obj = JSON.parse(resPonse);
-                            if (obj.code !== undefined && obj.code != '' && obj.code === 200) {
-                                var team_id = document.getElementById('team_id');
-                                var designation_id = document.getElementById('designation_id');
-                                var BG_DesignationFilter = document.getElementById('BG_DesignationFilter');
-
-                                /*if (team_id && obj.TeamsList !== undefined && obj.TeamsList != '') {
-                                    team_id.innerHTML = obj.TeamsList;
-                                }*/
-                                if (designation_id && obj.DesignationsList !== undefined && obj.DesignationsList != '') {
-                                    designation_id.innerHTML = obj.DesignationsList;
-                                }
-                                if (BG_DesignationFilter && obj.DesignationsList !== undefined && obj.DesignationsList != '') {
-                                    BG_DesignationFilter.innerHTML = '<option value="-1">All</option>'+obj.DesignationsList;
                                 }
                             }
                         }
@@ -488,6 +450,37 @@
                         a.appendTo("#" + id), a.hide()
                     }.apply(t, l)) || (e.exports = i);
                 }
+            }
+
+            function invalidName(n) {
+                var regex = /[^a-zA-Z0-9-.@_&)(' ]/;
+                return regex.test(n);
+            }
+
+            function invalidAddress(n) {
+                var regex = /[^a-zA-Z0-9+-._,@&#\/)(’' ]/;
+                return regex.test(n);
+            }
+
+            function invalidEmail(n) {
+                var regex = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                //return regex.test(n) == false;
+                return !regex.test(n);
+            }
+
+            function invalidContactNumber(n) {
+                var regex = /^[\-)( ]*([0-9]{3})[\-)( ]*([0-9]{3})[\-)( ]*([0-9]{4})$/;
+                return !regex.test(n);
+            }
+
+            function invalidURL(n) {
+                var regex = /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+                return !regex.test(n);
+            }
+
+            function invalidDate(n) {
+                var regex = /^(0[1-9]|1\d|2\d|3[01])\-(0[1-9]|1[0-2])\-(19|20)\d{2}$/;
+                return !regex.test(n);
             }
 
         </script>
