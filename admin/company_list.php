@@ -164,7 +164,7 @@ include_once("../includes/footer_script.php");
             var BG_SortOrder = document.getElementById('BG_SortOrder');
 
             if (field === undefined) {
-                var set_field = 'sort_by';
+                var set_field = 'name';
             } else {
                 var set_field = field;
             }
@@ -192,7 +192,7 @@ include_once("../includes/footer_script.php");
             var SearchQuery = '';
             var PageNumber = "1";
             var PageSize = "10";
-            var SortColumn = 'id';
+            var SortColumn = 'name';
             var SortOrder = 'ASC';
             if (BG_SearchQuery && BG_SearchQuery.value != '') {
                 SearchQuery = BG_SearchQuery.value;
@@ -223,13 +223,13 @@ include_once("../includes/footer_script.php");
                     'sort': false
                 },
                 'Header': [
-                    {'field': 'id', 'title': 'ID', 'text': 'left', 'style': 'style="width:50px"', 'sort': true},
+                    /*{'field': 'id', 'title': 'ID', 'text': 'left', 'style': 'style="width:50px"', 'sort': true},*/
                     {'field': 'name', 'title': 'Name', 'text': 'left', 'style': 'style="width:450px"', 'sort': true},
                     {
                         'field': 'status',
                         'title': 'Status',
                         'text': 'left',
-                        'style': 'style="width:110px"',
+                        'style': 'style="width:160px"',
                         'sort': true
                     },
                 ],
@@ -242,10 +242,10 @@ include_once("../includes/footer_script.php");
                 },
                 "PageSizeStack": ["5", "10", "20", "30", "40", "50"]
             };
-            getAllCompanies(filter);
+            getAllPageData(filter);
         }
 
-        function getAllCompanies(filter) {
+        function getAllPageData(filter) {
             loader(true);
             $.ajax({
                 type: "POST", url: 'ajax/fetch/companies.php',

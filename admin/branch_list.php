@@ -147,7 +147,7 @@ include_once("../includes/footer_script.php");
             var BG_SortOrder = document.getElementById('BG_SortOrder');
 
             if (field === undefined) {
-                var set_field = 'sort_by';
+                var set_field = 'name';
             } else {
                 var set_field = field;
             }
@@ -180,7 +180,7 @@ include_once("../includes/footer_script.php");
             var SearchQuery = '';
             var PageNumber = "1";
             var PageSize = "10";
-            var SortColumn = 'b.id';
+            var SortColumn = 'name';
             var SortOrder = 'ASC';
             if (BG_SearchQuery && BG_SearchQuery.value != '') {
                 SearchQuery = BG_SearchQuery.value;
@@ -289,10 +289,10 @@ include_once("../includes/footer_script.php");
                 },
                 "PageSizeStack": ["5", "10", "20", "30", "40", "50"]
             };
-            getAllBranches(filter);
+            getAllData(filter);
         }
 
-        function getAllBranches(filter) {
+        function getAllData(filter) {
             loader(true);
             $.ajax({
                 type: "POST", url: 'ajax/fetch/branches.php',

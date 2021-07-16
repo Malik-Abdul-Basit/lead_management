@@ -5,28 +5,28 @@ var KTInputmask = function () {
     // Private functions
     var demos = function () {
 
-        // phone number format
-        $("#phone,#fax").inputmask("mask", {
+        // fax number format
+        $(".apply_fax_mask").inputmask("mask", {
             "mask": "(999) 999-9999"
         });
 
         // cnic format
-        $("#cnic,#old_cnic,#father_cnic,#guardian_cnic").inputmask("mask", {
+        $(".apply_cnic_mask").inputmask("mask", {
             "mask": "99999-9999999-9"
         });
 
         // mobile format
-        $("#mobile,#other_mobile,#father_mobile,#guardian_mobile").inputmask({
+        $(".apply_mobile_mask").inputmask({
             "mask": "999-999 9999"/*,placeholder: "800-640 6409"*/
         });
 
         //ip address
-        $("#ip_address").inputmask({
+        $(".apply_ip_address_mask").inputmask({
             "mask": "999.999.999.999"
         });
 
         //email address
-        $("#email,#official_email,#hr_email,#company_email,#other_email").inputmask({
+        $(".apply_email_mask").inputmask({
             mask: "*{1,30}[.*{1,30}][.*{1,30}][.*{1,30}]@*{1,30}[.*{2,30}][.*{1,10}]",
             greedy: false,
             onBeforePaste: function (pastedValue, opts) {
