@@ -1,10 +1,10 @@
 <?php
 
 
-class leads
+class tele_marketing_leads
 {
     public $return = [
-        "leads" => [
+        "tele_marketing_leads" => [
             "status" => [
                 "title" => [
                     1 => 'New',
@@ -36,17 +36,7 @@ class leads
                     'close' => '12',
                     'dead' => '13',
                 ]
-            ],
-            "type" => [
-                "title" => [
-                    'smm'=>'Social Media Marketing',
-                    'em'=>'Email Marketing',
-                ],
-                "value" => [
-                    'social_media_marketing'=>'smm',
-                    'email_marketing'=>'em',
-                ],
-            ],
+            ]
         ],
     ];
 

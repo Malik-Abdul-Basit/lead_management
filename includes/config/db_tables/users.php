@@ -54,7 +54,7 @@ class users
                     'suspended by admin' => '4',
                     'blocked' => '5',
                     'blocked by admin' => '6',
-                    'deleted' => '7'
+                    /*'deleted' => '7'*/
                 ],
                 "class" => [
                     0 => 'primary',
@@ -64,7 +64,7 @@ class users
                     4 => 'warning',
                     5 => 'danger',
                     6 => 'danger',
-                    7 => 'danger'
+                    /*7 => 'danger'*/
                 ],
                 "icon" => [
                     999 => '<div style="margin: -3px 0 0 0;" class="Tool-Tip">
