@@ -99,21 +99,19 @@ if (empty($_SESSION['company_id']) || empty($_SESSION['branch_id']) || empty($_S
 $checkLogin = TRUE;
 
 $DateInput = ' type="text" class="DatePicker e-input form-control" onfocus="openCalendar(event)" onclick="openCalendar(event)" maxlength="10" data-format="dd-MM-yyyy" ';//onkeypress="openCalendar(event)"
-$TAttrs = ' type="text" class="form-control" ';
-$NAttrs = ' type="number" class="form-control" ';
+$TAttrs = ' type="text" class="form-control" onkeypress="formSubmitOnEnter(event)" ';
+$NAttrs = ' type="number" class="form-control" onkeypress="formSubmitOnEnter(event)" ';
 
-$ApplyMaxLengthAndTouchSpin = ' type="text" class="form-control apply_touch_spin apply_max_length" ';
-$ApplyMaxLength = ' type="text" class="form-control apply_max_length" ';
-$ApplyTouchSpin = ' type="text" class="form-control apply_touch_spin" ';
+$ApplyMaxLengthAndTouchSpin = ' type="text" class="form-control apply_touch_spin apply_max_length" onkeypress="formSubmitOnEnter(event)" ';
+$ApplyMaxLength = ' type="text" class="form-control apply_max_length" onkeypress="formSubmitOnEnter(event)" ';
+$ApplyTouchSpin = ' type="text" class="form-control apply_touch_spin" onkeypress="formSubmitOnEnter(event)" ';
 
-$ApplySelect2 = ' class="form-control apply_select2" ';
-$ApplyEmailMask = ' type="text" class="form-control apply_email_mask" ';
-$ApplyMobileMask = ' type="text" class="form-control apply_mobile_mask" ';
-$ApplyFaxMask = ' type="text" class="form-control apply_fax_mask" ';
-$ApplyCNICMask = ' type="text" class="form-control apply_cnic_mask" ';
-$ApplyIpAddressMask = ' type="text" class="form-control apply_ip_address_mask" ';
-
-
+$ApplySelect2 = ' class="form-control apply_select2"';
+$ApplyEmailMask = ' type="text" class="form-control apply_email_mask" onkeypress="formSubmitOnEnter(event)" ';
+$ApplyMobileMask = ' type="text" class="form-control apply_mobile_mask" onkeypress="formSubmitOnEnter(event)" ';
+$ApplyFaxMask = ' type="text" class="form-control apply_fax_mask" onkeypress="formSubmitOnEnter(event)" ';
+$ApplyCNICMask = ' type="text" class="form-control apply_cnic_mask" onkeypress="formSubmitOnEnter(event)" ';
+$ApplyIpAddressMask = ' type="text" class="form-control apply_ip_address_mask" onkeypress="formSubmitOnEnter(event)" ';
 
 $onblur = ' onblur="change_color(this.value, this.id)" ';
 $disable = ' type="text" class="form-control form-control-solid" disabled readonly style="cursor: not-allowed" ';

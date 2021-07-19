@@ -47,7 +47,7 @@ include_once("../includes/mobile_menu.php");
                                                 <div class="row align-items-center">
                                                     <div class="col-lg-12 col-xl-12">
                                                         <div class="row align-items-center">
-                                                            <div class="col-md-3 my-2 my-md-0">
+                                                            <div class="col-md-4 my-2 my-md-0">
                                                                 <div class="form-group">
                                                                     <label for="BG_SearchQuery">Search</label>
                                                                     <div class="input-icon">
@@ -59,11 +59,10 @@ include_once("../includes/mobile_menu.php");
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3 my-2 my-md-0">
+                                                            <div class="col-md-4 my-2 my-md-0">
                                                                 <div class="form-group">
                                                                     <label for="BG_StatusFilter">Status</label>
-                                                                    <select class="form-control"
-                                                                            id="BG_StatusFilter" onchange="getData()">
+                                                                    <select id="BG_StatusFilter" onchange="getData()" <?php echo $ApplySelect2; ?>>
                                                                         <option value="-1">All</option>
                                                                         <?php
                                                                         foreach (config('users.status.title') as $key => $val) {
@@ -73,12 +72,10 @@ include_once("../includes/mobile_menu.php");
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3 my-2 my-md-0">
+                                                            <div class="col-md-4 my-2 my-md-0">
                                                                 <div class="form-group">
                                                                     <label for="BG_TypeFilter">Roles</label>
-                                                                    <select class="form-control"
-                                                                            id="BG_TypeFilter"
-                                                                            onchange="getData()">
+                                                                    <select id="BG_TypeFilter" onchange="getData()" <?php echo $ApplySelect2; ?>>
                                                                         <option value="-1">All</option>
                                                                         <?php
                                                                         $roles = config('users.type.title');
