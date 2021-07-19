@@ -215,18 +215,26 @@ include_once("../includes/footer_script.php");
             errorMessageEmployeeCode.innerText = responseMessage.innerText = "";
             responseMessageWrapper.style.display = "none";
 
+            var error = '';
+            var toasterType = 'error';
+
             if (employee_code.value == '') {
                 employee_code.style.borderColor = '#F00';
-                errorMessageEmployeeCode.innerText = "Employee Code field is required.";
+                error = "Employee Code field is required.";
+                errorMessageEmployeeCode.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (isNaN(employee_code.value) === true || employee_code.value < 1 || employee_code.value.length > 20) {
                 employee_code.style.borderColor = '#F00';
-                errorMessageEmployeeCode.innerText = "Invalid Employee Code.";
+                error = "Invalid Employee Code.";
+                errorMessageEmployeeCode.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (select_file.value == '') {
                 responseMessageWrapper.style.display = "block";
                 responseMessage.innerText = "Please select an Image";
                 return false;
+
             } else {
                 $uploadCrop.croppie('result', {
                     type: 'canvas',
