@@ -1,13 +1,20 @@
 <?php
-include_once("db_tables/lang.php");
-include_once("db_tables/main_menus.php");
-include_once("db_tables/sub_menus.php");
+include_once("db_tables/accounts.php");
+include_once("db_tables/branches.php");
+include_once("db_tables/campaign_types.php");
+include_once("db_tables/campaigns.php");
 include_once("db_tables/child_menus.php");
 include_once("db_tables/companies.php");
-include_once("db_tables/branches.php");
+include_once("db_tables/lang.php");
 include_once("db_tables/leads.php");
-include_once("db_tables/users.php");
+include_once("db_tables/main_menus.php");
 include_once("db_tables/notifications.php");
+include_once("db_tables/sales_persons.php");
+include_once("db_tables/seo_leads.php");
+include_once("db_tables/sources.php");
+include_once("db_tables/sub_menus.php");
+include_once("db_tables/tele_marketing_leads.php");
+include_once("db_tables/users.php");
 
 /*function GetFiles() {
     $parent_dir = '../includes/config/db_tables';
