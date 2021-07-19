@@ -309,7 +309,7 @@ include_once("../includes/footer_script.php");
             var postData = {"code": code};
             $.ajax({
                 type: "POST", url: "ajax/common.php",
-                data: {'postData': postData, 'getEmployee': true, "R": "user_image"},
+                data: {'postData': postData, 'getEmployee': true, "R": '<?php echo $user_right_title; ?>'},
                 success: function (resPonse) {
                     if (resPonse !== undefined && resPonse != '') {
                         var obj = JSON.parse(resPonse);

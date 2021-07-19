@@ -844,9 +844,9 @@ if (!function_exists('getAllLinks')) {
     {
         global $db;
 
-        $m_active = config('main_menus.status.value.active');
-        $s_active = config('sub_menus.status.value.active');
-        $c_active = config('child_menus.status.value.active');
+        $m_active = config('main_menus.status.value.active');//1
+        $s_active = config('sub_menus.status.value.active');//1
+        $c_active = config('child_menus.status.value.active');//1
 
         $data = [];
 
