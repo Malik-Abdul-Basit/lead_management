@@ -116,7 +116,7 @@ if (isset($_POST['delete_lead'])) {
 if (isset($_POST['delete_sources_lead'])) {
     if (hasRight('bd_lead', 'delete')) {
         $delete = htmlentities($_POST['delete_sources_lead']);
-        $employee_info = getEmployeeInfoFromId($global_user_id);
+        $employee_info = getUserInfoFromId($global_user_id);
         if ($employee_info->user_type != config('users.type.value.super_admin') && $employee_info->user_type != config('users.type.value.admin')) {
             if (mysqli_query($db, "UPDATE `sources_lead_details` SET `deleted_by`='{$global_user_id}', `deleted_at`='{$deleted_at}' WHERE `id`='{$delete}' AND `user_id`='{$global_user_id}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}'") && mysqli_affected_rows($db) > 0) {
                 echo json_encode(["code" => 200, "toasterClass" => 'success', "responseMessage" => 'Record has been deleted.']);

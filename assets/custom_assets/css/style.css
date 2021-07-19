@@ -140,11 +140,15 @@ form {
 }
 
 div#upload-demo div.cr-boundary {
-    border: 1px solid #E4E6EF;
+    /*border: 1px solid #E4E6EF;*/
+    outline: 1px solid #E4E6EF;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .croppie-container .cr-slider-wrap {
     margin-top: 10px;
+    text-align: center;
 }
 
 input[type="file"]#select_file {
