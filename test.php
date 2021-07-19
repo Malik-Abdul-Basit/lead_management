@@ -2,5 +2,5 @@
 
 
 echo '<pre>';
-print_r(getUserInfoFromId(1));
+//print_r(getAllLinks());
 echo '</pre>';

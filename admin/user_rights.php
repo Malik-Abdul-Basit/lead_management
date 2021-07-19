@@ -59,7 +59,7 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="row">
                                                             <div class="col-md-8">
                                                                 <h3 class="font-size-lg text-dark-75 font-weight-bold mb-10">
-                                                                    Employee Information:</h3>
+                                                                    User Information:</h3>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
@@ -78,10 +78,10 @@ include_once("../includes/mobile_menu.php");
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label>Employee Email:</label>
+                                                                            <label>Email:</label>
                                                                             <input id="emp_email"
                                                                                    value="" <?php echo $disable; ?>
-                                                                                   placeholder="Employee Email"/>
+                                                                                   placeholder="Email"/>
                                                                             <div class="error_wrapper">
                                                                                 <span class="text-danger"
                                                                                       id="errorMessageEmployeeEmail"></span>
@@ -95,7 +95,7 @@ include_once("../includes/mobile_menu.php");
                                                                             <label>Full Name:</label>
                                                                             <input id="full_name"
                                                                                    value="" <?php echo $disable; ?>
-                                                                                   placeholder="Employee Full Name"/>
+                                                                                   placeholder="Full Name"/>
                                                                             <div class="error_wrapper">
                                                                                 <span class="text-danger"
                                                                                       id="errorMessageFullName"></span>
@@ -135,7 +135,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label><b>* Roles:</b></label>
                                                                 <select tabindex="20"
-                                                                        id="type" <?php echo $TAttrs . $onblur; ?>>
+                                                                        id="type" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <option selected="selected" value="">Select
                                                                     </option>
                                                                     <?php
@@ -156,7 +156,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label><b>* Status:</b></label>
                                                                 <select tabindex="30"
-                                                                        id="status" <?php echo $TAttrs . $onblur; ?>>
+                                                                        id="status" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                     <option selected="selected" value="">Select
                                                                     </option>
                                                                     <?php
@@ -183,12 +183,12 @@ include_once("../includes/mobile_menu.php");
                                                     <div class="mb-2">
                                                         <div id="Data_Holder_Parent_Div">
                                                             <div class="row">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label><b>* Branch:</b></label>
                                                                         <select tabindex="40"
                                                                                 onchange="getUserRights()"
-                                                                                id="branch_id" <?php echo $Select2 . $onblur; ?>>
+                                                                                id="branch_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                             <?php
                                                                             $working = config('branches.status.value.working');
                                                                             $select = "SELECT `id`,`name` FROM `branches` WHERE `company_id`='{$global_company_id}' AND `status`='{$working}' AND `deleted_at` IS NULL ORDER BY `id` ASC";
@@ -428,6 +428,8 @@ include_once("../includes/footer_script.php");
             var emp_email = document.getElementById('emp_email');
             var full_name = document.getElementById('full_name');
             var emp_pseudo_name = document.getElementById('emp_pseudo_name');
+            var type = document.getElementById('type');
+            var status = document.getElementById('status');
 
             var dataListingWrapper = document.getElementById('dataListingWrapper');
             var errorMessageEmployeeCode = document.getElementById('errorMessageEmployeeCode');
@@ -435,13 +437,28 @@ include_once("../includes/footer_script.php");
             var responseMessageWrapper = document.getElementById('responseMessageWrapper');
             var responseMessage = document.getElementById('responseMessage');
 
+            var type_container = document.getElementById("select2-type-container");
+            if (type_container) {
+                type_container.removeAttribute("title");
+                type_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                type.value = '';
+            }
+
+            var status_container = document.getElementById("select2-status-container");
+            if (status_container) {
+                status_container.removeAttribute("title");
+                status_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                status.value = '';
+            }
+
+
             emp_email.value = full_name.value = emp_pseudo_name.value = e_id.value = u_id.value = errorMessageEmployeeCode.innerText = employeeImageWrapper.innerHTML = dataListingWrapper.innerHTML = responseMessage.innerText = '';
             responseMessageWrapper.style.display = "none";
 
             var postData = {"code": code};
             $.ajax({
                 type: "POST", url: "ajax/common.php",
-                data: {'postData': postData, 'getEmployee': true, "R": "users"},
+                data: {'postData': postData, 'getEmployee': true, "R": '<?php echo $user_right_title; ?>'},
                 success: function (resPonse) {
                     if (resPonse !== undefined && resPonse != '') {
                         var obj = JSON.parse(resPonse);
@@ -498,8 +515,20 @@ include_once("../includes/footer_script.php");
                         var obj = JSON.parse(resPonse);
                         if (obj.code !== undefined && obj.code != '') {
                             if (obj.code === 200 && obj.type !== undefined && obj.status !== undefined && obj.html !== undefined) {
-                                document.getElementById('type').value = obj.type;
-                                document.getElementById('status').value = obj.status;
+                                var type_container = document.getElementById("select2-type-container");
+                                if (type_container) {
+                                    type_container.setAttribute("title", obj.type_html);
+                                    type_container.innerHTML = obj.type_html;
+                                    document.getElementById('type').value = obj.type;
+                                }
+
+                                var status_container = document.getElementById("select2-status-container");
+                                if (status_container) {
+                                    type_container.setAttribute("title", obj.status_html);
+                                    status_container.innerHTML = obj.status_html;
+                                    document.getElementById('status').value = obj.status;
+                                }
+
                                 dataListingWrapper.innerHTML = obj.html;
                                 loader(false);
                             } else {
