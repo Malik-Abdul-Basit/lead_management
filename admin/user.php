@@ -79,7 +79,8 @@ include_once("../includes/mobile_menu.php");
                                                     }
                                                     $id = $state_id = $city_id = 0;
                                                     $country_id = 166;
-                                                    $title = $first_name = $last_name = $pseudo_name = $email = $gender = '';
+                                                    $title = $first_name = $last_name = $pseudo_name = $email = '';
+                                                    $gender = config('users.gender.value.male');
                                                     $status = config('users.status.value.activated');
                                                     $type = config('users.type.value.supervisor');
                                                 }

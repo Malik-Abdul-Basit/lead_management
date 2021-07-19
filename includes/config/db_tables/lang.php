@@ -9,6 +9,7 @@ class lang
                 "title" => [
                     'add' => 'Add More',
                     'save' => 'Save',
+                    'select_image' => 'Select Image',
                     'update' => 'Update',
                     'get_report' => 'Get Report',
                 ],
