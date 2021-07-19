@@ -483,4 +483,11 @@
                 return !regex.test(n);
             }
 
+            function formSubmitOnEnter(e) {
+                if (e.keyCode === 13) {
+                    saveFORM();
+                    e.preventDefault();
+                }
+            }
+
         </script>
