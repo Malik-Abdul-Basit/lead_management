@@ -8,7 +8,7 @@ if (empty($_SESSION['company_id']) || empty($_SESSION['branch_id']) || empty($_S
     $global_branch_id = $_SESSION['branch_id'];
     $global_employee_id = $_SESSION['employee_id'];
     $global_user_id = $_SESSION['user_id'];
-    $global_employee_info = getEmployeeInfoFromId($global_user_id);
+    $global_employee_info = getUserInfoFromId($global_user_id);
 
     date_default_timezone_set($global_employee_info->time_zone);
     global $db, $page, $page_not_found_url;

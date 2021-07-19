@@ -555,8 +555,8 @@ if (isset($_POST['postData'], $_POST['sendEvaluationMail']) && $_POST['sendEvalu
     $url = $object->url;
     $appraise = $object->appraise;
     $appraiser = $object->appraiser;
-    $appraiseInfo = getEmployeeInfoFromId($appraise);
-    $appraiserInfo = getEmployeeInfoFromId($appraiser);
+    $appraiseInfo = getUserInfoFromId($appraise);
+    $appraiserInfo = getUserInfoFromId($appraiser);
 
     $subject = 'evaluation_start';
     $mail_body = getMailBody($subject, ['{mailToName}' => $appraiserInfo->full_name, '{mailTo}' => $appraiserInfo->official_email, '{ResourceName}' => $appraiseInfo->full_name, '{link}' => $url]);

@@ -4,7 +4,7 @@ if (!isset($_SESSION['company_id']) || !isset($_SESSION['employee_id']) || empty
     header("location:login");
 } else {
     $employee_id = $_SESSION['employee_id'];
-    $employeeInfo = getEmployeeInfoFromId($employee_id);
+    $employeeInfo = getUserInfoFromId($employee_id);
 
     if(!empty($employeeInfo->email_verified_at)){
         header("location:login");
