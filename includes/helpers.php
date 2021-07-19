@@ -461,7 +461,7 @@ if (!function_exists('getUserImage')) {
                     $default = false;
                 } else {
                     $sql = mysqli_query($db, "SELECT `gender` FROM `users` WHERE `id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1 ");
-                    if($sql && mysqli_num_rows($sql) > 0){
+                    if ($sql && mysqli_num_rows($sql) > 0) {
                         $object = mysqli_fetch_object($sql);
                         $image_path = $base_url . $image_directory . 'default/' . $object->gender . '.png';
                         $default = true;
@@ -472,7 +472,7 @@ if (!function_exists('getUserImage')) {
                 }
             } else {
                 $sql = mysqli_query($db, "SELECT `gender` FROM `users` WHERE `id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1 ");
-                if($sql && mysqli_num_rows($sql) > 0){
+                if ($sql && mysqli_num_rows($sql) > 0) {
                     $object = mysqli_fetch_object($sql);
                     $image_path = $base_url . $image_directory . 'default/' . $object->gender . '.png';
                     $default = true;
@@ -888,21 +888,29 @@ if (!function_exists('getUserRightsHTML')) {
             <thead class="datatable-head">
                 <tr style="left:0" class="datatable-row">
                     <th class="datatable-cell datatable-cell-left">
-                        <div class="float-left" style="width:30%" data-field="name">Name</div>
-                        <div class="float-left" style="width:70%" data-field="action">Action</div>
+                        <div class="float-left" style="width:40%" data-field="name">Name</div>
+                        <div class="float-left" style="width:60%" data-field="action">Action</div>
                     </th>
                 </tr>
             </thead>
             <tbody class="datatable-body">';
+
+        $user_right_title_array = config('lang.user_right_title.title');
+
         foreach (getAllLinks() as $key => $v) {
             $row_number++;
             $evenOrOdd = ($row_number % 2) == 1 ? 'odd' : 'even';
-            $user_right_title = ucwords(str_replace('_', ' ', $key));
+
+            if (array_key_exists($key, $user_right_title_array)) {
+                $user_right_title = $user_right_title_array[$key];
+            } else {
+                $user_right_title = ucwords(str_replace('_', ' ', $key));
+            }
 
             $data .= '<tr style="left:0" data-row="' . $row_number . '" class="datatable-row datatable-row-' . $evenOrOdd . '">
                 <td class="datatable-cell datatable-cell-left py-5">
-                    <div class="float-left pt-2 font-weight-bolder" style="width:30%" data-field="name">' . $user_right_title . '</div>
-                    <div class="float-left" style="width:70%" data-field="action">';
+                    <div class="float-left pt-2 font-weight-bolder" style="width:40%" data-field="name">' . $user_right_title . '</div>
+                    <div class="float-left" style="width:60%" data-field="action">';
             foreach ($v as $column) {
                 $m_id = $column['main_menu_id'];
                 $s_id = $column['sub_menu_id'];
