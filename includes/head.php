@@ -52,7 +52,7 @@
         <?php
     }
 
-    if (in_array($page, ['employee_image', 'sales_person'])) {
+    if (in_array($page, ['user_image', 'sales_person'])) {
         ?>
         <link <?php echo $css_atr ?> href="<?php echo $base_url ?>assets/croppie_assets/css/croppie.css"/>
         <?php

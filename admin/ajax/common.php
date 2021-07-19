@@ -24,17 +24,6 @@ if (isset($_POST['postData'], $_POST['getCities']) && $_POST['getCities'] == tru
     echo json_encode(["code" => 200, "CitiesList" => $cities]);
 }
 
-if (isset($_POST['postData'], $_POST['getTeamsAndDesignations']) && $_POST['getTeamsAndDesignations'] == true) {
-
-    $object = (object)$_POST['postData'];
-
-    $departmentId = $object->departmentId;
-    $teamId = $designationId = 0;
-    //$teams = getTeams($departmentId, $teamId, $company_id, $branch_id);
-    $designations = getDesignations($departmentId, $designationId, $company_id, $branch_id);
-    echo json_encode(["code" => 200, "DesignationsList" => $designations]);
-    //echo json_encode(["code" => 200, "TeamsList" => $teams, "DesignationsList" => $designations]);
-}
 
 if (isset($_POST['postData'], $_POST['getEmployee'], $_POST['R']) && !empty($_POST['R']) && $_POST['getEmployee'] == true) {
     $object = (object)$_POST['postData'];
@@ -50,16 +39,16 @@ if (isset($_POST['postData'], $_POST['getEmployee'], $_POST['R']) && !empty($_PO
         if ($result = mysqli_fetch_object($query)) {
             $hasRight = false;
             $code = 405;
-            $checkImage = getUserImage($result->employee_id);
+            $checkImage = getUserImage($result->user_id);
             $image_path = $checkImage['image_path'];
             $employee_info = ["id" => $result->employee_id, "u_id" => $result->user_id, "full_name" => $result->full_name, "pseudo_name" => $result->pseudo_name, "email" => $result->official_email, "image" => $image_path];
 
-            if ($right_title == 'users') {
+            if ($right_title == 'user') {
                 if (hasRight($right_title, 'assign_rights')) {
                     $hasRight = true;
                     $code = 200;
                 }
-            } else if ($right_title == 'employee_image') {
+            } else if ($right_title == 'user_image') {
                 if (hasRight($right_title, 'add') && $checkImage['default']) {
                     $hasRight = true;
                     $code = 200;
@@ -67,35 +56,7 @@ if (isset($_POST['postData'], $_POST['getEmployee'], $_POST['R']) && !empty($_PO
                     $hasRight = true;
                     $code = 200;
                 }
-            } else if ($right_title == 'employee_qualification') {
-                $query = mysqli_query($db, "SELECT `id` FROM `employee_qualification_infos` WHERE `employee_id`='{$result->employee_id}' ORDER BY `employee_id` ASC LIMIT 1");
-                if (hasRight($right_title, 'add') && mysqli_num_rows($query) == 0) {
-                    $hasRight = true;
-                    $code = 200;
-                } else if (hasRight($right_title, 'edit') && mysqli_num_rows($query) > 0) {
-                    $hasRight = true;
-                    $code = 200;
-                }
-            } else if ($right_title == 'employee_experience') {
-                $query = mysqli_query($db, "SELECT `id` FROM `employee_experience_infos` WHERE `employee_id`='{$result->employee_id}' ORDER BY `employee_id` ASC LIMIT 1");
-                if (hasRight($right_title, 'add') && mysqli_num_rows($query) == 0) {
-                    $hasRight = true;
-                    $code = 200;
-                } else if (hasRight($right_title, 'edit') && mysqli_num_rows($query) > 0) {
-                    $hasRight = true;
-                    $code = 200;
-                }
-            } else if ($right_title == 'employee_payroll') {
-                $query = mysqli_query($db, "SELECT `id` FROM `employee_payrolls` WHERE `employee_id`='{$result->employee_id}' ORDER BY `employee_id` ASC LIMIT 1");
-                if (hasRight($right_title, 'add') && mysqli_num_rows($query) == 0) {
-                    $hasRight = true;
-                    $code = 200;
-                } else if (hasRight($right_title, 'edit') && mysqli_num_rows($query) > 0) {
-                    $hasRight = true;
-                    $code = 200;
-                }
             }
-
 
             echo json_encode(["code" => $code, 'employee_info' => $employee_info, 'hasRight' => $hasRight]);
         }

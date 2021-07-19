@@ -55,7 +55,7 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <h3 class="font-size-lg text-dark-75 font-weight-bold mb-10">
-                                                                    Employee Information:</h3>
+                                                                    User Information:</h3>
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
@@ -73,10 +73,10 @@ include_once("../includes/mobile_menu.php");
                                                                     </div>
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label>Employee Email:</label>
+                                                                            <label>Email:</label>
                                                                             <input id="emp_email"
                                                                                    value="" <?php echo $disable; ?>
-                                                                                   placeholder="Employee Email"/>
+                                                                                   placeholder="Email"/>
                                                                             <div class="error_wrapper">
                                                                                 <span class="text-danger"
                                                                                       id="errorMessageEmployeeEmail"></span>
@@ -88,7 +88,7 @@ include_once("../includes/mobile_menu.php");
                                                                             <label>Full Name:</label>
                                                                             <input id="full_name"
                                                                                    value="" <?php echo $disable; ?>
-                                                                                   placeholder="Employee Full Name"/>
+                                                                                   placeholder="Full Name"/>
                                                                             <div class="error_wrapper">
                                                                                 <span class="text-danger"
                                                                                       id="errorMessageFullName"></span>
@@ -109,7 +109,9 @@ include_once("../includes/mobile_menu.php");
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-2">
+                                                            </div>
+                                                            <div class="col-md-4">
                                                                 <div class="row">
                                                                     <div class="col-md-12 text-center mt-2">
                                                                         Minimum Image Size Should Be 400x400
@@ -233,7 +235,7 @@ include_once("../includes/footer_script.php");
                     loader(true);
                     var postData = {"imageBase64": imageBase64, "employee_code": employee_code.value, "user_right_title": '<?php echo $user_right_title; ?>'};
                     $.ajax({
-                        type: "POST", url: "ajax/employee_image.php",
+                        type: "POST", url: "ajax/user_image.php",
                         data: {"postData": postData},
                         success: function (resPonse) {
                             if (resPonse !== undefined && resPonse != '') {
@@ -307,7 +309,7 @@ include_once("../includes/footer_script.php");
             var postData = {"code": code};
             $.ajax({
                 type: "POST", url: "ajax/common.php",
-                data: {'postData': postData, 'getEmployee': true, "R": "employee_image"},
+                data: {'postData': postData, 'getEmployee': true, "R": "user_image"},
                 success: function (resPonse) {
                     if (resPonse !== undefined && resPonse != '') {
                         var obj = JSON.parse(resPonse);

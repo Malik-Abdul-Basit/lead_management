@@ -61,50 +61,6 @@ if (!function_exists('generatePassword')) {
     }
 }
 
-if (!function_exists('getUserImage')) {
-    function getUserImage($id)
-    {
-        global $db, $base_url;
-        $img = '';
-
-        //return dirname(__FILE__); //C:\xampp\htdocs\projects\mso_core\includes
-        //return dirname(__DIR__); //C:\xampp\htdocs\projects\mso_core
-        //return basename(__DIR__); //includes
-
-        //return $upOne = realpath(dirname(__FILE__) . '/..'); //C:\xampp\htdocs\projects\mso_core
-        //return $upOne = realpath(__DIR__ . '/..'); //C:\xampp\htdocs\projects\mso_core
-        //return $upOne = dirname(__DIR__, 1); //C:\xampp\htdocs\projects\mso_core
-        //$upOne = dirname(__DIR__, 1). '/storage/emp_images/1682_G51DDMvsNzY4OG8rtPEQWucWCL5u3TkDAcy.png';
-
-        if (!empty($id) && $id > 0) {
-            $sql = mysqli_query($db, "SELECT `name` FROM `employee_images` WHERE `employee_id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` DESC LIMIT 1 ");
-            if (mysqli_num_rows($sql) > 0) {
-                $object = mysqli_fetch_object($sql);
-                $path = dirname(__DIR__) . '/storage/emp_images/' . $object->name;
-                if (realpath($path)) {
-                    $image_path = $base_url . 'storage/emp_images/' . $object->name;
-                    $img = $object->name;
-                    $default = false;
-                } else {
-                    $sql = mysqli_query($db, "SELECT `gender` FROM `users` WHERE `id`='{$id}' ORDER BY `id` DESC LIMIT 1 ");
-                    $object = mysqli_fetch_object($sql);
-                    $image_path = $base_url . 'storage/emp_images/default/' . $object->gender . '.png';
-                    $default = true;
-                }
-            } else {
-                $sql = mysqli_query($db, "SELECT `gender` FROM `users` WHERE `id`='{$id}' ORDER BY `id` DESC LIMIT 1 ");
-                $object = mysqli_fetch_object($sql);
-                $image_path = $base_url . 'storage/emp_images/default/' . $object->gender . '.png';
-                $default = true;
-            }
-        } else {
-            $image_path = $base_url . 'storage/emp_images/default/m.png';
-            $default = true;
-        }
-        return ['image_path' => $image_path, 'img' => $img, 'default' => $default];
-    }
-}
-
 if (!function_exists('validName')) {
     function validName($value)
     {
@@ -475,6 +431,61 @@ if (!function_exists('reflectTemplate')) {
             $html = str_replace($template_key, $value, $html);
         }
         return $html;
+    }
+}
+
+if (!function_exists('getUserImage')) {
+    function getUserImage($id)
+    {
+        global $db, $base_url;
+        $image_directory = 'storage/user_images/';
+        $img = '';
+
+        //return dirname(__FILE__); //C:\xampp\htdocs\projects\mso_core\includes
+        //return dirname(__DIR__); //C:\xampp\htdocs\projects\mso_core
+        //return basename(__DIR__); //includes
+
+        //return $upOne = realpath(dirname(__FILE__) . '/..'); //C:\xampp\htdocs\projects\mso_core
+        //return $upOne = realpath(__DIR__ . '/..'); //C:\xampp\htdocs\projects\mso_core
+        //return $upOne = dirname(__DIR__, 1); //C:\xampp\htdocs\projects\mso_core
+        //$upOne = dirname(__DIR__, 1). '/storage/emp_images/1682_G51DDMvsNzY4OG8rtPEQWucWCL5u3TkDAcy.png';
+
+        if (!empty($id) && $id > 0) {
+            $sql = mysqli_query($db, "SELECT `name` FROM `user_images` WHERE `user_id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1 ");
+            if ($sql && mysqli_num_rows($sql) > 0) {
+                $object = mysqli_fetch_object($sql);
+                $path = dirname(__DIR__) . '/' . $image_directory . $object->name;
+                if (realpath($path)) {
+                    $image_path = $base_url . $image_directory . $object->name;
+                    $img = $object->name;
+                    $default = false;
+                } else {
+                    $sql = mysqli_query($db, "SELECT `gender` FROM `users` WHERE `id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1 ");
+                    if($sql && mysqli_num_rows($sql) > 0){
+                        $object = mysqli_fetch_object($sql);
+                        $image_path = $base_url . $image_directory . 'default/' . $object->gender . '.png';
+                        $default = true;
+                    } else {
+                        $image_path = $base_url . $image_directory . 'default/m.png';
+                        $default = true;
+                    }
+                }
+            } else {
+                $sql = mysqli_query($db, "SELECT `gender` FROM `users` WHERE `id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1 ");
+                if($sql && mysqli_num_rows($sql) > 0){
+                    $object = mysqli_fetch_object($sql);
+                    $image_path = $base_url . $image_directory . 'default/' . $object->gender . '.png';
+                    $default = true;
+                } else {
+                    $image_path = $base_url . $image_directory . 'default/m.png';
+                    $default = true;
+                }
+            }
+        } else {
+            $image_path = $base_url . $image_directory . 'default/m.png';
+            $default = true;
+        }
+        return ['image_path' => $image_path, 'img' => $img, 'default' => $default];
     }
 }
 
