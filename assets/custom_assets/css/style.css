@@ -481,7 +481,7 @@ ul#BG_PagerNumberingHolder li:nth-child(3) input {
     white-space: nowrap;
 }
 
-.not-display {
+.not-display, .not-show, .no-display, .no-show {
     background: transparent !important;
     color: #fff !important;
     display: none !important;
@@ -966,6 +966,7 @@ div.highcharts-data-table table th {
     border: 1px solid rgb(228, 230, 239);
     font-size: 12px;
 }
+
 .report_table th,
 .report_table td {
     padding: 7px 3px;

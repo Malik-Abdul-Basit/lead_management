@@ -74,7 +74,7 @@ include_once("../includes/mobile_menu.php");
                                         <!--begin::Form-->
                                         <form class="form" id="myFORM" name="myFORM" method="post"
                                               enctype="multipart/form-data">
-                                            <input type="hidden" name="id" id="id" value="<?php echo $id; ?>"/>
+                                            <input type="hidden" class="not-show" name="id" id="id" value="<?php echo $id; ?>"/>
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <div class="mb-2">
@@ -293,6 +293,7 @@ include_once("../includes/footer_script.php");
 
             var error = '';
             var toasterType = 'error';
+
             if (id.value == 0 && A == '') {
                 toasterTrigger('warning', 'Sorry! You have no right to add record.');
             } else if (id.value > 0 && E == '') {
