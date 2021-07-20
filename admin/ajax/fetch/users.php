@@ -9,7 +9,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
 
     $pageNo = 1;
     $perPage = 20;
-    $sortColumn = 'u.employee_code';
+    $sortColumn = 'employee_code';
     $sortOrder = 'ASC';
     $super_admin = config('users.type.value.super_admin');
     $co_active = config('companies.status.value.working');

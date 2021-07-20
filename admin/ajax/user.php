@@ -83,7 +83,7 @@ if (isset($_POST['postData'])) {
         $branch_id = $_SESSION['branch_id'];
         $user_id = $_SESSION['user_id'];
 
-        $select = "SELECT `id` FROM `users` WHERE `company_id`='{$company_id}' AND `id`!='{$id}' AND (`employee_code`='{$employee_code}' OR `email`='{$email}')";
+        $select = "SELECT `id` FROM `users` WHERE `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `id`!='{$id}' AND (`employee_code`='{$employee_code}' OR `email`='{$email}')";
         $query = mysqli_query($db, $select);
         if (mysqli_num_rows($query) > 0) {
             echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'This user already exist.']);

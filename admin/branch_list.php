@@ -38,7 +38,7 @@ include_once("../includes/mobile_menu.php");
                                     <div class="card-toolbar">
                                         <?php
                                         if (hasRight($user_right_title, 'add')) {
-                                            echo '<a href="' . $admin_url . 'branch" class="btn btn-primary font-weight-bolder"><i class="la la-plus"></i>New Record</a>';
+                                            echo '<a href="' . $admin_url . 'branch" class="btn btn-primary font-weight-bolder">'.config('lang.button.title.new_record').'</a>';
                                         }
                                         ?>
                                     </div>
@@ -62,11 +62,8 @@ include_once("../includes/mobile_menu.php");
                                                     <div class="col-md-3 my-2 my-md-0">
                                                         <div class="form-group">
                                                             <label for="BG_CountryIdFilter">Country</label>
-                                                            <select class="form-control"
-                                                                    id="BG_CountryIdFilter"
-                                                                    onchange="getData(), getStates(this.value)">
-                                                                <option selected="selected" value="">Select
-                                                                </option>
+                                                            <select id="BG_CountryIdFilter" onchange="getData(), getStates(this.value)" <?php echo $ApplySelect2; ?>>
+                                                                <option value="-1">All</option>
                                                                 <?php
                                                                 $select = "SELECT `id`,`country_name` FROM `countries`";
                                                                 $query = mysqli_query($db, $select);
@@ -84,21 +81,16 @@ include_once("../includes/mobile_menu.php");
                                                     <div class="col-md-3 my-2 my-md-0">
                                                         <div class="form-group">
                                                             <label for="state_id">State</label>
-                                                            <select class="form-control"
-                                                                    id="state_id"
-                                                                    onchange="getCities(event), getData()">
-                                                                <option selected="selected" value="">Select
-                                                                </option>
+                                                            <select id="state_id" onchange="getCities(event), getData()" <?php echo $ApplySelect2; ?>>
+                                                                <option value="-1">All</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 my-2 my-md-0">
                                                         <div class="form-group">
                                                             <label for="city_id">City</label>
-                                                            <select class="form-control" id="city_id"
-                                                                    onchange="getData()">
-                                                                <option selected="selected" value="">Select
-                                                                </option>
+                                                            <select id="city_id" onchange="getData()" <?php echo $ApplySelect2; ?>>
+                                                                <option value="-1">All</option>
                                                             </select>
                                                         </div>
                                                     </div>

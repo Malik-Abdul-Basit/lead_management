@@ -31,15 +31,24 @@ include_once("../includes/mobile_menu.php");
                                 <div class="col-lg-12">
                                     <div class="card card-custom">
                                         <div class="card-header">
-                                            <h3 class="card-title">
+                                            <div class="card-title">
+                                                <h3 class="card-label">
+                                                    <?php
+                                                    echo ucwords(str_replace("_", " ", $page));
+                                                    $emp_code = '';
+                                                    if (isset($_GET['emp_code']) && is_numeric($_GET['emp_code']) && !empty($_GET['emp_code'])) {
+                                                        $emp_code = $_GET['emp_code'];
+                                                    }
+                                                    ?>
+                                                </h3>
+                                            </div>
+                                            <div class="card-toolbar">
                                                 <?php
-                                                echo ucwords(str_replace("_", " ", $page));
-                                                $emp_code = '';
-                                                if (isset($_GET['emp_code']) && is_numeric($_GET['emp_code']) && !empty($_GET['emp_code'])) {
-                                                    $emp_code = $_GET['emp_code'];
+                                                if (hasRight($user_right_title, 'add')) {
+                                                    echo '<a href="' . $admin_url . 'user" class="btn btn-primary font-weight-bolder">'.config('lang.button.title.new_record').'</a>';
                                                 }
                                                 ?>
-                                            </h3>
+                                            </div>
                                         </div>
                                         <!--begin::Form-->
                                         <form class="form" id="myFORM" name="myFORM" method="post"
