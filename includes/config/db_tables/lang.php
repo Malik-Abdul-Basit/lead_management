@@ -39,6 +39,39 @@ class lang
                 ],
             ],
 
+            "page_type" => [
+                "title" => [
+                    'seo_source' => 'seo',
+                    'seo_source_list' => 'seo',
+                    'seo_campaign' => 'seo',
+                    'seo_campaign_list' => 'seo',
+                    'seo_lead' => 'seo',
+                    'seo_lead_list' => 'seo',
+
+                    'smm_source' => 'smm',
+                    'smm_source_list' => 'smm',
+                    'smm_account' => 'smm',
+                    'smm_account_list' => 'smm',
+                    'smm_campaign_type' => 'smm',
+                    'smm_campaign_type_list' => 'smm',
+                    'smm_campaign' => 'smm',
+                    'smm_campaign_list' => 'smm',
+                    'smm_lead' => 'smm',
+                    'smm_lead_list' => 'smm',
+
+                    'em_source' => 'em',
+                    'em_source_list' => 'em',
+                    'em_account' => 'em',
+                    'em_account_list' => 'em',
+                    'em_campaign_type' => 'em',
+                    'em_campaign_type_list' => 'em',
+                    'em_campaign' => 'em',
+                    'em_campaign_list' => 'em',
+                    'em_lead' => 'em',
+                    'em_lead_list' => 'em',
+                ],
+            ],
+
 
 
 
