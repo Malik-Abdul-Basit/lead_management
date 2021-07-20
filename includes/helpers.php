@@ -1005,5 +1005,94 @@ if (!function_exists('sendEmailVerificationEmail')) {
     }
 }
 
+if (!function_exists('getSalesPersonImage')) {
+    function getSalesPersonImage($id)
+    {
+        global $db, $base_url;
+        $image_directory = 'storage/sales_person_images/';
+        $img = '';
+
+        if (!empty($id) && is_numeric($id) && $id > 0) {
+            $sql = mysqli_query($db, "SELECT `name` FROM `sales_person_images` WHERE `sales_person_id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1 ");
+            if ($sql && mysqli_num_rows($sql) > 0) {
+                $object = mysqli_fetch_object($sql);
+                $path = dirname(__DIR__) . '/' . $image_directory . $object->name;
+                if (realpath($path)) {
+                    $image_path = $base_url . $image_directory . $object->name;
+                    $img = $object->name;
+                    $default = false;
+                } else {
+                    $sql = mysqli_query($db, "SELECT `gender` FROM `sales_persons` WHERE `id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1 ");
+                    if ($sql && mysqli_num_rows($sql) > 0) {
+                        $object = mysqli_fetch_object($sql);
+                        $image_path = $base_url . $image_directory . 'default/' . $object->gender . '.png';
+                        $default = true;
+                    } else {
+                        $image_path = $base_url . $image_directory . 'default/m.png';
+                        $default = true;
+                    }
+                }
+            } else {
+                $sql = mysqli_query($db, "SELECT `gender` FROM `sales_persons` WHERE `id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1 ");
+                if ($sql && mysqli_num_rows($sql) > 0) {
+                    $object = mysqli_fetch_object($sql);
+                    $image_path = $base_url . $image_directory . 'default/' . $object->gender . '.png';
+                    $default = true;
+                } else {
+                    $image_path = $base_url . $image_directory . 'default/m.png';
+                    $default = true;
+                }
+            }
+        } else {
+            $image_path = $base_url . $image_directory . 'default/m.png';
+            $default = true;
+        }
+        return ['image_path' => $image_path, 'img' => $img, 'default' => $default];
+    }
+}
+
+if (!function_exists('changeSalesPersonImage')) {
+    function changeSalesPersonImage($id, $imageBase64, $user_right_title)
+    {
+        global $db, $base_url;
+        $image_directory = 'storage/sales_person_images/';
+        $upload_image = false;
+        $user_id = $_SESSION['user_id'];
+
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64) = explode(',', $imageBase64);
+
+        $image = base64_decode($imageBase64);
+        $imageName = $id . '_' . generatePassword('35', TRUE) . '.png';
+
+        $sql = mysqli_query($db, "SELECT `id`,`name` FROM `sales_person_images` WHERE `sales_person_id`='{$id}' AND `deleted_at` IS NULL ORDER BY `id` ASC LIMIT 1");
+        if (mysqli_num_rows($sql) > 0) {
+            if (hasRight($user_right_title, 'edit')) {
+                $res = mysqli_fetch_object($sql);
+                if (!empty($res->name) && realpath(dirname(__DIR__) . '/' . $image_directory . $res->name)) {
+                    unlink('../../' . $image_directory . $res->name);
+                }
+                if (mysqli_query($db, "DELETE FROM `sales_person_images` WHERE `sales_person_id`='{$id}'")) {
+                    $upload_image = true;
+                }
+            }
+        } else {
+            if (hasRight($user_right_title, 'add')) {
+                $upload_image = true;
+            }
+        }
+
+        if ($upload_image && $upload_image === true) {
+            $query = "INSERT INTO `sales_person_images`(`id`, `sales_person_id`, `name`, `added_by`) VALUES (NULL,'{$id}','{$imageName}','{$user_id}')";
+            if (mysqli_query($db, $query)) {
+                file_put_contents('../../' . $image_directory . $imageName, $image);
+            }
+        }
+
+
+        //
+    }
+}
+
 
 ?>

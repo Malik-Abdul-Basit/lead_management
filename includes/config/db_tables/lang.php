@@ -12,6 +12,7 @@ class lang
                     'select_image' => 'Select Image',
                     'update' => 'Update',
                     'get_report' => 'Get Report',
+                    'new_record' => '<i class="la la-plus"></i>New Record',
                 ],
             ],
 

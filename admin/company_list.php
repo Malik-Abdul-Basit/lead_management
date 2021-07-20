@@ -103,7 +103,7 @@ include_once("../includes/mobile_menu.php");
                                         <!--end::Dropdown-->
                                         <?php
                                         if (hasRight($user_right_title, 'add')) {
-                                            echo '<a href="' . $admin_url . 'company" class="btn btn-primary font-weight-bolder"><i class="la la-plus"></i>New Record</a>';
+                                            echo '<a href="' . $admin_url . 'company" class="btn btn-primary font-weight-bolder">'.config('lang.button.title.new_record').'</a>';
                                         }
                                         ?>
                                     </div>

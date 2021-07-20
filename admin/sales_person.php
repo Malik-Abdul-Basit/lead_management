@@ -54,6 +54,7 @@ include_once("../includes/mobile_menu.php");
                                                         $email = html_entity_decode(stripslashes($Result->email));
                                                         $gender = html_entity_decode(stripslashes($Result->gender));
                                                         $status = html_entity_decode(stripslashes($Result->status));
+                                                        $image = getSalesPersonImage($id)['image_path'];
                                                     }
                                                 } else {
                                                     if (!hasRight($user_right_title, 'add')) {
@@ -65,6 +66,7 @@ include_once("../includes/mobile_menu.php");
                                                     $first_name = $last_name = $email = '';
                                                     $gender = config('sales_persons.gender.value.male');
                                                     $status = config('sales_persons.status.value.activated');
+                                                    $image = '';
                                                 }
                                                 ?>
                                             </h3>
@@ -72,12 +74,8 @@ include_once("../includes/mobile_menu.php");
                                         <!--begin::Form-->
                                         <form class="form" id="myFORM" name="myFORM" method="post"
                                               enctype="multipart/form-data">
+                                            <input type="hidden" name="id" id="id" value="<?php echo $id; ?>"/>
                                             <div class="card-body">
-                                                <div class="alert alert-custom alert-light-danger overflow-hidden"
-                                                     role="alert" id="responseMessageWrapper">
-                                                    <div class="alert-text font-weight-bold float-left"
-                                                         id="responseMessage"></div>
-                                                </div>
                                                 <div class="mb-3">
                                                     <div class="mb-2">
                                                         <div class="row">
@@ -87,8 +85,10 @@ include_once("../includes/mobile_menu.php");
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label for="first_name">* First Name:</label>
-                                                                            <input tabindex="10" maxlength="50" id="first_name"
+                                                                            <label for="first_name">* First
+                                                                                Name:</label>
+                                                                            <input tabindex="10" maxlength="50"
+                                                                                   id="first_name"
                                                                                    value="<?php echo $first_name; ?>" <?php echo $ApplyMaxLength . $onblur; ?>
                                                                                    placeholder="First Name"/>
                                                                             <div class="error_wrapper">
@@ -103,7 +103,8 @@ include_once("../includes/mobile_menu.php");
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label for="last_name"> Last Name:</label>
-                                                                            <input tabindex="20" maxlength="50" id="last_name"
+                                                                            <input tabindex="20" maxlength="50"
+                                                                                   id="last_name"
                                                                                    value="<?php echo $last_name; ?>" <?php echo $ApplyMaxLength; ?>
                                                                                    placeholder="Last Name"/>
                                                                             <div class="error_wrapper">
@@ -117,7 +118,7 @@ include_once("../includes/mobile_menu.php");
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label>Email:</label>
+                                                                            <label>* Email:</label>
                                                                             <input tabindex="30" id="email"
                                                                                    value="<?php echo $email; ?>" <?php echo $ApplyEmailMask; ?>
                                                                                    placeholder="Email"/>
@@ -135,14 +136,15 @@ include_once("../includes/mobile_menu.php");
                                                                             <label for="gender">* Gender:</label>
                                                                             <select tabindex="40"
                                                                                     id="gender" <?php echo $ApplySelect2 . $onblur; ?>>
-                                                                                <option selected="selected" value="">Select
+                                                                                <option selected="selected" value="">
+                                                                                    Select
                                                                                 </option>
                                                                                 <?php
                                                                                 foreach (config("sales_persons.gender.title") as $key => $value) {
                                                                                     $selected = $gender == $key ? 'selected="selected"' : '';
                                                                                     ?>
                                                                                     <option <?php echo $selected; ?>
-                                                                                        value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                                            value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                                                                     <?php
                                                                                 }
                                                                                 ?>
@@ -231,12 +233,13 @@ include_once("../includes/footer_script.php");
     <script src="<?php echo $base_url ?>assets/croppie_assets/js/croppie.js"></script>
     <script type="text/javascript">
         $uploadCrop = $('#upload-demo').croppie({
+            url: '<?php echo $image; ?>',
             enableExif: true,
             viewport: {
                 width: 350,
                 height: 350,
                 circle: false,
-                type: 'canvas'
+                type: 'canvas',
                 //type: 'circle'
             },
             boundary: {
@@ -265,46 +268,131 @@ include_once("../includes/footer_script.php");
             var A = '<?php echo hasRight($user_right_title, 'add') ?>';
             var E = '<?php echo hasRight($user_right_title, 'edit') ?>';
 
+            var genderArray = [<?php echo '"' . implode('","', array_values(config('sales_persons.gender.value'))) . '"' ?>];
+            var statusArray = [<?php echo '"' . implode('","', array_values(config('sales_persons.status.value'))) . '"' ?>];
+
+            var id = document.getElementById('id');
             var first_name = document.getElementById('first_name');
             var last_name = document.getElementById('last_name');
             var email = document.getElementById('email');
             var gender = document.getElementById('gender');
+            var select2_gender_container = document.querySelector("[aria-labelledby='select2-gender-container']");
             var status = document.getElementById('status');
+            var select2_status_container = document.querySelector("[aria-labelledby='select2-status-container']");
             var select_file = document.getElementById("select_file");
 
             var errorMessageFirstName = document.getElementById('errorMessageFirstName');
             var errorMessageLastName = document.getElementById('errorMessageLastName');
             var errorMessageEmail = document.getElementById('errorMessageEmail');
-            var responseMessageWrapper = document.getElementById('responseMessageWrapper');
-            var responseMessage = document.getElementById('responseMessage');
+            var errorMessageGender = document.getElementById('errorMessageGender');
+            var errorMessageStatus = document.getElementById('errorMessageStatus');
 
             first_name.style.borderColor = last_name.style.borderColor = email.style.borderColor = '#E4E6EF';
-            errorMessageFirstName.innerText = errorMessageLastName.innerText = errorMessageEmail.innerText = responseMessage.innerText = "";
-            responseMessageWrapper.style.display = "none";
+            select2_gender_container.style.borderColor = select2_status_container.style.borderColor = '#E4E6EF';
+            errorMessageFirstName.innerText = errorMessageLastName.innerText = errorMessageEmail.innerText = errorMessageGender.innerText = errorMessageStatus.innerText = "";
 
             var error = '';
             var toasterType = 'error';
-
-            if (first_name.value == '') {
+            if (id.value == 0 && A == '') {
+                toasterTrigger('warning', 'Sorry! You have no right to add record.');
+            } else if (id.value > 0 && E == '') {
+                toasterTrigger('warning', 'Sorry! You have no right to update record.');
+            } else if (first_name.value == '') {
                 first_name.style.borderColor = '#F00';
                 error = "First Name field is required.";
                 errorMessageFirstName.innerText = error;
                 toasterTrigger(toasterType, error);
                 return false;
-            } else if (select_file.value == '') {
-                responseMessageWrapper.style.display = "block";
-                responseMessage.innerText = "Please select an Image";
+            } else if (invalidName(first_name.value)) {
+                first_name.style.borderColor = '#F00';
+                error = "Special Characters are not Allowed.";
+                errorMessageFirstName.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (first_name.value.length > 50) {
+                first_name.style.borderColor = '#F00';
+                error = "Length should not exceed 50 characters.";
+                errorMessageFirstName.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (last_name.value != '' && invalidName(last_name.value)) {
+                last_name.style.borderColor = '#F00';
+                error = "Special Characters are not Allowed.";
+                errorMessageLastName.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (last_name.value != '' && last_name.value.length > 50) {
+                last_name.style.borderColor = '#F00';
+                error = "Length should not exceed 50 characters.";
+                errorMessageLastName.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (email.value == '') {
+                email.style.borderColor = '#F00';
+                error = "Email field is required.";
+                errorMessageEmail.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (invalidEmail(email.value)) {
+                email.style.borderColor = '#F00';
+                error = "Invalid Email Address.";
+                errorMessageEmail.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (gender.value == '') {
+                select2_gender_container.style.borderColor = '#F00';
+                error = "Gender field is required.";
+                errorMessageGender.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (genderArray.includes(gender.value) == false || gender.value.length !== 1) {
+                select2_gender_container.style.borderColor = '#F00';
+                error = "Please select a valid option.";
+                errorMessageGender.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (status.value == '') {
+                select2_status_container.style.borderColor = '#F00';
+                error = "Status field is required.";
+                errorMessageStatus.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (statusArray.includes(status.value) == false || status.value.length !== 1) {
+                select2_status_container.style.borderColor = '#F00';
+                error = "Please select a valid option.";
+                errorMessageStatus.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else {
-                $uploadCrop.croppie('result', {
-                    type: 'canvas',
-                    size: 'viewport'
-                }).then(function (imageBase64) {
+
+                var postData = {
+                    "id": id.value,
+                    "imageBase64" : '',
+                    "first_name": first_name.value.trim(),
+                    "last_name": last_name.value.trim(),
+                    "email": email.value,
+                    "gender": gender.value,
+                    "status": status.value,
+                    "user_right_title": '<?php echo $user_right_title; ?>',
+                };
+
+                if (select_file.value != '') {
+                    $uploadCrop.croppie('result', {
+                        type: 'canvas',
+                        size: 'viewport'
+                    }).then(function (imageBase64) {
+                        postData.imageBase64 = imageBase64;
+                        sendDataToDB(postData);
+                    });
+                } else {
+                    sendDataToDB(postData);
+                }
+
+                function sendDataToDB(n){
                     loader(true);
-                    var postData = {"imageBase64": imageBase64, "employee_code": employee_code.value, "user_right_title": '<?php echo $user_right_title; ?>'};
                     $.ajax({
-                        type: "POST", url: "ajax/user_image.php",
-                        data: {"postData": postData},
+                        type: "POST", url: "ajax/sales_person.php",
+                        data: {"postData": n},
                         success: function (resPonse) {
                             if (resPonse !== undefined && resPonse != '') {
                                 var obj = JSON.parse(resPonse);
@@ -343,7 +431,7 @@ include_once("../includes/footer_script.php");
                             loader(false);
                         }
                     });
-                });
+                }
             }
         }
 

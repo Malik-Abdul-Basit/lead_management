@@ -36,10 +36,15 @@ include_once("../includes/mobile_menu.php");
                                             <div class="card-title">
                                                 <h3 class="card-label">
                                                     <?php echo ucwords(str_replace("_", " ", $page)); ?>
-                                                    <!--<span class="d-block text-muted pt-2 font-size-sm">Sorting & pagination remote datasource</span>-->
                                                 </h3>
                                             </div>
-                                            <div class="card-toolbar"></div>
+                                            <div class="card-toolbar">
+                                                <?php
+                                                if (hasRight($user_right_title, 'add')) {
+                                                    echo '<a href="' . $admin_url . 'user" class="btn btn-primary font-weight-bolder">'.config('lang.button.title.new_record').'</a>';
+                                                }
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="card-header flex-wrap border-0 pt-6 pb-6">
                                             <!--begin::Search Form-->
@@ -47,7 +52,7 @@ include_once("../includes/mobile_menu.php");
                                                 <div class="row align-items-center">
                                                     <div class="col-lg-12 col-xl-12">
                                                         <div class="row align-items-center">
-                                                            <div class="col-md-4 my-2 my-md-0">
+                                                            <div class="col-md-3 my-2 my-md-0">
                                                                 <div class="form-group">
                                                                     <label for="BG_SearchQuery">Search</label>
                                                                     <div class="input-icon">
@@ -59,7 +64,20 @@ include_once("../includes/mobile_menu.php");
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4 my-2 my-md-0">
+                                                            <div class="col-md-3 my-2 my-md-0">
+                                                                <div class="form-group">
+                                                                    <label for="BG_GenderFilter">Gender</label>
+                                                                    <select id="BG_GenderFilter" onchange="getData()" <?php echo $ApplySelect2; ?>>
+                                                                        <option value="-1">All</option>
+                                                                        <?php
+                                                                        foreach (config('users.gender.title') as $key => $val) {
+                                                                            echo '<option value="' . $key . '">' . $val . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 my-2 my-md-0">
                                                                 <div class="form-group">
                                                                     <label for="BG_StatusFilter">Status</label>
                                                                     <select id="BG_StatusFilter" onchange="getData()" <?php echo $ApplySelect2; ?>>
@@ -72,7 +90,7 @@ include_once("../includes/mobile_menu.php");
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4 my-2 my-md-0">
+                                                            <div class="col-md-3 my-2 my-md-0">
                                                                 <div class="form-group">
                                                                     <label for="BG_TypeFilter">Roles</label>
                                                                     <select id="BG_TypeFilter" onchange="getData()" <?php echo $ApplySelect2; ?>>
@@ -133,7 +151,7 @@ include_once("../includes/footer_script.php");
             var BG_SortOrder = document.getElementById('BG_SortOrder');
 
             if (field === undefined) {
-                var set_field = 'sort_by';
+                var set_field = 'employee_code';
             } else {
                 var set_field = field;
             }
@@ -159,13 +177,14 @@ include_once("../includes/footer_script.php");
             var BG_SortColumn = document.getElementById('BG_SortColumn');
             var BG_SortOrder = document.getElementById('BG_SortOrder');
 
+            var BG_GenderFilter = document.getElementById('BG_GenderFilter');
             var BG_StatusFilter = document.getElementById('BG_StatusFilter');
             var BG_TypeFilter = document.getElementById('BG_TypeFilter');
 
             var SearchQuery = '';
             var PageNumber = "1";
             var PageSize = "20";
-            var SortColumn = 'u.employee_code';
+            var SortColumn = 'employee_code';
             var SortOrder = 'ASC';
             if (BG_SearchQuery && BG_SearchQuery.value != '') {
                 SearchQuery = BG_SearchQuery.value;
@@ -190,6 +209,7 @@ include_once("../includes/footer_script.php");
                 'PageSize': PageSize,
                 'Sort': {'SortColumn': SortColumn, 'SortOrder': SortOrder},
                 'Filter': [
+                    {'field': 'u.gender', 'value': BG_GenderFilter.value},
                     {'field': 'u.status', 'value': BG_StatusFilter.value},
                     {'field': 'u.type', 'value': BG_TypeFilter.value},
                 ],

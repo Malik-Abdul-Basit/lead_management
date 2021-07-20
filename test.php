@@ -2,5 +2,5 @@
 
 
 echo '<pre>';
-//print_r(getAllLinks());
+print_r(getSalesPersonImage(1));
 echo '</pre>';
