@@ -77,7 +77,6 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
         $data .= '</th>';
     }
 
-
     if (isset($filters->L)) {
         if (hasRight($filters->L, 'edit') || hasRight($filters->L, 'delete')) {
             if (isset($filters->Actions) && !empty($filters->Actions) && sizeof($filters->Actions) > 0) {
@@ -133,7 +132,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
             while ($result = mysqli_fetch_assoc($query)) {
                 $row_number++;
                 $evenOrOdd = ($row_number % 2) == 1 ? 'odd' : 'even';
-                $data .= '<tr style="left:0" data-id="' . $result["id"] . '" data-row="' . $row_number . '" class="datatable-row  datatable-row-' . $evenOrOdd . '">';
+                $data .= '<tr data-id="' . $result["id"] . '" data-row="' . $row_number . '" class="datatable-row  datatable-row-' . $evenOrOdd . '" style="left:0">';
                 if (isset($filters->Numbering) && !empty($filters->Numbering) && sizeof($filters->Numbering) > 0) {
                     $sr = (object)$filters->Numbering;
                     //$sr_sort = (isset($sr->sort) && $sr->sort === "true") ? ' datatable-cell-sort' : '';

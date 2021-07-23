@@ -50,7 +50,7 @@ if (isset($_POST['postData'])) {
         $select = "SELECT `id` FROM `sales_persons` WHERE `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `email`='{$email}' AND `id`!='{$id}'";
         $query = mysqli_query($db, $select);
         if (mysqli_num_rows($query) > 0) {
-            echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'This user already exist.']);
+            echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'This Sales Person already exist.']);
         } else {
             $first_name = $db->real_escape_string(html_entity_decode(stripslashes(strip_tags($first_name))));
             $last_name = $db->real_escape_string(html_entity_decode(stripslashes(strip_tags($last_name))));
