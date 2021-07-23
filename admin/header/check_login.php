@@ -102,7 +102,7 @@ $DateInput = ' type="text" class="DatePicker e-input form-control" onfocus="open
 $TAttrs = ' type="text" class="form-control" onkeypress="formSubmitOnEnter(event)" ';
 $NAttrs = ' type="number" class="form-control" onkeypress="formSubmitOnEnter(event)" ';
 
-$SortField = ' type="text" class="form-control apply_max_length" onkeypress="formSubmitOnEnter(event), allowNumberOnly(event)" ';
+$AllowNumberOnly = ' type="text" class="form-control apply_max_length" onkeypress="formSubmitOnEnter(event), allowNumberOnly(event)" ';
 
 $ApplyMaxLengthAndTouchSpin = ' type="text" class="form-control apply_touch_spin apply_max_length" onkeypress="formSubmitOnEnter(event)" ';
 $ApplyMaxLength = ' type="text" class="form-control apply_max_length" onkeypress="formSubmitOnEnter(event)" ';
