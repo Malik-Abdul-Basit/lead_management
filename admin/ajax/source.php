@@ -39,7 +39,7 @@ if (isset($_POST['postData'])) {
 
         $checkExist = mysqli_query($db, "SELECT `id` FROM `sources` WHERE `name`='{$name}' AND `type`='{$type}' AND `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `id`!='{$id}' AND `deleted_at` IS NULL");
         if (mysqli_num_rows($checkExist) > 0) {
-            echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'Record already exist.']);
+            echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'This Source already exist.']);
         } else {
             if (!empty($id) && $id > 0) {
                 $query = "UPDATE `sources` SET `name`='{$name}',`sort_by`='{$sort_by}',`type`='{$type}',`updated_by`='{$user_id}' WHERE `id`='{$id}'";
