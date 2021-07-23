@@ -215,10 +215,10 @@ include_once("../includes/footer_script.php");
                 ],
                 "PageSizeStack": ["20", "40", "80", "100"]
             };
-            getAllUsers(filter);
+            getAllPageData(filter);
         }
 
-        function getAllUsers(filter) {
+        function getAllPageData(filter) {
             loader(true);
             $.ajax({
                 type: "POST", url: 'ajax/fetch/users.php',

@@ -155,7 +155,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
             while ($result = mysqli_fetch_assoc($query)) {
                 $row_number++;
                 $evenOrOdd = ($row_number % 2) == 1 ? 'odd' : 'even';
-                $data .= '<tr style="left:0" data-row="' . $row_number . '" class="datatable-row  datatable-row-' . $evenOrOdd . '">';
+                $data .= '<tr data-id="' . $result['id'] . '" data-row="' . $row_number . '" class="datatable-row  datatable-row-' . $evenOrOdd . '" style="left:0">';
                 if (isset($filters->Numbering) && !empty($filters->Numbering) && sizeof($filters->Numbering) > 0) {
                     $sr = (object)$filters->Numbering;
                     $sr_text = (isset($sr->text) && !empty($sr->text)) ? ' datatable-cell-' . $sr->text : '';
@@ -177,7 +177,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
 
                     $c_text = (isset($c->text) && !empty($c->text)) ? ' datatable-cell-' . $c->text : '';
                     $c_style = (isset($c->style) && !empty($c->style)) ? $c->style : '';
-                    $data .= '<td data-id="' . $result['id'] . '"  data-field="' . $c->field . '" class="datatable-cell' . $c_text . '">';
+                    $data .= '<td data-field="' . $c->field . '" class="datatable-cell' . $c_text . '">';
                     $data .= '<span ' . $c_style . '>' . $innerHTML . '</span>';
                     $data .= '</td>';
                 }

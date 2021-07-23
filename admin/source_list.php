@@ -151,6 +151,7 @@ include_once("../includes/footer_script.php");
             }
             var filter = {
                 'L':'<?php echo $user_right_title; ?>',
+                'T':'<?php echo $type; ?>',
                 'SearchQuery': SearchQuery,
                 'PageNumber': PageNumber,
                 'PageSize': PageSize,
@@ -163,7 +164,6 @@ include_once("../includes/footer_script.php");
                     'sort': false
                 },
                 'Header': [
-                    {'field': 'id', 'title': 'ID', 'text': 'left', 'style': 'style="width:50px"', 'sort': true},
                     {'field': 'name', 'title': 'Name', 'text': 'left', 'style': 'style="width:450px"', 'sort': true},
                     {
                         'field': 'sort_by',
@@ -182,13 +182,13 @@ include_once("../includes/footer_script.php");
                 },
                 "PageSizeStack": ["5", "10", "20", "30", "40", "50"]
             };
-            getAllDepartments(filter);
+            getAllPageData(filter);
         }
 
-        function getAllDepartments(filter) {
+        function getAllPageData(filter) {
             loader(true);
             $.ajax({
-                type: "POST", url: 'ajax/fetch/departments.php',
+                type: "POST", url: 'ajax/fetch/sources.php',
                 data: {'filters': filter},
                 success: function (resPonse) {
                     if (resPonse !== undefined && resPonse != '') {
@@ -223,7 +223,7 @@ include_once("../includes/footer_script.php");
                         loader(true);
                         $.ajax({
                             type: "POST", url: "ajax/delete.php",
-                            data: "delete_department=" + id,
+                            data: "delete_source=" + id,
                             success: function (resPonse) {
                                 if (resPonse !== undefined && resPonse != '') {
                                     var obj = JSON.parse(resPonse);
