@@ -281,10 +281,10 @@ include_once("../includes/footer_script.php");
                 },
                 "PageSizeStack": ["5", "10", "20", "30", "40", "50"]
             };
-            getAllData(filter);
+            getAllPageData(filter);
         }
 
-        function getAllData(filter) {
+        function getAllPageData(filter) {
             loader(true);
             $.ajax({
                 type: "POST", url: 'ajax/fetch/branches.php',

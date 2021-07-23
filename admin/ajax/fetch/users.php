@@ -100,7 +100,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                 $email_verification_status = empty($result['email_verified_at']) ? config('users.email_verified_at.unverified') : config('users.email_verified_at.verified');
 
                 $data .= '
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 float-left mt-8" data-item="' . $row_number . '">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 float-left mt-8" data-id="' . $result['id'] . '" data-item="' . $row_number . '">
                     <div class="card card-custom gutter-b card-stretch">
                         <div class="card-body card-header-right ribbon ribbon-clip ribbon-right text-center pt-5 px-3 pb-9">
                             <div class="ribbon-target" style="top:9px;padding: 3px 1px !important;">

@@ -93,7 +93,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                 $default_image = $checkImage['default'];
 
                 $data .= '
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 float-left mt-8" data-item="' . $row_number . '">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 float-left mt-8" data-id="' . $result['id'] . '" data-item="' . $row_number . '">
                     <div class="card card-custom gutter-b card-stretch">
                         <div class="card-body card-header-right ribbon ribbon-clip ribbon-right text-center pt-5 px-3 pb-9">
                             <div class="ribbon-target" style="top:9px;padding: 3px 1px !important;">
