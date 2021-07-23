@@ -87,7 +87,7 @@ if (isset($_POST['postData'])) {
                 $query = "UPDATE `campaigns` SET `name`='{$name}',`date`='{$date}',`source_id`='{$source_id}',`account_id`='{$account_id}',`campaign_type_id`='{$campaign_type_id}',`reach`='{$reach}',`good_responses`='{$good_responses}',`bad_responses`='{$bad_responses}',`follow_ups`='{$follow_ups}',`not_responses`='{$not_responses}',`updated_by`='{$user_id}' WHERE `id`='{$id}' AND `type`='{$type}' AND `company_id`='{$company_id}' AND `branch_id`='{$branch_id}'";
                 $form_reset = false;
             } else{
-                $query = "INSERT INTO `campaigns` (`id`, `name`, `date`, `type`, `source_id`, `account_id`, `campaign_type_id`, `reach `, `good_responses`, `bad_responses`, `follow_ups`, `not_responses`, `company_id`, `branch_id`, `added_by`) VALUES (NULL, '{$name}', '{$date}', '{$type}', '{$source_id}', '{$account_id}', '{$campaign_type_id}', '{$reach}', '{$good_responses}', '{$bad_responses}', '{$follow_ups}', '{$not_responses}', '{$company_id}', '{$branch_id}', '{$user_id}')";
+                $query = "INSERT INTO `campaigns` (`id`, `name`, `date`, `type`, `source_id`, `account_id`, `campaign_type_id`, `reach`, `good_responses`, `bad_responses`, `follow_ups`, `not_responses`, `company_id`, `branch_id`, `added_by`) VALUES (NULL, '{$name}', '{$date}', '{$type}', '{$source_id}', '{$account_id}', '{$campaign_type_id}', '{$reach}', '{$good_responses}', '{$bad_responses}', '{$follow_ups}', '{$not_responses}', '{$company_id}', '{$branch_id}', '{$user_id}')";
                 $form_reset = true;
             }
 
