@@ -80,7 +80,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="col-md-6">
 
                                                                 <div class="form-group">
-                                                                    <label>* Name:</label>
+                                                                    <label for="name">* Name:</label>
                                                                     <input maxlength="50" id="name"
                                                                            value="<?php echo $name; ?>" <?php echo $TAttrs . $onblur; ?>
                                                                            placeholder="Name"/>
@@ -91,7 +91,7 @@ include_once("../includes/mobile_menu.php");
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>* Company Status:</label>
+                                                                    <label for="status">* Company Status:</label>
                                                                     <select id="status" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <option selected="selected" value="">Select
                                                                         </option>
@@ -234,7 +234,7 @@ include_once("../includes/footer_script.php");
                                         document.getElementById(obj.errorField).style.borderColor = '#F00';
                                         document.getElementById(obj.errorDiv).innerText = obj.errorMessage;
                                         loader(false);
-                                        toasterTrigger('warning', obj.errorMessage);
+                                        toasterTrigger(toasterType, obj.errorMessage);
                                     }
                                 } else if (obj.code === 405 || obj.code === 200) {
                                     loader(false);

@@ -118,7 +118,7 @@ include_once("../includes/mobile_menu.php");
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label>* Email:</label>
+                                                                            <label for="email">* Email:</label>
                                                                             <input tabindex="30" id="email"
                                                                                    value="<?php echo $email; ?>" <?php echo $ApplyEmailMask; ?>
                                                                                    placeholder="Email"/>
@@ -404,7 +404,7 @@ include_once("../includes/footer_script.php");
                                             document.getElementById(obj.errorField).style.borderColor = '#F00';
                                             document.getElementById(obj.errorDiv).innerText = obj.errorMessage;
                                             loader(false);
-                                            toasterTrigger('warning', obj.errorMessage);
+                                            toasterTrigger(toasterType, obj.errorMessage);
                                         } else {
                                             loader(false);
                                         }

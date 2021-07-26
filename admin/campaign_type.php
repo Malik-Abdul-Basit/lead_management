@@ -75,9 +75,8 @@ include_once("../includes/mobile_menu.php");
                                                     <div class="mb-2">
                                                         <div class="row">
                                                             <div class="col-md-6">
-
                                                                 <div class="form-group">
-                                                                    <label>* Name:</label>
+                                                                    <label for="name">* Name:</label>
                                                                     <input maxlength="50" id="name"
                                                                            value="<?php echo $name; ?>" <?php echo $ApplyMaxLength . $onblur; ?>
                                                                            placeholder="Name"/>
@@ -86,20 +85,24 @@ include_once("../includes/mobile_menu.php");
                                                                               id="errorMessageName"></span>
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="form-group">
-                                                                    <label>* Sort By:</label>
-                                                                    <input maxlength="9" id="sort_by"
-                                                                           value="<?php echo $sort_by; ?>" <?php echo $SortField . $onblur; ?>
-                                                                           placeholder="Sort By"/>
-                                                                    <div class="error_wrapper">
-                                                                        <span class="text-danger"
-                                                                              id="errorMessageSortBy"></span>
-                                                                    </div>
-                                                                </div>
-
                                                             </div>
                                                         </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="sort_by">* Sort By:</label>
+                                                                    <input maxlength="9" id="sort_by"
+                                                                           value="<?php echo $sort_by; ?>" <?php echo $AllowNumberOnly . $onblur; ?>
+                                                                           placeholder="Sort By"/>
+                                                                    <div class="error_wrapper">
+                                                                                <span class="text-danger"
+                                                                                      id="errorMessageSortBy"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                                 <!--<div class="separator separator-dashed my-10"></div>-->
@@ -225,7 +228,7 @@ include_once("../includes/footer_script.php");
                                         document.getElementById(obj.errorField).style.borderColor = '#F00';
                                         document.getElementById(obj.errorDiv).innerText = obj.errorMessage;
                                         loader(false);
-                                        toasterTrigger('warning', obj.errorMessage);
+                                        toasterTrigger(toasterType, obj.errorMessage);
                                     } else {
                                         loader(false);
                                     }

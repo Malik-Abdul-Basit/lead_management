@@ -78,7 +78,7 @@ include_once("../includes/mobile_menu.php");
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label>* Name:</label>
+                                                                            <label for="name">* Name:</label>
                                                                             <input tabindex="10" maxlength="50"
                                                                                    id="name"
                                                                                    value="<?php echo $name; ?>" <?php echo $ApplyMaxLength . $onblur; ?>
@@ -94,7 +94,7 @@ include_once("../includes/mobile_menu.php");
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label>* Source:</label>
+                                                                            <label for="source_id">* Source:</label>
                                                                             <select tabindex="20"
                                                                                     id="source_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                                 <option selected="selected" value="">
@@ -212,11 +212,11 @@ include_once("../includes/footer_script.php");
                 return false;
             } else if (source_id.value == '') {
                 select2_source_id_container.style.borderColor = '#F00';
-                error = "Department field is required.";
+                error = "Source field is required.";
                 errorMessageSource.innerText = error;
                 toasterTrigger(toasterType, error);
                 return false;
-            } else if (isNaN(source_id.value) === true || source_id.value.length > 10 || source_id.value < 1) {
+            } else if (isNaN(source_id.value) === true || source_id.value.length > 10 || source_id.value <= 0) {
                 select2_source_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
                 errorMessageSource.innerText = error;

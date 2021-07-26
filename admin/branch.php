@@ -95,7 +95,7 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>* Name:</label>
+                                                                    <label for="name">* Name:</label>
                                                                     <input tabindex="5" maxlength="50" id="name"
                                                                            value="<?php echo $name; ?>" <?php echo $ApplyMaxLength . $onblur; ?>
                                                                            placeholder="Name"/>
@@ -107,7 +107,7 @@ include_once("../includes/mobile_menu.php");
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>* Company Email:</label>
+                                                                    <label for="company_email">* Company Email:</label>
                                                                     <input tabindex="10" id="company_email"
                                                                            value="<?php echo $company_email; ?>" <?php echo $ApplyEmailMask . $onblur; ?>
                                                                            placeholder="Company Email"/>
@@ -121,7 +121,7 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>* HR Email:</label>
+                                                                    <label for="hr_email">* HR Email:</label>
                                                                     <input tabindex="15" id="hr_email"
                                                                            value="<?php echo $hr_email; ?>" <?php echo $ApplyEmailMask . $onblur; ?>
                                                                            placeholder="HR Email"/>
@@ -133,7 +133,7 @@ include_once("../includes/mobile_menu.php");
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label> Other Email:</label>
+                                                                    <label for="other_email"> Other Email:</label>
                                                                     <input tabindex="20" id="other_email"
                                                                            value="<?php echo $other_email; ?>" <?php echo $ApplyEmailMask; ?>
                                                                            placeholder="Other Email"/>
@@ -147,7 +147,7 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>* Select Country:</label>
+                                                                    <label for="country_id">* Select Country:</label>
                                                                     <select tabindex="25" onchange="getStates(event)"
                                                                             id="country_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <option selected="selected" value="">Select
@@ -178,7 +178,7 @@ include_once("../includes/mobile_menu.php");
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>* Select State:</label>
+                                                                    <label for="state_id">* Select State:</label>
                                                                     <select tabindex="30" onchange="getCities(event)"
                                                                             id="state_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <?php
@@ -198,14 +198,14 @@ include_once("../includes/mobile_menu.php");
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>* Select City:</label>
+                                                                    <label for="city_id">* Select City:</label>
                                                                     <select tabindex="35"
                                                                             id="city_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <?php
                                                                         if (!empty($country_id) && !empty($state_id)) {
                                                                             echo getCities($state_id, $city_id);
                                                                         } else {
-                                                                            echo '<option selected="selected" value="">Select
+                                                                            echo '<option selected="selected" value="0">Select
                                                                         </option>';
                                                                         }
                                                                         ?>
@@ -220,7 +220,7 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>* Mobile No:
+                                                                    <label for="mobile">* Mobile No:
                                                                         <small>
                                                                             <a href="javascript:;">Example 300 777
                                                                                 8888</a>
@@ -249,7 +249,7 @@ include_once("../includes/mobile_menu.php");
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>Phone No:
+                                                                    <label for="phone">Phone No:
                                                                         <small>
                                                                             <a href="javascript:;">Example (041)
                                                                                 233-3333</a>
@@ -274,7 +274,7 @@ include_once("../includes/mobile_menu.php");
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>Fax:
+                                                                    <label for="fax">Fax:
                                                                         <small>
                                                                             <a href="javascript:;">Example (041)
                                                                                 233-3333</a>
@@ -301,7 +301,7 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Web:</label>
+                                                                    <label for="web">Web:</label>
                                                                     <input tabindex="55" id="web"
                                                                            value="<?php echo $web; ?>" <?php echo $TAttrs; ?>
                                                                            placeholder="Web"/>
@@ -311,7 +311,7 @@ include_once("../includes/mobile_menu.php");
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>* Status:</label>
+                                                                    <label for="status">* Status:</label>
                                                                     <select tabindex="60"
                                                                             id="status" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <option selected="selected" value="">Select
@@ -335,7 +335,7 @@ include_once("../includes/mobile_menu.php");
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>* Type:</label>
+                                                                    <label for="type">* Type:</label>
                                                                     <select tabindex="65"
                                                                             id="type" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <option selected="selected" value="">Select
@@ -361,7 +361,7 @@ include_once("../includes/mobile_menu.php");
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>* Address:</label>
+                                                                    <label for="address">* Address:</label>
                                                                     <textarea tabindex="75" rows="10"
                                                                               id="address" <?php echo $TAttrs . $onblur; ?> placeholder="Address"><?php echo $address; ?></textarea>
                                                                     <div class="error_wrapper">
@@ -526,7 +526,7 @@ include_once("../includes/footer_script.php");
                 errorMessageCountry.innerText = error;
                 toasterTrigger(toasterType, error);
                 return false;
-            } else if (isNaN(country_id.value) === true || country_id.value < 1 || country_id.value.length > 10) {
+            } else if (isNaN(country_id.value) === true || country_id.value <= 0 || country_id.value.length > 10) {
                 select2_country_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
                 errorMessageCountry.innerText = error;
@@ -538,7 +538,7 @@ include_once("../includes/footer_script.php");
                 errorMessageState.innerText = error;
                 toasterTrigger(toasterType, error);
                 return false;
-            } else if (isNaN(state_id.value) === true || state_id.value < 1 || state_id.value.length > 10) {
+            } else if (isNaN(state_id.value) === true || state_id.value <= 0 || state_id.value.length > 10) {
                 select2_state_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
                 errorMessageState.innerText = error;
@@ -550,7 +550,7 @@ include_once("../includes/footer_script.php");
                 errorMessageCity.innerText = error;
                 toasterTrigger(toasterType, error);
                 return false;
-            } else if (isNaN(city_id.value) === true || city_id.value < 1 || city_id.value.length > 10) {
+            } else if (isNaN(city_id.value) === true || city_id.value <= 0 || city_id.value.length > 10) {
                 select2_city_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
                 errorMessageCity.innerText = error;
@@ -657,7 +657,7 @@ include_once("../includes/footer_script.php");
                                         document.getElementById(obj.errorField).style.borderColor = '#F00';
                                         document.getElementById(obj.errorDiv).innerText = obj.errorMessage;
                                         loader(false);
-                                        toasterTrigger('warning', obj.errorMessage);
+                                        toasterTrigger(toasterType, obj.errorMessage);
                                     }
                                 } else if (obj.code === 405 || obj.code === 200) {
                                     if (obj.responseMessage !== undefined && obj.responseMessage != '') {

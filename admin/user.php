@@ -605,7 +605,7 @@ include_once("../includes/footer_script.php");
                                         document.getElementById(obj.errorField).style.borderColor = '#F00';
                                         document.getElementById(obj.errorDiv).innerText = obj.errorMessage;
                                         loader(false);
-                                        toasterTrigger('error', obj.errorMessage);
+                                        toasterTrigger(toasterType, obj.errorMessage);
                                     }
                                 } else if (obj.code === 405 || obj.code === 200) {
                                     if (obj.responseMessage !== undefined && obj.responseMessage != '') {
