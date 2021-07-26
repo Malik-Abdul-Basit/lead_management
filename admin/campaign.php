@@ -33,7 +33,7 @@ include_once("../includes/mobile_menu.php");
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <?php
-                                                $type = config('lang.page_type.title.'.$page);
+                                                $type = config('lang.page_type.title.' . $page);
                                                 if (isset($_GET['id'])) {
                                                     if (!hasRight($user_right_title, 'edit')) {
                                                         header('Location: ' . $page_not_found_url);
@@ -76,18 +76,22 @@ include_once("../includes/mobile_menu.php");
                                         <!--begin::Form-->
                                         <form class="form" id="myFORM" name="myFORM" method="post"
                                               enctype="multipart/form-data">
-                                            <input type="hidden" class="not-show" name="id" id="id" value="<?php echo $id; ?>"/>
-                                            <input type="hidden" class="not-show" name="type" id="type" value="<?php echo $type; ?>"/>
+                                            <input type="hidden" class="not-show" name="id" id="id"
+                                                   value="<?php echo $id; ?>"/>
+                                            <input type="hidden" class="not-show" name="type" id="type"
+                                                   value="<?php echo $type; ?>"/>
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <div class="mb-2">
+
                                                         <div class="row">
 
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="date">* Date:</label>
                                                                     <input tabindex="10" <?php echo $DateInput; ?>
-                                                                           id="date" value="<?php echo $date; ?>" placeholder="Date"">
+                                                                           id="date" value="<?php echo $date; ?>"
+                                                                           placeholder="Date"">
                                                                     <span class="e-clear-icon e-clear-icon-hide"
                                                                           aria-label="close" role="button"></span>
                                                                     <div class="error_wrapper">
@@ -112,7 +116,8 @@ include_once("../includes/mobile_menu.php");
 
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label for="campaign_type_id">* Campaign Type:</label>
+                                                                    <label for="campaign_type_id">* Campaign
+                                                                        Type:</label>
                                                                     <select tabindex="30"
                                                                             id="campaign_type_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <option selected="selected" value="0">
@@ -149,7 +154,8 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="source_id">* Source:</label>
-                                                                    <select tabindex="40"
+                                                                    <select onchange="getAccounts(this.value,'<?php echo $type; ?>')"
+                                                                            tabindex="40"
                                                                             id="source_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <option selected="selected" value="0">
                                                                             Select
@@ -185,7 +191,7 @@ include_once("../includes/mobile_menu.php");
                                                                             id="account_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                         <?php
                                                                         if (!empty($source_id)) {
-                                                                            echo getAccount($source_id, $type, $account_id);
+                                                                            echo getAccounts($source_id, $type, $account_id);
                                                                         } else {
                                                                             echo '<option selected="selected" value="0">Select
                                                                         </option>';
@@ -275,7 +281,6 @@ include_once("../includes/mobile_menu.php");
 
                                                         </div>
 
-
                                                     </div>
                                                 </div>
                                                 <!--<div class="separator separator-dashed my-10"></div>-->
@@ -351,7 +356,7 @@ include_once("../includes/footer_script.php");
 
             date.style.borderColor = name.style.borderColor = select2_campaign_type_id_container.style.borderColor = select2_source_id_container.style.borderColor = select2_account_id_container.style.borderColor = '#E4E6EF';
             reach.style.borderColor = good_responses.style.borderColor = bad_responses.style.borderColor = follow_ups.style.borderColor = not_responses.style.borderColor = '#E4E6EF';
-            errorMessageDate.innerText = errorMessageName.innerText = errorMessageCampaignType.innerText = errorMessageSource.innerText = errorMessageAccount.innerText =  "";
+            errorMessageDate.innerText = errorMessageName.innerText = errorMessageCampaignType.innerText = errorMessageSource.innerText = errorMessageAccount.innerText = "";
             errorMessageContact.innerText = errorMessageGoodResponses.innerText = errorMessageBadResponses.innerText = errorMessageFollowUps.innerText = errorMessageNotResponses.innerText = "";
 
             var error = '';
@@ -504,6 +509,26 @@ include_once("../includes/footer_script.php");
                                     if (obj.responseMessage !== undefined && obj.responseMessage != '') {
                                         if (obj.form_reset !== undefined && obj.form_reset) {
                                             document.getElementById("myFORM").reset();
+                                            document.getElementById('account_id').innerHTML = '<option selected="selected" value="0">Select</option>';
+
+                                            var campaign_type_id_container = document.getElementById("select2-campaign_type_id-container");
+                                            if (campaign_type_id_container) {
+                                                campaign_type_id_container.removeAttribute("title");
+                                                campaign_type_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                campaign_type_id.value = '0';
+                                            }
+                                            var source_id_container = document.getElementById("select2-source_id-container");
+                                            if (source_id_container) {
+                                                source_id_container.removeAttribute("title");
+                                                source_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                source_id.value = '0';
+                                            }
+                                            var account_id_container = document.getElementById("select2-account_id-container");
+                                            if (account_id_container) {
+                                                account_id_container.removeAttribute("title");
+                                                account_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                account_id.value = '0';
+                                            }
                                         }
                                         loader(false);
                                         toasterTrigger(obj.toasterClass, obj.responseMessage);
@@ -511,6 +536,33 @@ include_once("../includes/footer_script.php");
                                         loader(false);
                                     }
                                 }
+                            } else {
+                                loader(false);
+                            }
+                        } else {
+                            loader(false);
+                        }
+                    },
+                    error: function () {
+                        loader(false);
+                    }
+                });
+            }
+        }
+
+        function getAccounts(id, type) {
+            if (id > 0) {
+                loader(true);
+                var postData = {"id": id, "type": type, "account_id": 0};
+                $.ajax({
+                    type: "POST", url: "ajax/common.php",
+                    data: {'postData': postData, 'getAccounts': true},
+                    success: function (resPonse) {
+                        if (resPonse !== undefined && resPonse != '') {
+                            var obj = JSON.parse(resPonse);
+                            if (obj.code !== undefined && obj.code != '' && obj.code === 200 && obj.account_list !== undefined && obj.account_list != '' ) {
+                                document.getElementById('account_id').innerHTML=obj.account_list;
+                                loader(false);
                             } else {
                                 loader(false);
                             }

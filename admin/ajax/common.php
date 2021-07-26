@@ -81,7 +81,6 @@ if (isset($_POST['postData'], $_POST['getUserRights']) && $_POST['getUserRights'
     }
 }
 
-
 if (isset($_POST['postData'], $_POST['readNotification']) && $_POST['readNotification'] == true) {
 
     $object = (object)$_POST['postData'];
@@ -162,5 +161,23 @@ if (isset($_POST['postData'], $_POST['resetPassword']) && $_POST['resetPassword'
         }
     }
 }
+
+
+if (isset($_POST['postData'], $_POST['getAccounts']) && $_POST['getAccounts'] == true) {
+    $object = (object)$_POST['postData'];
+
+    $id = $object->id;
+    $type = $object->type;
+    $account_id = $object->account_id;
+    $account_list = getAccounts($id, $type, $account_id);
+    echo json_encode(["code" => 200, "account_list" => $account_list]);
+}
+
+
+
+
+
+
+
 
 ?>

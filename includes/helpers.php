@@ -1095,4 +1095,25 @@ if (!function_exists('changeSalesPersonImage')) {
 }
 
 
+if (!function_exists('getAccounts')) {
+    function getAccounts($id, $type, $account_id)
+    {
+        global $db;
+
+        $data = '<option selected="selected" value="0">Select</option>';
+        $select = "SELECT `id`, `name` FROM `accounts` WHERE `type`='{$type}' AND `source_id`='{$id}' AND `deleted_at` IS NULL ORDER BY `name` ASC";
+        $query = mysqli_query($db, $select);
+        if (mysqli_num_rows($query) > 0) {
+            while ($result = mysqli_fetch_object($query)) {
+                $selected = '';
+                if ($account_id == $result->id) {
+                    $selected = ' selected="selected" ';
+                }
+                $data .= '<option value="' . $result->id . '"' . $selected . '>' . $result->name . '</option>';
+            }
+        }
+        return $data;
+    }
+}
+
 ?>
