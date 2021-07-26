@@ -1100,7 +1100,7 @@ if (!function_exists('getAccounts')) {
     {
         global $db;
 
-        $data = '<option selected="selected" value="0">Select</option>';
+        $data = '<option selected="selected" value="-1">Select</option>';
         $select = "SELECT `id`, `name` FROM `accounts` WHERE `type`='{$type}' AND `source_id`='{$id}' AND `deleted_at` IS NULL ORDER BY `name` ASC";
         $query = mysqli_query($db, $select);
         if (mysqli_num_rows($query) > 0) {
