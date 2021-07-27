@@ -30,7 +30,7 @@ if (empty($_SESSION['company_id']) || empty($_SESSION['branch_id']) || empty($_S
     } else {
 
         $select_current_page = "SELECT child.id AS child_menu_id, child.display_name AS child_menu_name, child.sub_menu_id, child.user_right_title,
-        sub.name AS sub_menu_name, sub.main_menu_id, main.name AS main_menu_name,
+        sub.name AS sub_menu_name, sub.main_menu_id, main.name AS main_menu_name, main.icon,
         child.status AS child_status, sub.status AS sub_status, main.status AS main_status
         FROM
             child_menus AS child
@@ -54,6 +54,7 @@ if (empty($_SESSION['company_id']) || empty($_SESSION['branch_id']) || empty($_S
                 $sub_menu_name = $fetch_current_page->sub_menu_name;
                 $main_menu_id = $fetch_current_page->main_menu_id;
                 $main_menu_name = $fetch_current_page->main_menu_name;
+                $page_icon = $fetch_current_page->icon;
 
                 if (isset($_GET['id'])) {
                     if (!hasRight($user_right_title, 'edit')) {
@@ -92,7 +93,7 @@ if (empty($_SESSION['company_id']) || empty($_SESSION['branch_id']) || empty($_S
                 header('Location: ' . $page_not_found_url);
                 exit();
             }
-            $child_menu_id = $child_menu_name = $user_right_title = $sub_menu_id = $sub_menu_name = $main_menu_id = $main_menu_name = '';
+            $child_menu_id = $child_menu_name = $user_right_title = $sub_menu_id = $sub_menu_name = $main_menu_id = $main_menu_name =  $page_icon = '';
         }
     }
 }

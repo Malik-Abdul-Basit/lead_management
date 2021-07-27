@@ -48,7 +48,7 @@ include_once("../includes/mobile_menu.php");
                                         </div>
                                         <div class="card-header flex-wrap border-0 pt-6 pb-6">
                                             <!--begin::Search Form-->
-                                            <div class="mb-7 d-block" style="width: 100%">
+                                            <div class="d-block" style="width: 100%">
                                                 <div class="row align-items-center">
                                                     <div class="col-lg-12 col-xl-12">
                                                         <div class="row align-items-center">

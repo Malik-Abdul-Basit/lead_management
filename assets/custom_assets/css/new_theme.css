@@ -1,0 +1,246 @@
+#kt_aside_toggle,
+#kt_quick_panel_toggle,
+#kt_quick_user_toggle,
+#kt_subheader,
+#kt_header .topbar,
+.aside-menu .menu-nav li.menu-section {
+    display: none !important;
+    opacity: 0 !important;
+    width: 0 !important;
+}
+
+body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table{
+     background: #f3f7fd !important;
+ }
+
+.aside, .aside-menu {
+    background-color: #ffffff;
+}
+
+.aside-menu .menu-nav .menu-item .menu-link {
+    border-left: 4px solid transparent;
+    padding: 18px 30px;
+}
+
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item > .menu-link .menu-arrow {
+    color: #b8c9e0;
+}
+
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+    background-color: #f6fbff;
+}
+
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-arrow,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-arrow {
+    color: #1363ea;
+}
+
+.aside-menu .menu-nav .menu-item .menu-link .menu-icon .dark_color {
+    fill: #bac5d9;
+}
+
+.aside-menu .menu-nav .menu-item .menu-link .menu-icon .light_dark {
+    fill: #d8dfe9
+}
+
+.aside-menu .menu-nav .menu-item.menu-item-active .menu-link .menu-icon .dark_color,
+.aside-menu .menu-nav .menu-item.menu-item-open .menu-link .menu-icon .dark_color,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon .dark_color,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon .dark_color,
+.header.header-fixed .page-name .page-svg-icon-wrapper svg .dark_color {
+    fill: #2A66DF;
+}
+
+.aside-menu .menu-nav .menu-item.menu-item-open .menu-link .menu-icon .light_dark,
+.aside-menu .menu-nav .menu-item.menu-item-active .menu-link .menu-icon .light_dark,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon .light_dark,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon .light_dark,
+.header.header-fixed .page-name .page-svg-icon-wrapper svg .light_dark {
+    fill: #97CEFF;
+}
+
+.aside-menu .menu-nav .menu-item.menu-item-active .menu-link {
+    border-left: 4px solid;
+}
+
+.header.header-fixed, .brand {
+    height: 70px;
+}
+
+.brand {
+    border-bottom: 1px solid #e8ebf1;
+}
+
+
+.header.header-fixed .page-name {
+    align-items: center;
+    display: flex;
+    border-bottom: 2px solid #e8ebf1;
+    color: #16171a;
+    font-family:'montserratblack';
+    font-size: 24px;
+    justify-content: center;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+}
+
+.header.header-fixed .page-name .page-svg-icon-wrapper{
+    display: block;
+    margin: 0 10px 0 0;
+    width: 26px;
+}
+
+.header.header-fixed .page-name .page-svg-icon-wrapper svg{
+    vertical-align: text-bottom;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 992px) {
+    .header-fixed.subheader-fixed.subheader-enabled .wrapper {
+        padding-top: 70px;
+    }
+}

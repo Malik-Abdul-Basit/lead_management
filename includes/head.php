@@ -27,10 +27,7 @@
         <?php
     }
     ?>
-
-<!--    <link --><?php //echo $css_atr ?><!-- href="--><?php //echo $base_url ?><!--assets/time_picker/css/time_picker_style.css">-->
-<!--    <link --><?php //echo $css_atr ?><!-- href="--><?php //echo $base_url ?><!--assets/time_picker/css/timepicki.css">-->
-
+    <link <?php echo $css_atr ?> href="<?php echo $ct_assets ?>montserrat_font_face/montserrat.css"/>
     <link <?php echo $css_atr ?> href="<?php echo $tm_assets ?>plugins/global/plugins.bundle.css"/>
     <link <?php echo $css_atr ?> href="<?php echo $tm_assets ?>plugins/custom/prismjs/prismjs.bundle.css"/>
 

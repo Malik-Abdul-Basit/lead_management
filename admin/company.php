@@ -19,7 +19,7 @@ include_once("../includes/mobile_menu.php");
                 <!--begin::Content-->
                 <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
                     <!--begin::Breadcrumb-->
-                    <?php include_once('../includes/bread_crumb.php'); ?>
+                    <?php //include_once('../includes/bread_crumb.php'); ?>
                     <!--end::Breadcrumb-->
 
                     <!--begin::Entry-->
