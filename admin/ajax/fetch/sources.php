@@ -166,7 +166,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                                 $data .= '<a href="' . $admin_url . $filters->T . '_source?id=' . $result['id'] . '" class="btn btn-sm btn-clean btn-icon" title="Edit"><i class="la la-edit"></i></a>';
 
                             if (hasRight($filters->L, 'delete'))
-                                $data .= '<button type="button" onclick="entryDelete(' . $result['id'] . ')" class="btn btn-sm btn-clean btn-icon" title="Delete"><i class="la la-trash"></i></button>';
+                                $data .= '<button type="button" onclick="entryDelete(' . $result['id'] . ', \''.$filters->T.'\')" class="btn btn-sm btn-clean btn-icon" title="Delete"><i class="la la-trash"></i></button>';
 
                             $data .= '</span></td>';
                         }

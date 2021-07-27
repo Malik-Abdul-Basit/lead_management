@@ -1094,7 +1094,6 @@ if (!function_exists('changeSalesPersonImage')) {
     }
 }
 
-
 if (!function_exists('getAccounts')) {
     function getAccounts($id, $type, $account_id)
     {
