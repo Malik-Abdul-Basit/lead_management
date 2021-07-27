@@ -33,6 +33,7 @@ include_once("../includes/mobile_menu.php");
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <?php
+                                                $type = config('lang.page_type.title.' . $page);
                                                 if (isset($_GET['id'])) {
                                                     if (!hasRight($user_right_title, 'edit')) {
                                                         header('Location: ' . $page_not_found_url);
@@ -40,7 +41,7 @@ include_once("../includes/mobile_menu.php");
                                                     }
                                                     echo 'Edit ' . ucwords(str_replace("_", " ", $page));
                                                     $id = htmlentities($_GET['id']);
-                                                    $Q = "SELECT * FROM `leads` WHERE `id`='{$id}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
+                                                    $Q = "SELECT * FROM `leads` WHERE `id`='{$id}' AND `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
                                                     $Qry = mysqli_query($db, $Q);
                                                     $Rows = mysqli_num_rows($Qry);
                                                     if ($Rows != 1) {
@@ -49,20 +50,18 @@ include_once("../includes/mobile_menu.php");
                                                     } else {
                                                         $Result = mysqli_fetch_object($Qry);
                                                         $date = html_entity_decode(stripslashes(date('d-m-Y', strtotime($Result->date))));
-                                                        $user_id = html_entity_decode(stripslashes($Result->user_id));
-                                                        $category_id = html_entity_decode(stripslashes($Result->category_id));
-                                                        $sub_category_id = html_entity_decode(stripslashes($Result->sub_category_id));
+                                                        $sales_person_id = html_entity_decode(stripslashes($Result->sales_person_id));
+                                                        $campaign_id = html_entity_decode(stripslashes($Result->campaign_id));
                                                         $status = html_entity_decode(stripslashes($Result->status));
-
                                                         $business_name = html_entity_decode(stripslashes($Result->business_name));
+                                                        $respondent_name = html_entity_decode(stripslashes($Result->respondent_name));
                                                         $email = html_entity_decode(stripslashes($Result->email));
-                                                        $country_id = html_entity_decode(stripslashes($Result->country_id));
-                                                        $state_id = html_entity_decode(stripslashes($Result->state_id));
-                                                        $city_id = html_entity_decode(stripslashes($Result->city_id));
                                                         $dial_code = html_entity_decode(stripslashes($Result->dial_code));
-                                                        $mobile = html_entity_decode(stripslashes($Result->mobile));
+                                                        $contact_no = html_entity_decode(stripslashes($Result->contact_no));
                                                         $iso = html_entity_decode(stripslashes($Result->iso));
-                                                        $phone = html_entity_decode(stripslashes($Result->phone));
+                                                        $other_dial_code = html_entity_decode(stripslashes($Result->other_dial_code));
+                                                        $other_contact_no = html_entity_decode(stripslashes($Result->other_contact_no));
+                                                        $other_iso = html_entity_decode(stripslashes($Result->other_iso));
                                                         $fax = html_entity_decode(stripslashes($Result->fax));
                                                     }
                                                 } else {
@@ -71,13 +70,12 @@ include_once("../includes/mobile_menu.php");
                                                         exit();
                                                     }
                                                     echo 'Add ' . ucwords(str_replace("_", " ", $page));
-                                                    $id = $user_id = $category_id = $sub_category_id = $state_id = $city_id = 0;
+                                                    $id = $sales_person_id = $campaign_id = 0;
                                                     $date = date('d-m-Y');
                                                     $status = 1;
-                                                    $business_name = $email = $mobile = $phone = $fax = '';
-                                                    $country_id = 166;
-                                                    $dial_code = '92';
-                                                    $iso = 'pk';
+                                                    $business_name = $respondent_name = $email = $contact_no = $other_contact_no = $fax = '';
+                                                    $dial_code = $other_dial_code = '1';
+                                                    $iso = $other_iso = 'us';
                                                 }
                                                 $mobile_no_flag = '<img class="mr-1" src="' . $ct_assets . 'images/flags/' . $iso . '.png">+' . $dial_code;
                                                 ?>
@@ -86,7 +84,8 @@ include_once("../includes/mobile_menu.php");
                                         <!--begin::Form-->
                                         <form class="form" id="myFORM" name="myFORM" method="post"
                                               enctype="multipart/form-data">
-                                            <input type="hidden" name="id" id="id" value="<?php echo $id; ?>"/>
+                                            <input type="hidden" class="not-show" name="id" id="id" value="<?php echo $id; ?>"/>
+                                            <input type="hidden" class="not-show" name="type" id="type" value="<?php echo $type; ?>"/>
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <div class="mb-2">
@@ -118,19 +117,20 @@ include_once("../includes/mobile_menu.php");
                                                                     <!-- Sales Person -->
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label for="user_id">* Sales Person:</label>
+                                                                            <label for="sales_person_id">* Sales Person:</label>
                                                                             <select tabindex="20"
-                                                                                    id="user_id" <?php echo $Select2 . $onblur; ?>>
+                                                                                    id="sales_person_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                                 <option selected="selected" value="0">
                                                                                     Select
                                                                                 </option>
                                                                                 <?php
-                                                                                $select = "SELECT id, CONCAT(first_name,' ',last_name,' (',employee_code,')') AS name FROM `users` WHERE `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL ORDER BY `employee_code` ASC";
+                                                                                $active = config('sales_persons.status.value.activated');
+                                                                                $select = "SELECT id, CONCAT(first_name,' ',last_name,' (',email,')') AS name FROM `sales_persons` WHERE `status`='{$active}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL ORDER BY `first_name` ASC";
                                                                                 $query = mysqli_query($db, $select);
                                                                                 if (mysqli_num_rows($query) > 0) {
                                                                                     while ($result = mysqli_fetch_object($query)) {
                                                                                         $selected = '';
-                                                                                        if ($user_id == $result->id) {
+                                                                                        if ($sales_person_id == $result->id) {
                                                                                             $selected = 'selected="selected"';
                                                                                         }
                                                                                         ?>
@@ -143,7 +143,7 @@ include_once("../includes/mobile_menu.php");
                                                                             </select>
                                                                             <div class="error_wrapper">
                                                                         <span class="text-danger"
-                                                                              id="errorMessageUserId"></span>
+                                                                              id="errorMessageSalesPersonId"></span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -152,28 +152,27 @@ include_once("../includes/mobile_menu.php");
 
                                                                 <div class="row">
 
-                                                                    <!-- Category -->
-                                                                    <div class="col-md-4">
+                                                                    <!-- Campaign -->
+                                                                    <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label for="category_id">* Category:</label>
+                                                                            <label for="campaign_id">* Campaign:</label>
                                                                             <select tabindex="30"
-                                                                                    id="category_id" <?php echo $Select2 . $onblur; ?>
-                                                                                    onchange="getSubCategory(this.value, <?php echo $sub_category_id; ?>)">
+                                                                                    id="campaign_id" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                                 <option selected="selected" value="0">
                                                                                     Select
                                                                                 </option>
                                                                                 <?php
-                                                                                $select = "SELECT * FROM `categories` WHERE `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL ORDER BY `sort_by` ASC";
+                                                                                $select = "SELECT * FROM `campaigns` WHERE `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL ORDER BY `date` DESC";
                                                                                 $query = mysqli_query($db, $select);
                                                                                 if (mysqli_num_rows($query) > 0) {
                                                                                     while ($result = mysqli_fetch_object($query)) {
                                                                                         $selected = '';
-                                                                                        if ($category_id == $result->id) {
+                                                                                        if ($campaign_id == $result->id) {
                                                                                             $selected = 'selected="selected"';
                                                                                         }
                                                                                         ?>
                                                                                         <option <?php echo $selected; ?>
-                                                                                                value="<?php echo $result->id; ?>"><?php echo $result->name; ?></option>
+                                                                                                value="<?php echo $result->id; ?>"><?php echo $result->name.' ('. date('d-M-Y', strtotime($result->date)).') '; ?> </option>
                                                                                         <?php
                                                                                     }
                                                                                 }
@@ -181,40 +180,17 @@ include_once("../includes/mobile_menu.php");
                                                                             </select>
                                                                             <div class="error_wrapper">
                                                                         <span class="text-danger"
-                                                                              id="errorMessageCategoryId"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- Sub Category -->
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-group">
-                                                                            <label for="sub_category_id">Sub
-                                                                                Category:</label>
-                                                                            <select tabindex="40"
-                                                                                    id="sub_category_id" <?php echo $Select2; ?>>
-                                                                                <?php
-                                                                                if (!empty($category_id)) {
-                                                                                    echo getSubCategories($category_id, $sub_category_id);
-                                                                                } else {
-                                                                                    echo '<option selected="selected" value="">Select
-                                                                        </option>';
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-                                                                            <div class="error_wrapper">
-                                                                                <span class="text-danger"
-                                                                                      id="errorMessageSubCategoryId"></span>
+                                                                              id="errorMessageCampaignId"></span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
 
                                                                     <!-- Status -->
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label for="status">* Status</label>
-                                                                            <select tabindex="50"
-                                                                                    id="status" <?php echo $Select2 . $onblur; ?>>
+                                                                            <label for="status">* Status:</label>
+                                                                            <select tabindex="40"
+                                                                                    id="status" <?php echo $ApplySelect2 . $onblur; ?>>
                                                                                 <option value="0">Select</option>
                                                                                 <?php
                                                                                 foreach (config('leads.status.title') as $key => $val) {
@@ -247,14 +223,13 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="col-md-12">
                                                                 <div class="row">
 
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-4">
                                                                         <div class="form-group">
-                                                                            <label for="business_name">* Business / Respondent Name
-                                                                                :</label>
-                                                                            <input tabindex="60" maxlength="50"
+                                                                            <label for="business_name">Business Name:</label>
+                                                                            <input tabindex="50" maxlength="50"
                                                                                    id="business_name"
-                                                                                   value="<?php echo $business_name; ?>" <?php echo $TAttrs . $onblur; ?>
-                                                                                   placeholder="Business / Respondent Name"/>
+                                                                                   value="<?php echo $business_name; ?>" <?php echo $ApplyMaxLength; ?>
+                                                                                   placeholder="Business Name"/>
                                                                             <div class="error_wrapper">
                                                                         <span class="text-danger"
                                                                               id="errorMessageBusinessName"></span>
@@ -262,11 +237,25 @@ include_once("../includes/mobile_menu.php");
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-4">
                                                                         <div class="form-group">
-                                                                            <label> Email:</label>
+                                                                            <label for="respondent_name">Respondent Name:</label>
+                                                                            <input tabindex="60" maxlength="50"
+                                                                                   id="respondent_name"
+                                                                                   value="<?php echo $respondent_name; ?>" <?php echo $ApplyMaxLength; ?>
+                                                                                   placeholder="Respondent Name"/>
+                                                                            <div class="error_wrapper">
+                                                                        <span class="text-danger"
+                                                                              id="errorMessageRespondentName"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="email"> Email:</label>
                                                                             <input tabindex="70" id="email"
-                                                                                   value="<?php echo $email; ?>" <?php echo $TAttrs . $onblur; ?>
+                                                                                   value="<?php echo $email; ?>" <?php echo $ApplyEmailMask; ?>
                                                                                    placeholder="Email"/>
                                                                             <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -277,96 +266,18 @@ include_once("../includes/mobile_menu.php");
 
                                                                 </div>
 
-
                                                                 <div class="row">
                                                                     <div class="col-md-4">
                                                                         <div class="form-group">
-                                                                            <label>* Select Country:</label>
-                                                                            <select tabindex="80"
-                                                                                    id="country_id" <?php echo $TAttrs . $onblur; ?>>
-                                                                                <option selected="selected" value="">
-                                                                                    Select
-                                                                                </option>
-                                                                                <?php
-                                                                                $select = "SELECT * FROM `countries`";
-                                                                                $query = mysqli_query($db, $select);
-                                                                                if (mysqli_num_rows($query) > 0) {
-                                                                                    while ($result = mysqli_fetch_object($query)) {
-                                                                                        $selected = '';
-                                                                                        if ($country_id == $result->id) {
-                                                                                            $selected = 'selected="selected"';
-                                                                                        }
-                                                                                        ?>
-                                                                                        <option data-dial_code="<?php echo $result->dial_code; ?>"
-                                                                                                data-iso="<?php echo strtolower($result->iso); ?>" <?php echo $selected; ?>
-                                                                                                value="<?php echo $result->id; ?>"><?php echo $result->country_name; ?></option>
-                                                                                        <?php
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-                                                                            <div class="error_wrapper">
-                                                                        <span class="text-danger"
-                                                                              id="errorMessageCountry"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-group">
-                                                                            <label> Select State:</label>
-                                                                            <select tabindex="90"
-                                                                                    onchange="getCities(event)"
-                                                                                    id="state_id" <?php echo $TAttrs . $onblur; ?>>
-                                                                                <?php
-                                                                                if (!empty($country_id)) {
-                                                                                    echo getStates($country_id, $state_id);
-                                                                                } else {
-                                                                                    echo '<option selected="selected" value="">Select
-                                                                        </option>';
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-                                                                            <div class="error_wrapper">
-                                                                        <span class="text-danger"
-                                                                              id="errorMessageState"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-group">
-                                                                            <label> Select City:</label>
-                                                                            <select tabindex="100"
-                                                                                    id="city_id" <?php echo $TAttrs . $onblur; ?>>
-                                                                                <?php
-                                                                                if (!empty($country_id) && !empty($state_id)) {
-                                                                                    echo getCities($state_id, $city_id);
-                                                                                } else {
-                                                                                    echo '<option selected="selected" value="">Select
-                                                                        </option>';
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-                                                                            <div class="error_wrapper">
-                                                                        <span class="text-danger"
-                                                                              id="errorMessageCity"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="row">
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-group">
-                                                                            <label> Mobile No:
+                                                                            <label for="contact_no"> Contact No:
                                                                                 <small>
                                                                                     <a href="javascript:;">Example
                                                                                         300-777
                                                                                         8888</a>
                                                                                 </small>
                                                                             </label>
-                                                                            <input tabindex="620" id="dial_code"
-                                                                                   class="not-display" type="hidden"
+                                                                            <input tabindex="1010" id="dial_code"
+                                                                                   class="not-show" type="hidden"
                                                                                    value="<?php echo $dial_code; ?>">
                                                                             <div class="input-group">
                                                                                 <div class="input-group-prepend"><span
@@ -374,44 +285,50 @@ include_once("../includes/mobile_menu.php");
                                                                                             id="mobile_no_flag"><?php echo $mobile_no_flag; ?></span>
                                                                                 </div>
                                                                                 <input tabindex="120" maxlength="12"
-                                                                                       id="mobile"
-                                                                                       value="<?php echo $mobile; ?>" <?php echo $TAttrs . $onblur; ?>
-                                                                                       placeholder="Mobile No"/>
+                                                                                       id="contact_no"
+                                                                                       value="<?php echo $contact_no; ?>" <?php echo $ApplyMobileMask . $onblur; ?>
+                                                                                       placeholder="Contact No"/>
                                                                             </div>
-                                                                            <input tabindex="720" id="iso"
-                                                                                   class="not-display"
+                                                                            <input tabindex="1020" id="iso"
+                                                                                   class="not-show"
                                                                                    type="hidden"
                                                                                    value="<?php echo $iso; ?>">
                                                                             <div class="error_wrapper">
                                                                         <span class="text-danger"
-                                                                              id="errorMessageMobile"></span>
+                                                                              id="errorMessageContactNo"></span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-4">
                                                                         <div class="form-group">
-                                                                            <label>Phone No:
+                                                                            <label for="other_contact_no"> Other Contact No:
                                                                                 <small>
-                                                                                    <a href="javascript:;">Example (041)
-                                                                                        233-3333</a>
+                                                                                    <a href="javascript:;">Example
+                                                                                        300-777
+                                                                                        8888</a>
                                                                                 </small>
                                                                             </label>
-
+                                                                            <input tabindex="1060" id="other_dial_code"
+                                                                                   class="not-show" type="hidden"
+                                                                                   value="<?php echo $other_dial_code; ?>">
                                                                             <div class="input-group">
                                                                                 <div class="input-group-prepend"><span
-                                                                                            class="input-group-text"><i
-                                                                                                class="la la-phone"></i></span>
+                                                                                            class="input-group-text"
+                                                                                            id="mobile_no_flag"><?php echo $mobile_no_flag; ?></span>
                                                                                 </div>
-                                                                                <input tabindex="130" maxlength="14"
-                                                                                       id="phone"
-                                                                                       value="<?php echo $phone; ?>" <?php echo $TAttrs; ?>
-                                                                                       placeholder="Phone No"/>
+                                                                                <input tabindex="130" maxlength="12"
+                                                                                       id="other_contact_no"
+                                                                                       value="<?php echo $other_contact_no; ?>" <?php echo $ApplyMobileMask . $onblur; ?>
+                                                                                       placeholder="Other Contact No"/>
                                                                             </div>
-
+                                                                            <input tabindex="1070" id="other_iso"
+                                                                                   class="not-show"
+                                                                                   type="hidden"
+                                                                                   value="<?php echo $other_iso; ?>">
                                                                             <div class="error_wrapper">
                                                                         <span class="text-danger"
-                                                                              id="errorMessagePhone"></span>
+                                                                              id="errorMessageOtherContactNo"></span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -434,7 +351,7 @@ include_once("../includes/mobile_menu.php");
 
                                                                                 <input tabindex="140" maxlength="14"
                                                                                        id="fax"
-                                                                                       value="<?php echo $fax; ?>" <?php echo $TAttrs; ?>
+                                                                                       value="<?php echo $fax; ?>" <?php echo $ApplyFaxMask; ?>
                                                                                        placeholder="Fax"/>
                                                                             </div>
                                                                             <div class="error_wrapper">
@@ -459,13 +376,17 @@ include_once("../includes/mobile_menu.php");
                                                     <div class="mb-2">
                                                         <div id="Data_Holder_Parent_Div">
                                                             <div class="row">
-                                                                <div class="col-md-1 column text-center"><b>Sr.</b>
+                                                                <div class="col-md-1 column text-center">
+                                                                    <b>Sr.</b>
                                                                 </div>
-                                                                <div class="col-md-6 column">
-                                                                    <b>* Question</b>
+                                                                <div class="col-md-3 column">
+                                                                    <b>Respondent Message</b>
                                                                 </div>
-                                                                <div class="col-md-5 column">
-                                                                    <b> Answer</b>
+                                                                <div class="col-md-4 column">
+                                                                    <b>Our Message</b>
+                                                                </div>
+                                                                <div class="col-md-4 column">
+                                                                    <b>Our Note</b>
                                                                 </div>
                                                             </div>
 
@@ -494,20 +415,30 @@ include_once("../includes/mobile_menu.php");
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-6 column">
+                                                                                <div class="col-md-3 column">
                                                                                     <div class="form-group">
-                                                                                <textarea class="form-control"
-                                                                                          id="question<?php echo $i; ?>"
-                                                                                          placeholder="Question"><?php echo $object_lead_messages->question; ?></textarea>
+                                                                                        <textarea class="form-control"
+                                                                                          id="respondent_message<?php echo $i; ?>"
+                                                                                          placeholder="Respondent Message"><?php echo $object_lead_messages->respondent_message; ?></textarea>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-5 column">
+
+                                                                                <div class="col-md-4 column">
                                                                                     <div class="form-group">
-                                                                                <textarea class="form-control"
-                                                                                          id="answer<?php echo $i; ?>"
-                                                                                          placeholder="Answer"><?php echo $object_lead_messages->answer; ?></textarea>
+                                                                                        <textarea class="form-control"
+                                                                                          id="our_message<?php echo $i; ?>"
+                                                                                          placeholder="Our Message"><?php echo $object_lead_messages->our_message; ?></textarea>
                                                                                     </div>
                                                                                 </div>
+
+                                                                                <div class="col-md-4 column">
+                                                                                    <div class="form-group">
+                                                                                        <textarea class="form-control"
+                                                                                          id="our_note<?php echo $i; ?>"
+                                                                                          placeholder="Our Note"><?php echo $object_lead_messages->our_note; ?></textarea>
+                                                                                    </div>
+                                                                                </div>
+
                                                                             </div>
                                                                             <?php
                                                                             $i++;
@@ -531,18 +462,25 @@ include_once("../includes/mobile_menu.php");
                                                                                 </label>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-6 column">
+                                                                        <div class="col-md-3 column">
                                                                             <div class="form-group">
                                                                                 <textarea class="form-control"
-                                                                                          id="question<?php echo $i; ?>"
-                                                                                          placeholder="Question"></textarea>
+                                                                                          id="respondent_message<?php echo $i; ?>"
+                                                                                          placeholder="Respondent Message"></textarea>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-5 column">
+                                                                        <div class="col-md-4 column">
                                                                             <div class="form-group">
                                                                                 <textarea class="form-control"
-                                                                                          id="answer<?php echo $i; ?>"
-                                                                                          placeholder="Answer"></textarea>
+                                                                                          id="our_message<?php echo $i; ?>"
+                                                                                          placeholder="Our Message"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 column">
+                                                                            <div class="form-group">
+                                                                                <textarea class="form-control"
+                                                                                          id="our_note<?php echo $i; ?>"
+                                                                                          placeholder="Our Note"></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -598,77 +536,58 @@ include_once("../includes/footer_script.php");
     <script>
 
         function saveFORM() {
-
-            var validName = /[^a-zA-Z0-9-.@_&' ]/;
-            var validDate = /^(0[1-9]|1\d|2\d|3[01])\-(0[1-9]|1[0-2])\-(19|20)\d{2}$/;
-            var validEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-            var validContactNumber = /^[\-)( ]*([0-9]{3})[\-)( ]*([0-9]{3})[\-)( ]*([0-9]{4})$/;
-            var validMesg = /[^a-zA-Z0-9+-._,@&#/' ]/;
-
-            var statusArray = [<?php echo '"' . implode('","', array_values(config('leads.status.value'))) . '"' ?>];
-
             var A = '<?php echo hasRight($user_right_title, 'add') ?>';
             var E = '<?php echo hasRight($user_right_title, 'edit') ?>';
 
+            var statusArray = [<?php echo '"' . implode('","', array_values(config('leads.status.value'))) . '"' ?>];
+
             var id = document.getElementById('id');
+            var type = document.getElementById('type');
             var date = document.getElementById('date');
-            var user_id = document.getElementById('user_id');
-            var select2_user_id_container = document.querySelector("[aria-labelledby='select2-user_id-container']");
-            var category_id = document.getElementById('category_id');
-            var select2_category_id_container = document.querySelector("[aria-labelledby='select2-category_id-container']");
-            var sub_category_id = document.getElementById('sub_category_id');
-            var select2_sub_category_id_container = document.querySelector("[aria-labelledby='select2-sub_category_id-container']");
+            var sales_person_id = document.getElementById('sales_person_id');
+            var select2_sales_person_id_container = document.querySelector("[aria-labelledby='select2-sales_person_id-container']");
+            var campaign_id = document.getElementById('campaign_id');
+            var select2_campaign_id_container = document.querySelector("[aria-labelledby='select2-campaign_id-container']");
             var status = document.getElementById('status');
             var select2_status_container = document.querySelector("[aria-labelledby='select2-status-container']");
 
             var business_name = document.getElementById('business_name');
+            var respondent_name = document.getElementById('respondent_name');
             var email = document.getElementById('email');
-            var country_id = document.getElementById('country_id');
-            var select2_country_id_container = document.querySelector("[aria-labelledby='select2-country_id-container']");
-            var state_id = document.getElementById('state_id');
-            var select2_state_id_container = document.querySelector("[aria-labelledby='select2-state_id-container']");
-            var city_id = document.getElementById('city_id');
-            var select2_city_id_container = document.querySelector("[aria-labelledby='select2-city_id-container']");
             var dial_code = document.getElementById('dial_code');
-            var mobile = document.getElementById('mobile');
+            var contact_no = document.getElementById('contact_no');
             var iso = document.getElementById('iso');
-            var phone = document.getElementById('phone');
+            var other_dial_code = document.getElementById('other_dial_code');
+            var other_contact_no = document.getElementById('other_contact_no');
+            var other_iso = document.getElementById('other_iso');
             var fax = document.getElementById('fax');
 
-
-            if (sub_category_id.value != '' && isNaN(sub_category_id.value) === false && sub_category_id.value > 0 && sub_category_id.value.length <= 10) {
-                sub_category_id = sub_category_id.value;
-            } else {
-                sub_category_id = 0;
-            }
-
             var errorMessageDate = document.getElementById('errorMessageDate');
-            var errorMessageUserId = document.getElementById('errorMessageUserId');
-            var errorMessageCategoryId = document.getElementById('errorMessageCategoryId');
-            var errorMessageSubCategoryId = document.getElementById('errorMessageSubCategoryId');
+            var errorMessageSalesPersonId = document.getElementById('errorMessageSalesPersonId');
+            var errorMessageCampaignId = document.getElementById('errorMessageCampaignId');
             var errorMessageStatus = document.getElementById('errorMessageStatus');
 
             var errorMessageBusinessName = document.getElementById('errorMessageBusinessName');
+            var errorMessageRespondentName = document.getElementById('errorMessageRespondentName');
             var errorMessageEmail = document.getElementById('errorMessageEmail');
 
-            var errorMessageCountry = document.getElementById('errorMessageCountry');
-            var errorMessageState = document.getElementById('errorMessageState');
-            var errorMessageCity = document.getElementById('errorMessageCity');
-            var errorMessageMobile = document.getElementById('errorMessageMobile');
-            var errorMessagePhone = document.getElementById('errorMessagePhone');
+            var errorMessageContactNo = document.getElementById('errorMessageContactNo');
+            var errorMessageOtherContactNo = document.getElementById('errorMessageOtherContactNo');
             var errorMessageFax = document.getElementById('errorMessageFax');
 
-            date.style.borderColor = select2_user_id_container.style.borderColor = select2_category_id_container.style.borderColor = select2_sub_category_id_container.style.borderColor = select2_status_container.style.borderColor = '#E4E6EF';
-            business_name.style.borderColor = email.style.borderColor = select2_country_id_container.style.borderColor = select2_state_id_container.style.borderColor = select2_city_id_container.style.borderColor = mobile.style.borderColor = phone.style.borderColor = fax.style.borderColor = '#E4E6EF';
-            errorMessageDate.innerText = errorMessageUserId.innerText = errorMessageCategoryId.innerText = errorMessageSubCategoryId.innerText = errorMessageStatus.innerText = '';
-            errorMessageBusinessName.innerText = errorMessageEmail.innerText = errorMessageCountry.innerText = errorMessageState.innerText = errorMessageCity.innerText = errorMessageMobile.innerText = errorMessagePhone.innerText = errorMessageFax.innerText = '';
+            date.style.borderColor = select2_sales_person_id_container.style.borderColor = select2_campaign_id_container.style.borderColor = select2_status_container.style.borderColor = '#E4E6EF';
+            business_name.style.borderColor = respondent_name.style.borderColor = email.style.borderColor = contact_no.style.borderColor = other_contact_no.style.borderColor = fax.style.borderColor = '#E4E6EF';
+            errorMessageDate.innerText = errorMessageSalesPersonId.innerText = errorMessageCampaignId.innerText = errorMessageStatus.innerText = '';
+            errorMessageBusinessName.innerText = errorMessageRespondentName.innerText = errorMessageEmail.innerText = errorMessageContactNo.innerText = errorMessageOtherContactNo.innerText = errorMessageFax.innerText = '';
 
             var checkedValue = null;
-            var error = '';
             var continueProcessing = false;
             var data = [];
             var message = 'Please checked at least one Communication.';
             var inputElements = document.getElementsByClassName('lineRepresentativeBox');
+
+            var error = '';
+            var toasterType = 'error';
 
 
             if (id.value == 0 && A == '') {
@@ -680,191 +599,162 @@ include_once("../includes/footer_script.php");
             } else if (date.value == '') {
                 date.style.borderColor = '#F00';
                 error = "Date field is required.";
-                toasterTrigger('error', error);
                 errorMessageDate.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (!(validDate.test(date.value)) || date.value.length !== 10) {
+            } else if (invalidDate(date.value) || date.value.length !== 10) {
                 date.style.borderColor = '#F00';
                 error = "Please select a valid date.";
-                toasterTrigger('error', error);
                 errorMessageDate.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (user_id.value == '') {
-                select2_user_id_container.style.borderColor = '#F00';
+            } else if (sales_person_id.value == '' || sales_person_id.value <= 0) {
+                select2_sales_person_id_container.style.borderColor = '#F00';
                 error = "Sales Person field is required.";
-                toasterTrigger('error', error);
-                errorMessageUserId.innerText = error;
+                errorMessageSalesPersonId.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (isNaN(user_id.value) === true || user_id.value.length > 10) {
-                select2_user_id_container.style.borderColor = '#F00';
+            } else if (isNaN(sales_person_id.value) === true || sales_person_id.value.length > 10) {
+                select2_sales_person_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
-                errorMessageUserId.innerText = error;
+                errorMessageSalesPersonId.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (user_id.value < 1) {
-                select2_user_id_container.style.borderColor = '#F00';
-                error = "Sales Person field is required.";
-                toasterTrigger('error', error);
-                errorMessageUserId.innerText = error;
+            } else if (campaign_id.value == '' || campaign_id.value <= 0) {
+                select2_campaign_id_container.style.borderColor = '#F00';
+                error = "Campaign field is required.";
+                errorMessageCampaignId.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (category_id.value == '') {
-                select2_category_id_container.style.borderColor = '#F00';
-                error = "Category field is required.";
-                toasterTrigger('error', error);
-                errorMessageCategoryId.innerText = error;
-                return false;
-            } else if (isNaN(category_id.value) === true || category_id.value.length > 10) {
-                select2_category_id_container.style.borderColor = '#F00';
+            } else if (isNaN(campaign_id.value) === true || campaign_id.value.length > 10) {
+                select2_campaign_id_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
-                errorMessageCategoryId.innerText = error;
-                return false;
-            } else if (category_id.value < 1) {
-                select2_category_id_container.style.borderColor = '#F00';
-                error = "Category field is required.";
-                toasterTrigger('error', error);
-                errorMessageCategoryId.innerText = error;
+                errorMessageCampaignId.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (status.value == '' || status.value == 0) {
                 select2_status_container.style.borderColor = '#F00';
                 error = "Status field is required.";
-                toasterTrigger('error', error);
                 errorMessageStatus.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (statusArray.includes(status.value) == false || isNaN(status.value) === true || status.value.length > 3) {
                 select2_status_container.style.borderColor = '#F00';
                 error = "Please select a valid option.";
-                toasterTrigger('error', error);
                 errorMessageStatus.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (business_name.value == '') {
+            } else if (business_name.value == '' && respondent_name.value == '' && email.value == '') {
                 business_name.style.borderColor = '#F00';
-                error = "Business / Respondent Name field is required.";
-                toasterTrigger('error', error);
-                errorMessageBusinessName.innerText = error;
+                respondent_name.style.borderColor = '#F00';
+                email.style.borderColor = '#F00';
+                error = "To save this record please fill the data at least in any of these fields (Business Name,Respondent Name,Email)";
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (validName.test(business_name.value)) {
+            } else if (business_name.value != '' && invalidName(business_name.value)) {
                 business_name.style.borderColor = '#F00';
                 error = "Special Characters are not Allowed.";
-                toasterTrigger('error', error);
                 errorMessageBusinessName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (business_name.value.length > 50) {
+            } else if (business_name.value != '' && business_name.value.length > 50) {
                 business_name.style.borderColor = '#F00';
                 error = "Length should not exceed 50 characters.";
-                toasterTrigger('error', error);
                 errorMessageBusinessName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            }/* else if (email.value == '') {
-                email.style.borderColor = '#F00';
-                error = "Email field is required.";
-                toasterTrigger('error', error);
-                errorMessageEmail.innerText = error;
+            } else if (respondent_name.value != '' && invalidName(respondent_name.value)) {
+                respondent_name.style.borderColor = '#F00';
+                error = "Special Characters are not Allowed.";
+                errorMessageRespondentName.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            }*/ else if (email.value != '' && validEmail.test(email.value) == false) {
+            } else if (respondent_name.value != '' && respondent_name.value.length > 50) {
+                respondent_name.style.borderColor = '#F00';
+                error = "Length should not exceed 50 characters.";
+                errorMessageRespondentName.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (email.value != '' && invalidEmail(email.value)) {
                 email.style.borderColor = '#F00';
                 error = "Invalid Email Address.";
-                toasterTrigger('error', error);
                 errorMessageEmail.innerText = error;
-                return false;
-            } else if (country_id.value == '') {
-                select2_country_id_container.style.borderColor = '#F00';
-                error = "Country field is required.";
-                toasterTrigger('error', error);
-                errorMessageCountry.innerText = error;
-                return false;
-            } else if (isNaN(country_id.value) === true || country_id.value <= 0 || country_id.value.length > 10) {
-                select2_country_id_container.style.borderColor = '#F00';
-                error = "Please select a valid option.";
-                toasterTrigger('error', error);
-                errorMessageCountry.innerText = error;
-                return false;
-            }/* else if (state_id.value == '') {
-                select2_state_id_container.style.borderColor = '#F00';
-                error = "State field is required.";
-                toasterTrigger('error', error);
-                errorMessageState.innerText = error;
-                return false;
-            }*/ else if (state_id.value != '' && (isNaN(state_id.value) === true || state_id.value <= 0 || state_id.value.length > 10)) {
-                select2_state_id_container.style.borderColor = '#F00';
-                error = "Please select a valid option.";
-                toasterTrigger('error', error);
-                errorMessageState.innerText = error;
-                return false;
-            }/* else if (city_id.value == '') {
-                select2_city_id_container.style.borderColor = '#F00';
-                error = "City field is required.";
-                toasterTrigger('error', error);
-                errorMessageCity.innerText = error;
-                return false;
-            }*/ else if (city_id.value != '' && (isNaN(city_id.value) === true || city_id.value <= 0 || city_id.value.length > 10)) {
-                select2_city_id_container.style.borderColor = '#F00';
-                error = "Please select a valid option.";
-                toasterTrigger('error', error);
-                errorMessageCity.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else if (dial_code.value == '' || isNaN(dial_code.value) === true || dial_code.value <= 0 || dial_code.value.length > 9) {
-                mobile.style.borderColor = '#F00';
+                contact_no.style.borderColor = '#F00';
                 error = "Invalid country dial code.";
-                toasterTrigger('error', error);
-                errorMessageMobile.innerText = error;
+                errorMessageContactNo.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } /*else if (mobile.value == '') {
-                mobile.style.borderColor = '#F00';
-                error = "Mobile No field is required.";
-                toasterTrigger('error', error);
-                errorMessageMobile.innerText = error;
+            } else if (contact_no.value != '' && (invalidContactNumber(contact_no.value) || contact_no.value.length !== 12)) {
+                contact_no.style.borderColor = '#F00';
+                error = "Invalid Contact No.";
+                errorMessageContactNo.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            }*/ else if (mobile.value != '' && (validContactNumber.test(mobile.value) == false || mobile.value.length !== 12)) {
-                mobile.style.borderColor = '#F00';
-                error = "Invalid Mobile No.";
-                toasterTrigger('error', error);
-                errorMessageMobile.innerText = error;
-                return false;
-            } else if (iso.value == '' || iso.value.length > 3 || validName.test(iso.value)) {
-                mobile.style.borderColor = '#F00';
+            } else if (iso.value == '' || iso.value.length > 3 || invalidName(iso.value)) {
+                contact_no.style.borderColor = '#F00';
                 error = "Invalid country iso.";
-                toasterTrigger('error', error);
-                errorMessageMobile.innerText = error;
+                errorMessageContactNo.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (phone.value != '' && (validContactNumber.test(phone.value) == false || phone.value.length !== 14)) {
-                phone.style.borderColor = '#F00';
-                error = "Invalid Phone number.";
-                toasterTrigger('error', error);
-                errorMessagePhone.innerText = error;
+            } else if (other_dial_code.value == '' || isNaN(other_dial_code.value) === true || other_dial_code.value <= 0 || other_dial_code.value.length > 9) {
+                other_contact_no.style.borderColor = '#F00';
+                error = "Invalid country dial code.";
+                errorMessageOtherContactNo.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
-            } else if (fax.value != '' && (validContactNumber.test(fax.value) == false || fax.value.length != 14)) {
+            } else if (other_contact_no.value != '' && (invalidContactNumber(other_contact_no.value) || other_contact_no.value.length !== 12)) {
+                other_contact_no.style.borderColor = '#F00';
+                error = "Invalid Other Contact No.";
+                errorMessageOtherContactNo.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (other_iso.value == '' || other_iso.value.length > 3 || invalidName(other_iso.value)) {
+                other_contact_no.style.borderColor = '#F00';
+                error = "Invalid country iso.";
+                errorMessageOtherContactNo.innerText = error;
+                toasterTrigger(toasterType, error);
+                return false;
+            } else if (fax.value != '' && (invalidContactNumber(fax.value) || fax.value.length != 14)) {
                 fax.style.borderColor = '#F00';
                 error = "Invalid Fax number.";
-                toasterTrigger('error', error);
                 errorMessageFax.innerText = error;
+                toasterTrigger(toasterType, error);
                 return false;
             } else {
+
                 for (var i = 0; inputElements[i]; ++i) {
                     if (inputElements[i].checked) {
                         checkedValue = inputElements[i].value;
-                        var question = document.getElementById('question' + checkedValue);
-                        var answer = document.getElementById('answer' + checkedValue);
+                        var respondent_message = document.getElementById('respondent_message' + checkedValue);
+                        var our_message = document.getElementById('our_message' + checkedValue);
+                        var our_note = document.getElementById('our_note' + checkedValue);
 
-                        if (question.value == '') {
-                            question.style.borderColor = '#F00';
-                            message = 'Question field is required, At line no ' + checkedValue;
+                        if (respondent_message.value == '' && our_message.value == '' && our_note.value == '') {
+                            respondent_message.style.borderColor = our_message.style.borderColor = our_note.style.borderColor = '#F00';
+                            message = 'To save this record please fill the data at least in any of these fields (Respondent Message,Our Message,Our Note), At line no ' + checkedValue;
                             continueProcessing = false;
                             break;
-                        } else if (validMesg.test(question.value)) {
-                            question.style.borderColor = '#F00';
-                            message = 'Special Characters are not Allowed in Question field, At line no ' + checkedValue;
+                        } else if (respondent_message.value != '' && invalidAddress(respondent_message.value)) {
+                            respondent_message.style.borderColor = '#F00';
+                            message = 'Special Characters are not Allowed in Respondent Message field, At line no ' + checkedValue;
                             continueProcessing = false;
-                        } else if (answer.value != '' && validMesg.test(answer.value)) {
-                            answer.style.borderColor = '#F00';
-                            message = 'Special Characters are not Allowed in Answer field, At line no ' + checkedValue;
+                        } else if (our_message.value != '' && invalidAddress(our_message.value)) {
+                            our_message.style.borderColor = '#F00';
+                            message = 'Special Characters are not Allowed in Our Message field, At line no ' + checkedValue;
                             continueProcessing = false;
-                            break;
+                        } else if (our_note.value != '' && invalidAddress(our_note.value)) {
+                            our_note.style.borderColor = '#F00';
+                            message = 'Special Characters are not Allowed in Our Note field, At line no ' + checkedValue;
+                            continueProcessing = false;
                         } else {
                             var obj = {};
                             obj = {
-                                "question": question.value,
-                                "answer": answer.value,
+                                "respondent_message": respondent_message.value.trim(),
+                                "our_message": our_message.value.trim(),
+                                "our_note": our_note.value.trim(),
                             }
                             data.push(obj);
                             continueProcessing = true;
@@ -872,25 +762,25 @@ include_once("../includes/footer_script.php");
                     }
                 }
                 if (continueProcessing === false) {
-                    toasterTrigger('error', message);
+                    toasterTrigger(toasterType, message);
                     return false;
                 } else if (continueProcessing === true && data.length > 0) {
                     var postData = {
                         "id": id.value,
+                        "type": type.value,
                         "date": date.value,
-                        "user_id": user_id.value,
-                        "category_id": category_id.value,
-                        "sub_category_id": sub_category_id,
+                        "sales_person_id": sales_person_id.value,
+                        "campaign_id": campaign_id.value,
                         "status": status.value,
-                        "business_name": business_name.value,
+                        "business_name": business_name.value.trim(),
+                        "respondent_name": respondent_name.value.trim(),
                         "email": email.value,
-                        "country_id": country_id.value,
-                        "state_id": state_id.value,
-                        "city_id": city_id.value,
                         "dial_code": dial_code.value,
-                        "mobile": mobile.value,
+                        "contact_no": contact_no.value,
                         "iso": iso.value,
-                        "phone": phone.value,
+                        "other_dial_code": other_dial_code.value,
+                        "other_contact_no": other_contact_no.value,
+                        "other_iso": other_iso.value,
                         "fax": fax.value,
                         "user_right_title": '<?php echo $user_right_title; ?>',
                         "data": data
@@ -905,62 +795,42 @@ include_once("../includes/footer_script.php");
                                 if (obj.code === 200 || obj.code === 405 || obj.code === 422) {
                                     if (obj.code === 422) {
                                         if (obj.errorField !== undefined && obj.errorField != '' && obj.errorDiv !== undefined && obj.errorDiv != '' && obj.errorMessage !== undefined && obj.errorMessage != '') {
-                                            if (obj.errorField == 'user_id') {
-                                                select2_user_id_container.style.borderColor = '#F00';
-                                            } else if (obj.errorField == 'category_id') {
-                                                select2_category_id_container.style.borderColor = '#F00';
-                                            } else if (obj.errorField == 'sub_category_id') {
-                                                select2_sub_category_id_container.style.borderColor = '#F00';
+                                            if (obj.errorField == 'sales_person_id') {
+                                                select2_sales_person_id_container.style.borderColor = '#F00';
+                                            } else if (obj.errorField == 'campaign_id') {
+                                                select2_campaign_id_container.style.borderColor = '#F00';
                                             } else if (obj.errorField == 'status') {
                                                 select2_status_container.style.borderColor = '#F00';
-                                            } else if (obj.errorField == 'country_id') {
-                                                select2_country_id_container.style.borderColor = '#F00';
-                                            } else if (obj.errorField == 'state_id') {
-                                                select2_state_id_container.style.borderColor = '#F00';
-                                            } else if (obj.errorField == 'city_id') {
-                                                select2_city_id_container.style.borderColor = '#F00';
                                             } else {
                                                 document.getElementById(obj.errorField).style.borderColor = '#F00';
                                             }
                                             document.getElementById(obj.errorDiv).innerText = obj.errorMessage;
                                             loader(false);
-                                            toasterTrigger('warning', obj.errorMessage);
+                                            toasterTrigger(toasterType, obj.errorMessage);
                                         }
                                     } else if (obj.code === 405 || obj.code === 200) {
                                         if (obj.responseMessage !== undefined && obj.responseMessage != '') {
                                             if (obj.form_reset !== undefined && obj.form_reset) {
                                                 document.getElementById("myFORM").reset();
-                                                var select2_userIdContainer = document.getElementById("select2-user_id-container");
-                                                var select2_categoryIdContainer = document.getElementById("select2-category_id-container");
-                                                var select2_subCategoryIdContainer = document.getElementById("select2-sub_category_id-container");
+                                                var sales_person_id_container = document.getElementById("select2-sales_person_id-container");
+                                                var campaign_id_container = document.getElementById("select2-campaign_id-container");
+                                                var status_container = document.getElementById("select2-status-container");
 
-                                                var select2_countryId_container = document.getElementById("select2-country_id-container");
-                                                var select2_stateId_container = document.getElementById("select2-state_id-container");
-                                                var select2_cityId_container = document.getElementById("select2-city_id-container");
-
-                                                if (select2_userIdContainer) {
-                                                    select2_userIdContainer.removeAttribute("title");
-                                                    select2_userIdContainer.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
-                                                    user_id.value = 0;
+                                                if (sales_person_id_container) {
+                                                    sales_person_id_container.removeAttribute("title");
+                                                    sales_person_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                    sales_person_id.value = 0;
                                                 }
-                                                if (select2_categoryIdContainer) {
-                                                    select2_categoryIdContainer.removeAttribute("title");
-                                                    select2_categoryIdContainer.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
-                                                    category_id.value = 0;
+                                                if (campaign_id_container) {
+                                                    campaign_id_container.removeAttribute("title");
+                                                    campaign_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                    campaign_id.value = 0;
                                                 }
-                                                if (select2_subCategoryIdContainer) {
-                                                    select2_subCategoryIdContainer.removeAttribute("title");
-                                                    select2_subCategoryIdContainer.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
-                                                    sub_category_id.value = 0;
+                                                if (status_container) {
+                                                    status_container.removeAttribute("title");
+                                                    status_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
+                                                    status.value = 0;
                                                 }
-                                                if (select2_countryId_container && select2_stateId_container && select2_cityId_container) {
-                                                    select2_countryId_container.removeAttribute("title");
-                                                    select2_stateId_container.removeAttribute("title");
-                                                    select2_cityId_container.removeAttribute("title");
-                                                    select2_countryId_container.innerHTML = select2_stateId_container.innerHTML = select2_cityId_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
-                                                }
-                                                country_id.value = '';
-                                                state_id.innerHTML = city_id.innerHTML = '';
                                             }
                                             loader(false);
                                             toasterTrigger(obj.toasterClass, obj.responseMessage);
@@ -991,43 +861,13 @@ include_once("../includes/footer_script.php");
             r_rows++;
             innerHTml_c += '<div class="row">';
             innerHTml_c += '<div class="col-md-1 column"><div class="form-group text-center mt-3"><label class="checkbox checkbox-outline checkbox-success d-inline-block"><input type="checkbox" class="lineRepresentativeBox" value="' + r_rows + '" name="lineRepresentativeBox[]" id="lineRepresentativeBox' + r_rows + '" checked="checked"><b class="float-left mr-2">' + r_rows + '.</b><span class="float-left"></span></label></div></div>';
-            innerHTml_c += '<div class="col-md-6 column"><div class="form-group"><textarea class="form-control" id="question' + r_rows + '" placeholder="Question"></textarea></div></div>';
-            innerHTml_c += '<div class="col-md-5 column"><div class="form-group"><textarea class="form-control" id="answer' + r_rows + '" placeholder="Answer"></textarea></div></div>';
+            innerHTml_c += '<div class="col-md-3 column"><div class="form-group"><textarea class="form-control" id="respondent_message' + r_rows + '" placeholder="Respondent Message"></textarea></div></div>';
+            innerHTml_c += '<div class="col-md-4 column"><div class="form-group"><textarea class="form-control" id="our_message' + r_rows + '" placeholder="Our Message"></textarea></div></div>';
+            innerHTml_c += '<div class="col-md-4 column"><div class="form-group"><textarea class="form-control" id="our_note' + r_rows + '" placeholder="Our Note"></textarea></div></div>';
             innerHTml_c += '</div>';
             $("#Data_Holder_Child_Div").append(innerHTml_c);
             objDiv.scrollTop = objDiv.scrollHeight;
             last_row_number.value = r_rows;
-        }
-
-        function getSubCategory(category_id, sub_category_id) {
-            var sub_category_wrapper = document.getElementById('sub_category_id');
-            sub_category_wrapper.innerHTML = '';
-
-            loader(true);
-            var postData = {
-                "category_id": category_id,
-                "sub_category_id": sub_category_id
-            };
-            $.ajax({
-                type: "POST", url: "ajax/common.php",
-                data: {'postData': postData, 'getSubCategories': true},
-                success: function (resPonse) {
-                    if (resPonse !== undefined && resPonse != '') {
-                        var obj = JSON.parse(resPonse);
-                        if (obj.code === 200) {
-                            sub_category_wrapper.innerHTML = obj.data;
-                            loader(false);
-                        } else {
-                            loader(false);
-                        }
-                    } else {
-                        loader(false);
-                    }
-                },
-                error: function () {
-                    loader(false);
-                }
-            });
         }
     </script>
 <?php include_once("../includes/endTags.php"); ?>

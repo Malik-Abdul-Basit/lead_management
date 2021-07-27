@@ -67,7 +67,7 @@ include_once("../includes/mobile_menu.php");
                                         <!--begin::Form-->
                                         <form class="form" id="myFORM" name="myFORM" method="post"
                                               enctype="multipart/form-data">
-                                            <input type="hidden" name="id" id="id" value="<?php echo $id; ?>"/>
+                                            <input type="hidden" class="not-show" name="id" id="id" value="<?php echo $id; ?>"/>
                                             <input type="hidden" class="not-show" name="type" id="type" value="<?php echo $type; ?>"/>
                                             <div class="card-body">
                                                 <div class="mb-3">

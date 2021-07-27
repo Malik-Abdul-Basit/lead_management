@@ -35,13 +35,16 @@ include_once("../includes/mobile_menu.php");
                                     <div class="card-header flex-wrap py-5">
                                         <div class="card-title">
                                             <h3 class="card-label">
-                                                <?php echo ucwords(str_replace("_", " ", $page)); ?>
+                                                <?php
+                                                $type = config('lang.page_type.title.'.$page);
+                                                echo ucwords(str_replace("_", " ", $page));
+                                                ?>
                                             </h3>
                                         </div>
                                         <div class="card-toolbar">
                                             <?php
                                             if (hasRight($user_right_title, 'add')) {
-                                                echo '<a href="' . $admin_url . 'lead" class="btn btn-primary font-weight-bolder"><i class="la la-plus"></i>New Record</a>';
+                                                echo '<a href="' . $admin_url . $type . '_lead" class="btn btn-primary font-weight-bolder">'.config('lang.button.title.new_record').'</a>';
                                             }
                                             ?>
                                         </div>
@@ -52,7 +55,8 @@ include_once("../includes/mobile_menu.php");
                                             <div class="row align-items-center">
                                                 <div class="col-lg-12 col-xl-12">
                                                     <div class="row align-items-center">
-                                                        <div class="col-md-2 my-2 my-md-0">
+
+                                                        <div class="col-md-3 my-2 my-md-0">
                                                             <div class="form-group">
                                                                 <label for="BG_SearchQuery">Search</label>
                                                                 <div class="input-icon">
@@ -67,14 +71,13 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="col-md-3 my-2 my-md-0">
                                                             <div class="form-group">
                                                                 <label for="BG_SalesPersonFilter">Sales Person</label>
-                                                                <select class="form-control"
-                                                                        id="BG_SalesPersonFilter"
-                                                                        onchange="getData()">
-                                                                    <option selected="selected" value="">
+                                                                <select id="BG_SalesPersonFilter"
+                                                                        onchange="getData()" <?php echo $ApplySelect2; ?>>
+                                                                    <option selected="selected" value="-1">
                                                                         All
                                                                     </option>
                                                                     <?php
-                                                                    $select = "SELECT u.id, CONCAT(u.first_name,' ',u.last_name,' (',u.employee_code,')') AS name FROM users AS u INNER JOIN leads AS l ON u.id=l.user_id WHERE u.company_id='{$global_company_id}' AND u.branch_id='{$global_branch_id}' AND u.deleted_at IS NULL GROUP BY u.id ORDER BY u.employee_code ASC";
+                                                                    $select = "SELECT sp.id, CONCAT(sp.first_name,' ',sp.last_name,' (',sp.email,')') AS name FROM sales_persons AS sp INNER JOIN leads AS l ON sp.id=l.sales_person_id WHERE sp.company_id='{$global_company_id}' AND sp.branch_id='{$global_branch_id}' AND sp.deleted_at IS NULL AND l.type='{$type}' GROUP BY sp.id ORDER BY sp.first_name ASC";
                                                                     $query = mysqli_query($db, $select);
                                                                     if (mysqli_num_rows($query) > 0) {
                                                                         while ($result = mysqli_fetch_object($query)) {
@@ -87,36 +90,12 @@ include_once("../includes/mobile_menu.php");
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-2 my-2 my-md-0">
-                                                            <div class="form-group">
-                                                                <label for="BG_CategoryFilter">Category</label>
-                                                                <select class="form-control"
-                                                                        id="BG_CategoryFilter"
-                                                                        onchange="getData()">
-                                                                    <option selected="selected" value="">
-                                                                        All
-                                                                    </option>
-                                                                    <?php
-                                                                    $select = "SELECT c.id, c.name FROM categories AS c INNER JOIN leads AS l ON c.id=l.category_id WHERE c.company_id='{$global_company_id}' AND c.branch_id='{$global_branch_id}' AND c.deleted_at IS NULL GROUP BY c.id ORDER BY c.sort_by ASC";
-                                                                    $query = mysqli_query($db, $select);
-                                                                    if (mysqli_num_rows($query) > 0) {
-                                                                        while ($result = mysqli_fetch_object($query)) {
-                                                                            ?>
-                                                                            <option value="<?php echo $result->id; ?>"><?php echo $result->name; ?></option>
-                                                                            <?php
-                                                                        }
-                                                                    }
-                                                                    ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-2 my-2 my-md-0">
+                                                        <div class="col-md-3 my-2 my-md-0">
                                                             <div class="form-group">
                                                                 <label for="BG_StatusFilter">Status</label>
-                                                                <select class="form-control"
-                                                                        id="BG_StatusFilter"
-                                                                        onchange="getData()">
-                                                                    <option selected="selected" value="">
+                                                                <select id="BG_StatusFilter"
+                                                                        onchange="getData()" <?php echo $ApplySelect2; ?>>
+                                                                    <option selected="selected" value="-1">
                                                                         All
                                                                     </option>
                                                                     <?php
@@ -195,7 +174,6 @@ include_once("../includes/footer_script.php");
         var BG_SortOrder = document.getElementById('BG_SortOrder');
 
         var BG_SalesPersonFilter = document.getElementById('BG_SalesPersonFilter');
-        var BG_CategoryFilter = document.getElementById('BG_CategoryFilter');
         var BG_StatusFilter = document.getElementById('BG_StatusFilter');
         var BG_RangeStart = document.getElementById('rangeStart');
         var BG_RangeEnd = document.getElementById('rangeEnd');
@@ -204,7 +182,7 @@ include_once("../includes/footer_script.php");
         var PageNumber = "1";
         var PageSize = "10";
         var SortColumn = 'l.date';
-        var SortOrder = 'ASC';
+        var SortOrder = 'DESC';
         if (BG_SearchQuery && BG_SearchQuery.value != '') {
             SearchQuery = BG_SearchQuery.value;
         }
@@ -222,14 +200,14 @@ include_once("../includes/footer_script.php");
         }
         var filter = {
             'L': '<?php echo $user_right_title; ?>',
+            'T': '<?php echo $type; ?>',
             'SearchQuery': SearchQuery,
             'PageNumber': PageNumber,
             'PageSize': PageSize,
             'Sort': {'SortColumn': SortColumn, 'SortOrder': SortOrder},
             'DateRange': {'rangeStart': BG_RangeStart.value, 'rangeEnd': BG_RangeEnd.value},
             'Filter': [
-                {'field': 'l.user_id', 'value': BG_SalesPersonFilter.value},
-                {'field': 'l.category_id', 'value': BG_CategoryFilter.value},
+                {'field': 'l.sales_person_id', 'value': BG_SalesPersonFilter.value},
                 {'field': 'l.status', 'value': BG_StatusFilter.value},
             ],
             "PageSizeStack": ["5", "10", "20", "30", "40", "50"]
@@ -261,7 +239,7 @@ include_once("../includes/footer_script.php");
         });
     }
 
-    function entryDelete(id) {
+    function entryDelete(id, type) {
         Swal.fire({
             title: 'Are you sure want to delete?',
             text: "You won't be able to revert this!",
@@ -275,7 +253,7 @@ include_once("../includes/footer_script.php");
                     loader(true);
                     $.ajax({
                         type: "POST", url: "ajax/delete.php",
-                        data: "delete_lead=" + id,
+                        data: "delete_lead=" + id + "&user_right_title=<?php echo $user_right_title; ?>" + "&type=" + type,
                         success: function (resPonse) {
                             if (resPonse !== undefined && resPonse != '') {
                                 var obj = JSON.parse(resPonse);
