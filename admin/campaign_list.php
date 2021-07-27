@@ -259,7 +259,7 @@ include_once("../includes/footer_script.php");
         });
     }
 
-    function entryDelete(id) {
+    function entryDelete(id, type) {
         Swal.fire({
             title: 'Are you sure want to delete?',
             text: "You won't be able to revert this!",
@@ -273,7 +273,7 @@ include_once("../includes/footer_script.php");
                     loader(true);
                     $.ajax({
                         type: "POST", url: "ajax/delete.php",
-                        data: "delete_campaign=" + id,
+                        data: "delete_campaign=" + id + "&user_right_title=<?php echo $user_right_title; ?>" + "&type=" + type,
                         success: function (resPonse) {
                             if (resPonse !== undefined && resPonse != '') {
                                 var obj = JSON.parse(resPonse);

@@ -340,7 +340,7 @@ include_once("../includes/footer_script.php");
                         loader(true);
                         $.ajax({
                             type: "POST", url: "ajax/delete.php",
-                            data: "delete_branch=" + id,
+                            data: "delete_branch=" + id + "&user_right_title=<?php echo $user_right_title; ?>",
                             success: function (resPonse) {
                                 if (resPonse !== undefined && resPonse != '') {
                                     var obj = JSON.parse(resPonse);

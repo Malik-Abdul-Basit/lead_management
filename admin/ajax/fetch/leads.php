@@ -11,10 +11,10 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
     $pageNo = 1;
     $perPage = 10;
     $sortColumn = 'l.date';
-    $sortOrder = 'ASC';
-    $condition = " WHERE l.company_id='{$global_company_id}' AND l.branch_id='{$global_branch_id}' AND l.deleted_at IS NULL ";
+    $sortOrder = 'DESC';
+    $condition = " WHERE l.type='{$filters->T}' AND l.company_id='{$global_company_id}' AND l.branch_id='{$global_branch_id}' AND l.deleted_at IS NULL AND c.type='{$filters->T}' AND c.company_id='{$global_company_id}' AND c.branch_id='{$global_branch_id}' AND c.deleted_at IS NULL ";
     if (isset($filters->SearchQuery) && !empty($filters->SearchQuery) && strlen($filters->SearchQuery) > 0) {
-        $condition .= " AND (l.company LIKE '%{$filters->SearchQuery}%') ";
+        $condition .= " AND (l.business_name LIKE '%{$filters->SearchQuery}%' OR l.respondent_name LIKE '%{$filters->SearchQuery}%' OR l.email LIKE '%{$filters->SearchQuery}%' OR l.contact_no LIKE '%{$filters->SearchQuery}%' OR l.other_contact_no LIKE '%{$filters->SearchQuery}%') ";
     }
 
     if (!empty($filters->Filter) && isset($filters->Filter) && count($filters->Filter) > 0) {
@@ -44,7 +44,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
 
     $total = 0;
     $data = '';
-    $sql = mysqli_query($db, "SELECT count(l.id) AS total FROM leads AS l INNER JOIN users AS u ON l.user_id=u.id INNER JOIN categories AS c ON l.category_id=c.id LEFT JOIN sub_categories AS sc ON l.sub_category_id=sc.id " . $condition);
+    $sql = mysqli_query($db, "SELECT count(l.id) AS total FROM leads AS l INNER JOIN sales_persons AS sp ON sp.id=l.sales_person_id INNER JOIN campaigns AS c ON c.id=l.campaign_id " . $condition);
     if (mysqli_num_rows($sql) > 0) {
         $result = mysqli_fetch_object($sql);
         $total = $result->total;
@@ -62,10 +62,10 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
 
     if (isset($filters->L)) {
         if (hasRight($filters->L, 'edit') || hasRight($filters->L, 'delete')) {
-            $h_col = '<div class="col-md-2"><b>Category & Sub Category</b></div><div class="col-md-2"><b>Action</b></div>';
+            $h_col = '<div class="col-md-3"><b>Campaign</b></div><div class="col-md-2"><b>Action</b></div>';
             $right = true;
         } else {
-            $h_col = '<div class="col-md-4"><b>Category & Sub Category</b></div>';
+            $h_col = '<div class="col-md-5"><b>Campaign</b></div>';
             $right = false;
         }
     }
@@ -79,7 +79,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                             <div class="row">
                                 <div class="col-md-3"><b>Sales Person</b></div>
                                 <div class="col-md-2"><b>Date</b></div>
-                                <div class="col-md-3"><b>Status</b></div>' . $h_col . '
+                                <div class="col-md-2"><b>Status</b></div>' . $h_col . '
                             </div>
                         </div>
                     </div>
@@ -105,30 +105,18 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
         } else {
             $number_of_record = " LIMIT " . $offset . ", " . $perPage;
         }
-        $select = "SELECT l.*, CONCAT('+',l.dial_code,' ',l.mobile) AS contact_no,
-        CONCAT(u.first_name,' ',u.last_name) AS full_name, u.employee_code, u.email AS user_email,
-        c.name AS category_name, sc.name AS sub_category_name,
-        country.country_name,state.state_name,city.city_name
-        FROM
-            leads AS l
-        INNER JOIN
-            users AS u 
-            ON l.user_id=u.id
-        INNER JOIN
-            categories AS c
-            ON l.category_id=c.id
-        INNER JOIN
-            countries AS country 
-            ON l.country_id=country.id
-        LEFT JOIN
-            states AS state 
-            ON l.state_id=state.id
-        LEFT JOIN
-            cities AS city 
-            ON l.city_id=city.id
-        LEFT JOIN
-            sub_categories AS sc 
-            ON l.sub_category_id=sc.id " . $condition . $sort . $number_of_record;
+        $select = "SELECT l.*, CONCAT('+',l.dial_code,' ',l.contact_no) AS contact_number, 
+        CONCAT('+',l.other_dial_code,' ',l.other_contact_no) AS other_contact_number,
+        CONCAT(sp.first_name,' ',sp.last_name) AS full_name, sp.email AS sales_person_email,
+        c.name AS campaign_name, c.date AS campaign_date
+        FROM 
+            leads AS l 
+        INNER JOIN 
+            sales_persons AS sp 
+            ON sp.id=l.sales_person_id 
+        INNER JOIN 
+            campaigns AS c 
+            ON c.id=l.campaign_id " . $condition . $sort . $number_of_record;
 
         $query = mysqli_query($db, $select);
         if (mysqli_num_rows($query) > 0) {
@@ -137,27 +125,28 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                 $row_number++;
                 $evenOrOdd = ($row_number % 2) == 1 ? 'odd' : 'even';
 
-                if (!empty($result->sub_category_name)) {
-                    $category_col_value = $result->category_name . '<br>' . $result->sub_category_name;
-                } else {
-                    $category_col_value = $result->category_name;
-                }
                 $status = config('leads.status.title.' . $result->status);
-                $company_initial = getInitialsFromString($result->business_name, 1);
-                $checkImage = getUserImage($result->user_id);
+
+                if (!empty($result->business_name)) {
+                    $company_initial = getInitialsFromString($result->business_name, 1);
+                } elseif (!empty($result->respondent_name)) {
+                    $company_initial = getInitialsFromString($result->respondent_name, 1);
+                } elseif (!empty($result->email)) {
+                    $company_initial = getInitialsFromString($result->email, 1);
+                }
+
+                $checkImage = getSalesPersonImage($result->sales_person_id);
                 $image_path = $checkImage['image_path'];
                 $img = $checkImage['img'];
                 $default_image = $checkImage['default'];
 
-                $mobile_no_flag = '<img class="mr-1" src="' . $ct_assets . 'images/flags/' . $result->iso . '.png">';
+                $contact_no_flag = '<img class="mr-1" src="' . $ct_assets . 'images/flags/' . $result->iso . '.png">';
+                $other_contact_no_flag = '<img class="mr-1" src="' . $ct_assets . 'images/flags/' . $result->other_iso . '.png">';
 
-                $contact_no = !empty($result->mobile) ? $mobile_no_flag . $result->contact_no : 'None';
-                $phone = !empty($result->phone) ? $result->phone : 'None';
+                $contact_no = !empty($result->contact_no) ? $contact_no_flag . $result->contact_number : 'None';
+                $other_contact_no = !empty($result->other_contact_no) ? $other_contact_no_flag . $result->other_contact_number : 'None';
+
                 $fax = !empty($result->fax) ? $result->fax : 'None';
-
-                $city = !empty($result->city_name) ? $result->city_name : 'None';
-                $state = !empty($result->state_name) ? $result->state_name : 'None';
-
 
                 $data .= '<tr style="left:0" data-row="' . $row_number . '" class="datatable-row  datatable-row-' . $evenOrOdd . '"><td>';
                 $data .= '<div class="collapse-card-outer-wrapper">
@@ -168,28 +157,40 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                                     <div class="flex-grow-0">
                                         <span>' . $result->full_name . '</span>
                                         <br>
-                                        <small>' . $result->user_email . '</small>
+                                        <small>' . $result->sales_person_email . '</small>
                                     </div>
                                 </div>
                                 <div class="col-md-2 text-vertical-align-center">' . date('d-M-Y', strtotime($result->date)) . '</div>
-                                <div class="col-md-3 text-vertical-align-center">' . $status . '</div>';
+                                <div class="col-md-2 text-vertical-align-center">' . $status . '</div>';
                 if ($right) {
-                    $data .= '<div class="col-md-2 text-vertical-align-center">' . $category_col_value . '</div>';
+                    $data .= '<div class="col-md-3 text-vertical-align-center">
+                                    <div class="flex-grow-0">
+                                        <span>' . $result->campaign_name . '</span>
+                                        <br>
+                                        <small>' . date('d-M-Y', strtotime($result->campaign_date)) . '</small>
+                                    </div>
+                                </div>';
 
                     $data .= '<div class="col-md-2 text-vertical-align-center">';
                     if (hasRight($filters->L, 'edit')) {
-                        $data .= '<a href="' . $admin_url . 'lead?id=' . $result->id . '" class="btn btn-sm btn-light-primary font-weight-bolder text-uppercase mr-2" style="font-size: 10px" title="Edit">
+                        $data .= '<a href="' . $admin_url . $filters->T . '_lead?id=' . $result->id . '" class="btn btn-sm btn-light-primary font-weight-bolder text-uppercase mr-2" style="font-size: 10px" title="Edit">
                                         <span class="navi-icon"><i class="flaticon2-pen" style="font-size: 12px"></i></span> Edit
                                     </a>';
                     }
                     if (hasRight($filters->L, 'delete')) {
-                        $data .= '<button type="button" onclick="entryDelete(' . $result->id . ')" class="btn btn-sm btn-danger font-weight-bolder text-uppercase" style="font-size: 10px" title="Delete">
+                        $data .= '<button type="button" onclick="entryDelete(' . $result->id . ', \''.$filters->T.'\')" class="btn btn-sm btn-danger font-weight-bolder text-uppercase" style="font-size: 10px" title="Delete">
                                         <span class="navi-icon"><i class="flaticon-delete" style="font-size: 12px"></i></span> Delete
                                     </button>';
                     }
                     $data .= '</div>';
                 } else {
-                    $data .= '<div class="col-md-4 text-vertical-align-center">' . $category_col_value . '</div>';
+                    $data .= '<div class="col-md-3 text-vertical-align-center">
+                                    <div class="flex-grow-0">
+                                        <span>' . $result->campaign_name . '</span>
+                                        <br>
+                                        <small>' . date('d-M-Y', strtotime($result->campaign_date)) . '</small>
+                                    </div>
+                                </div>';
                 }
 
                 $data .= '</div>
@@ -208,19 +209,22 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                 $data .= '<div class="lead-card-details px-6 py-4">
                     <div class="card-section-title mb-6">Business Information</div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="small">Name & Email</div>
-                            <span>' . $result->business_name . '</span><br>
-                            <small>' . $result->email . '</small>
+                        <div class="col-md-3">
+                            <div class="small">Business Name</div>
+                            <span>' . $result->business_name . '</span>
                         </div>
-                        <div class="col-md-4">
-                            <div class="small">City, State, Country</div>
-                            <span>' . $city . ', ' . $state . ', ' . $result->country_name . '</span>
+                        <div class="col-md-3">
+                            <div class="small">Respondent</div>
+                            <span>' . $result->respondent_name . '</span>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="small">Email</div>
+                            <span>' . $result->email . '</span>
+                        </div>
+                        <div class="col-md-3">
                             <div class="small">Contact</div>
-                            <span>Mobile No: ' . $contact_no . '</span><br>
-                            <small> Phone No: ' . $phone . '<br>Fax: ' . $fax . '</small>
+                            <span> Contact No: ' . $contact_no . '</span><br>
+                            <small> Other Contact No: ' . $other_contact_no . '<br>Fax: ' . $fax . '</small>
                         </div>  
                     </div>
                     <div class="card-section-title mt-6 mb-2">Communication Detail</div>
@@ -230,55 +234,37 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                         <h5>' . $result->business_name . '</h5>
                         <p>' . $result->email . '</p>
                     </div>';
-
-                /*
-                 * <div>
-                                                <span class="text-dark-75 font-weight-bold font-size-h6">' . $result->business_name . '</span>
-                                                <span class="text-muted font-size-sm">2 Hours</span>
-                                            </div>
-
-                                        <div>
-                                            <span class="text-muted font-size-sm">3 minutes</span>
-                                            <span class="text-dark-75 font-weight-bold font-size-h6">' . $result->full_name . '</span>
-                                        </div>
-                 *
-                 */
-
-
                 $query_lead_messages = mysqli_query($db, "SELECT * FROM `lead_messages` WHERE `lead_id`='{$result->id}'");
                 if (mysqli_num_rows($query_lead_messages) > 0) {
                     while ($object_lead_messages = mysqli_fetch_object($query_lead_messages)) {
-                        $data .= '<div class="row mt-5 mb-5">
-                            <div class="col-md-12 column">
-                                <div class="messages">
-                                    <!--begin::Message In-->
-                                    <div class="d-flex flex-column mb-3 align-items-start">
-                                        <div class="d-flex align-items-center">
-                                            <span class="symbol rounded-circle symbol-lg-35 symbol-25 symbol-light-success mr-2">
-                                                <span class="symbol-label rounded-circle font-size-h5 font-weight-bold">' . $company_initial . '</span>
-                                            </span>
-                                        </div>
-                                        <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-75Per">' . $object_lead_messages->question . '</div>
-                                    </div>
-                                    <!--end::Message In-->';
-                        if (!empty($object_lead_messages->answer)) {
-                            $data .= '
-                                <!--begin::Message Out-->
-                                <div class="d-flex flex-column mb-5 align-items-end">
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-circle symbol-40 ml-3">
-                                            <img alt="Pic" src="' . $image_path . '">
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-left max-w-75Per">' . $object_lead_messages->answer . '</div>
+                        $data .= '<div class="row mt-5 mb-5"><div class="col-md-12 column"><div class="messages">';
+                        if (!empty($object_lead_messages->respondent_message)) {
+                            $data .= '<div class="d-flex flex-column mb-3 align-items-start">
+                                <div class="d-flex align-items-center">
+                                    <span class="symbol rounded-circle symbol-lg-35 symbol-25 symbol-light-success mr-2">
+                                        <span class="symbol-label rounded-circle font-size-h5 font-weight-bold">' . $company_initial . '</span>
+                                    </span>
                                 </div>
-                                <!--end::Message Out-->';
+                                <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-75Per">' . $object_lead_messages->respondent_message . '</div>
+                            </div>';
+                        }
+                        if (!empty($object_lead_messages->our_message)) {
+                            $data .= '<div class="d-flex flex-column mb-5 align-items-end">
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-circle symbol-40 ml-3">
+                                        <img alt="Pic" src="' . $image_path . '">
+                                    </div>
+                                </div>
+                                <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-left max-w-75Per">' . $object_lead_messages->our_message . '</div>
+                            </div>';
+                        }
+                        if (!empty($object_lead_messages->our_note)) {
+                            $data .= '<div class="d-flex flex-column mb-5 align-items-end">
+                                <div class="mt-2 rounded p-5 bg-light-warning text-dark-50 font-weight-bold font-size-lg text-left max-w-75Per">' . $object_lead_messages->our_note . '</div>
+                            </div>';
                         }
 
-                        $data .= '
-                                </div>
-                            </div>
-                        </div>';
+                        $data .= '</div></div></div>';
                     }
                 }
 

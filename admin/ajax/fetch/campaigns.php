@@ -154,7 +154,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                                     </a>';
                     }
                     if (hasRight($filters->L, 'delete')) {
-                        $data .= '<button type="button" onclick="entryDelete(' . $result->id . ')" class="btn btn-sm btn-danger font-weight-bolder text-uppercase" style="font-size: 10px" title="Delete">
+                        $data .= '<button type="button" onclick="entryDelete(' . $result->id . ', \''.$filters->T.'\')" class="btn btn-sm btn-danger font-weight-bolder text-uppercase" style="font-size: 10px" title="Delete">
                                         <span class="navi-icon"><i class="flaticon-delete" style="font-size: 12px"></i></span> Delete
                                     </button>';
                     }
