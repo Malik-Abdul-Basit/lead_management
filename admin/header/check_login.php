@@ -106,6 +106,7 @@ $NAttrs = ' type="number" class="form-control" onkeypress="formSubmitOnEnter(eve
 $AllowNumberOnly = ' type="text" class="form-control apply_max_length" onkeypress="formSubmitOnEnter(event), allowNumberOnly(event)" ';
 
 $ApplyMaxLengthAndTouchSpin = ' type="text" class="form-control apply_touch_spin apply_max_length" onkeypress="formSubmitOnEnter(event)" ';
+$ApplyMaxLengthTouchSpinAndNumberOnly = ' type="text" class="form-control apply_touch_spin apply_max_length" onkeypress="formSubmitOnEnter(event), allowNumberOnly(event)" ';
 $ApplyMaxLength = ' type="text" class="form-control apply_max_length" onkeypress="formSubmitOnEnter(event)" ';
 $ApplyTouchSpin = ' type="text" class="form-control apply_touch_spin" onkeypress="formSubmitOnEnter(event)" ';
 

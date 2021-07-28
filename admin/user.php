@@ -98,9 +98,8 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="form-group">
                                                                 <label for="employee_code">* Employee Code:</label>
                                                                 <input tabindex="10" maxlength="20"
-                                                                       onkeypress="allowNumberOnly(event)"
                                                                        id="employee_code"
-                                                                       value="<?php echo $employee_code; ?>" <?php echo $ApplyMaxLengthAndTouchSpin . $onblur; ?>
+                                                                       value="<?php echo $employee_code; ?>" <?php echo $ApplyMaxLengthTouchSpinAndNumberOnly . $onblur; ?>
                                                                        placeholder="Employee Code"/>
                                                                 <div class="error_wrapper">
                                                                         <span class="text-danger"

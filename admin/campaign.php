@@ -91,7 +91,7 @@ include_once("../includes/mobile_menu.php");
                                                                     <label for="date">* Date:</label>
                                                                     <input tabindex="10" <?php echo $DateInput; ?>
                                                                            id="date" value="<?php echo $date; ?>"
-                                                                           placeholder="Date"">
+                                                                           placeholder="Date">
                                                                     <span class="e-clear-icon e-clear-icon-hide"
                                                                           aria-label="close" role="button"></span>
                                                                     <div class="error_wrapper">
@@ -104,7 +104,7 @@ include_once("../includes/mobile_menu.php");
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="name">* Name:</label>
-                                                                    <input maxlength="20" id="name"
+                                                                    <input tabindex="10" maxlength="50" id="name"
                                                                            value="<?php echo $name; ?>" <?php echo $ApplyMaxLength . $onblur; ?>
                                                                            placeholder="Name"/>
                                                                     <div class="error_wrapper">
@@ -210,7 +210,7 @@ include_once("../includes/mobile_menu.php");
                                                                     <label for="reach">* Contacts:</label>
                                                                     <input tabindex="60" maxlength="9"
                                                                            id="reach"
-                                                                           value="<?php echo $reach; ?>" <?php echo $AllowNumberOnly . $onblur; ?>
+                                                                           value="<?php echo $reach; ?>" <?php echo $ApplyMaxLengthTouchSpinAndNumberOnly . $onblur; ?>
                                                                            placeholder="Contacts"/>
                                                                     <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -228,7 +228,7 @@ include_once("../includes/mobile_menu.php");
                                                                     <label for="good_responses">Good Responses:</label>
                                                                     <input tabindex="70" maxlength="9"
                                                                            id="good_responses"
-                                                                           value="<?php echo $good_responses; ?>" <?php echo $AllowNumberOnly; ?>
+                                                                           value="<?php echo $good_responses; ?>" <?php echo $ApplyMaxLengthTouchSpinAndNumberOnly; ?>
                                                                            placeholder="Good Responses"/>
                                                                     <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -242,7 +242,7 @@ include_once("../includes/mobile_menu.php");
                                                                     <label for="bad_responses">Bad Responses:</label>
                                                                     <input tabindex="80" maxlength="9"
                                                                            id="bad_responses"
-                                                                           value="<?php echo $bad_responses; ?>" <?php echo $AllowNumberOnly; ?>
+                                                                           value="<?php echo $bad_responses; ?>" <?php echo $ApplyMaxLengthTouchSpinAndNumberOnly; ?>
                                                                            placeholder="Bad Responses"/>
                                                                     <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -256,7 +256,7 @@ include_once("../includes/mobile_menu.php");
                                                                     <label for="follow_ups">Follow Ups:</label>
                                                                     <input tabindex="90" maxlength="9"
                                                                            id="follow_ups"
-                                                                           value="<?php echo $follow_ups; ?>" <?php echo $AllowNumberOnly . $onblur; ?>
+                                                                           value="<?php echo $follow_ups; ?>" <?php echo $ApplyMaxLengthTouchSpinAndNumberOnly; ?>
                                                                            placeholder="Follow Ups"/>
                                                                     <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -270,7 +270,7 @@ include_once("../includes/mobile_menu.php");
                                                                     <label for="not_responses">Not Responses:</label>
                                                                     <input tabindex="100" maxlength="9"
                                                                            id="not_responses"
-                                                                           value="<?php echo $not_responses; ?>" <?php echo $AllowNumberOnly; ?>
+                                                                           value="<?php echo $not_responses; ?>" <?php echo $ApplyMaxLengthTouchSpinAndNumberOnly; ?>
                                                                            placeholder="Not Responses"/>
                                                                     <div class="error_wrapper">
                                                                         <span class="text-danger"
@@ -495,7 +495,6 @@ include_once("../includes/footer_script.php");
                         if (resPonse !== undefined && resPonse != '') {
                             var obj = JSON.parse(resPonse);
                             if (obj.code === 200 || obj.code === 405 || obj.code === 422) {
-                                var title = '';
                                 if (obj.code === 422) {
                                     if (obj.errorField !== undefined && obj.errorField != '' && obj.errorDiv !== undefined && obj.errorDiv != '' && obj.errorMessage !== undefined && obj.errorMessage != '') {
                                         document.getElementById(obj.errorField).style.borderColor = '#F00';
