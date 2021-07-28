@@ -28,41 +28,151 @@ include_once("../includes/mobile_menu.php");
                     <div class="d-flex flex-column-fluid">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-12">
+
+                                <div class="col-md-4">
                                     <div class="card card-custom card-stretch gutter-b">
-                                        <div class="card-header pt-6">
-                                            <div class="col-sm-9 my-2 my-md-0"></div>
-                                            <div class="col-sm-3 my-2 my-md-0">
-                                                <div class="form-group">
-                                                    <label class="font-weight-bold" for="BG_CurrentYear">Year</label>
-                                                    <select class="form-control"
-                                                            id="BG_CurrentYear"
-                                                            onchange="callMonthlyLeadsData()">
-                                                        <?php
-                                                        for ($y = $starting_year; $y <= $current_year; $y++) {
-                                                            $s = ($y == $current_year) ? 'selected="selected"' : '';
-                                                            echo '<option value="' . $y . '" ' . $s . '>' . $y . '</option>';
-                                                        }
-                                                        //$months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
-                                                        //$transposed = array_slice($months, date('n'), 12, true) + array_slice($months, 0, date('n'), true);
-                                                        //$last8 = array_reverse(array_slice($transposed, -8, 12, true), true);
-                                                        /*foreach ($months as $num => $name) {
-                                                            printf('<option value="%u">%s</option>', $num, $name);
-                                                        }*/
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2 class="bd-heading"> Business Development Team </h2>
                                             </div>
-                                        </div>
-                                        <div class="card-body d-flex flex-column px-2 py-4">
-                                            <div class="row" id="firstChartRow">
-                                                <div class="col-md-12">
-                                                    12 Column
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="bd_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Calls</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="card card-custom card-stretch gutter-b">
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2 class="seo-heading"> Search Engine Optimization Team </h2>
+                                            </div>
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="seo_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>Submissions</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card card-custom card-stretch gutter-b">
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2 class="smm-heading"> Social Media Marketing </h2>
+                                            </div>
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="smm_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Reached</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="card card-custom card-stretch gutter-b">
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2 class="em-heading"> Email Marketing Team </h2>
+                                            </div>
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="em_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Reached</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card card-custom card-stretch gutter-b">
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2> Medcare MSO </h2>
+                                            </div>
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="medcare_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Reached</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -82,6 +192,152 @@ include_once("../includes/footer.php");
 include_once("../includes/footer_script.php");
 ?>
     <script type="text/javascript">
+
+        getAllPageData();
+
+        function getAllPageData(){
+            getStatistics();
+        }
+
+
+        function getStatistics(){
+            loader(true);
+            setStatistics();
+        }
+
+
+        function setStatistics(){
+            var easing = 'easeOutElastic';
+            var delay = 300;
+            var scaleColor = false;
+            var scaleLength = 5;
+            var trackWidth = 10;
+            var lineWidth = 14;
+            var lineCap = 'butt' /*'round'*/;
+            var size = 95;
+            var rotate = 0;
+            var animate = {
+                duration: 1000,
+                enabled: true
+            };
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                var element = document.getElementById('bd_progress');
+                var rate = "46.22"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#0155e6',
+                    trackColor: '#97c6ff',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+
+                var element = document.getElementById('seo_progress');
+                rate = "59.05"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#04cbfe',
+                    trackColor: '#a4f2ff',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+
+                var element = document.getElementById('smm_progress');
+                var rate = "12.95"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#47c997',
+                    trackColor: '#9bf9d1',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+
+                var element = document.getElementById('em_progress');
+                var rate = "46.45"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#0078ba',
+                    trackColor: '#5fd6ff',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+
+                var element = document.getElementById('medcare_progress');
+                var rate = "65.83"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#8bc443',
+                    trackColor: '#c1ed7c',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+            });
+
+            loader(false);
+        }
+
+
+
+
+
+
+
 
 
     </script>

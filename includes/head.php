@@ -4,14 +4,22 @@
 <head>
     <meta charset="utf-8"/>
     <title><?php
-        echo ucwords(str_replace("_", " ", $page));
+        if(array_key_exists($page, config('lang.page_title.title'))){
+            echo config('lang.page_title.title.' . $page);
+        } else{
+            echo ucwords(str_replace("_", " ", $page));
+        }
         if (isset($global_employee_info->company_name) && !empty($global_employee_info->company_name)) {
             echo ' | ' . $global_employee_info->company_name;
         }
         ?></title>
     <meta name="description"
           content="<?php
-          echo ucwords(str_replace("_", " ", $page));
+          if(array_key_exists($page, config('lang.page_title.title'))){
+              echo config('lang.page_title.title.' . $page);
+          } else{
+              echo ucwords(str_replace("_", " ", $page));
+          }
           if (isset($global_employee_info->company_name) && !empty($global_employee_info->company_name)) {
               echo ' | ' . $global_employee_info->company_name;
           } ?>"/>
@@ -46,6 +54,7 @@
                 src="<?php echo $base_url ?>assets/high_charts/code/modules/exporting.js"></script>
         <script type="text/javascript"
                 src="<?php echo $base_url ?>assets/high_charts/code/modules/export-data.js"></script>
+        <link <?php echo $css_atr ?> href="<?php echo $base_url ?>assets/vanilla_charts/css/style.css"/>
         <?php
     }
 

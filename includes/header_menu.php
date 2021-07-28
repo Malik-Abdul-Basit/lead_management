@@ -19,16 +19,14 @@ $list_of_notifications = $get_notification['list_of_notifications'];
                         if($page == 'dashboard') {
                             ?>
                             <span class="page-svg-icon-wrapper">
-                                <svg x="0px" y="0px" viewBox="0 0 191.82 191.82">
-                                    <path class="dark_color" d="M64.18,20v44.18H20V26.53c0-3.6,2.93-6.53,6.53-6.53H64.18"/>
-                                    <path class="light_dark" d="M84.18,0H26.53C11.88,0,0,11.88,0,26.53v57.65h84.18V0z"/>
-                                    <path class="dark_color" d="M171.82,127.64v37.65c0,3.6-2.93,6.53-6.53,6.53h-37.65v-44.18H171.82"/>
-                                    <path class="light_dark" d="M191.82,107.64h-84.18v84.18h57.65c14.65,0,26.53-11.88,26.53-26.53V107.64z"/>
-                                    <path class="dark_color" d="M64.18,127.64v44.18H26.53c-3.6,0-6.53-2.93-6.53-6.53v-37.65H64.18"/>
-                                    <path class="light_dark" d="M84.18,107.64H0v57.65c0,14.65,11.88,26.53,26.53,26.53h57.65V107.64z"/>
-                                    <path class="dark_color" d="M165.29,20c3.6,0,6.53,2.93,6.53,6.53v37.65h-44.18V20H165.29"/>
-                                    <path class="dark_color" d="M165.29,0h-57.65v84.18h84.18V26.53C191.82,11.88,179.94,0,165.29,0"/>
-                                    <rect style="fill:none;" width="191.82" height="191.82"/>
+                                <svg viewBox="0 0 512 512">
+                                    <g>
+                                        <path class="light_color" d="M224.69,0H70.81C31.7,0,0,31.7,0,70.81v153.89h224.69V0z"/>
+                                        <path class="light_color" d="M512,287.31H287.31V512h153.89c39.11,0,70.81-31.7,70.81-70.81V287.31z"/>
+                                        <path class="light_color" d="M224.69,287.31H0v153.89C0,480.3,31.7,512,70.81,512h153.89V287.31z"/>
+                                        <path class="dark_color" d="M441.19,0H287.31v224.69H512V70.81C512,31.7,480.3,0,441.19,0"/>
+                                        <rect style="fill:none;" width="512" height="512"/>
+                                    </g>
                                 </svg>
                             </span> Dashboard
                             <?php
@@ -63,16 +61,16 @@ $list_of_notifications = $get_notification['list_of_notifications'];
                 <!--end::Notifications Panel Button-->
 
                 <!--begin::User-->
-                <div class="topbar-item">
+                <!--<div class="topbar-item">
                     <div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2"
                          id="kt_quick_user_toggle">
                         <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"><?php echo $global_employee_info->first_name; ?></span>
+                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"><?php //echo $global_employee_info->first_name; ?></span>
                         <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
-                            <span class="symbol-label font-size-h5 font-weight-bold"><?php echo getInitialsFromString($global_employee_info->first_name, 1); ?></span>
+                            <span class="symbol-label font-size-h5 font-weight-bold"><?php //echo getInitialsFromString($global_employee_info->first_name, 1); ?></span>
                                         </span>
                     </div>
-                </div>
+                </div>-->
                 <!--end::User-->
             </div>
         </div>
