@@ -72,6 +72,39 @@ class lang
                 ],
             ],
 
+            "page_title" => [
+                "title" => [
+                    'seo_source' => 'Source',
+                    'seo_source_list' => 'Source List',
+                    'seo_campaign' => 'Campaign',
+                    'seo_campaign_list' => 'Campaign List',
+                    'seo_lead' => 'Lead',
+                    'seo_lead_list' => 'Lead List',
+
+                    'smm_source' => 'Source',
+                    'smm_source_list' => 'Source List',
+                    'smm_account' => 'Account',
+                    'smm_account_list' => 'Account List',
+                    'smm_campaign_type' => 'Campaign Type',
+                    'smm_campaign_type_list' => 'Campaign Type List',
+                    'smm_campaign' => 'Campaign',
+                    'smm_campaign_list' => 'Campaign List',
+                    'smm_lead' => 'Lead',
+                    'smm_lead_list' => 'Lead List',
+
+                    'em_source' => 'Source',
+                    'em_source_list' => 'Source List',
+                    'em_account' => 'Account',
+                    'em_account_list' => 'Account List',
+                    'em_campaign_type' => 'Campaign Type',
+                    'em_campaign_type_list' => 'Campaign Type List',
+                    'em_campaign' => 'Campaign',
+                    'em_campaign_list' => 'Campaign List',
+                    'em_lead' => 'Lead',
+                    'em_lead_list' => 'Lead List',
+                ],
+            ],
+
 
 
 

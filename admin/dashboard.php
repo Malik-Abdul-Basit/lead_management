@@ -2,9 +2,6 @@
 include_once("header/check_login.php");
 include_once("../includes/head.php");
 include_once("../includes/mobile_menu.php");
-$current_year = date('Y');
-$starting_year = round($current_year - 20);
-$last_five_year = round($current_year - 5);
 ?>
     <!--begin::Main-->
     <div class="d-flex flex-column flex-root">
@@ -22,301 +19,161 @@ $last_five_year = round($current_year - 5);
                 <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
                     <div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
                         <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                            <!--begin::Info-->
                             <div class="d-flex align-items-center flex-wrap mr-2">
-                                <!--begin::Page Title-->
-                                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
-                                    Dashboard </h5>
-                                <!--end::Page Title-->
-                            </div>
-                            <!--end::Info-->
-
-                            <!--begin::Toolbar-->
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions"
-                                     data-placement="left">
-                                    <a href="#" class="btn btn-sm btn-clean btn-icon" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <span class="svg-icon svg-icon-success svg-icon-lg">
-                                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <polygon points="0 0 24 0 24 24 0 24"/>
-                                                    <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,
-                                                    2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,
-                                                    21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,
-                                                    3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000"
-                                                          fill-rule="nonzero" opacity="0.3"/>
-                                                    <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,
-                                                    10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,
-                                                    12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,
-                                                    17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" fill="#000000"/>
-                                                </g>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                    <div class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right py-3">
-                                        <!--begin::Navigation-->
-                                        <ul class="navi navi-hover py-5">
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon"><i class="flaticon2-drop"></i></span>
-                                                    <span class="navi-text">New Group</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon"><i class="flaticon2-list-3"></i></span>
-                                                    <span class="navi-text">Contacts</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon"><i class="flaticon2-rocket-1"></i></span>
-                                                    <span class="navi-text">Groups</span>
-                                                    <span class="navi-link-badge">
-                                                        <span class="label label-light-primary label-inline font-weight-bold">new</span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon"><i class="flaticon2-bell-2"></i></span>
-                                                    <span class="navi-text">Calls</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon"><i class="flaticon2-gear"></i></span>
-                                                    <span class="navi-text">Settings</span>
-                                                </a>
-                                            </li>
-
-                                            <li class="navi-separator my-3"></li>
-
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon"><i
-                                                                class="flaticon2-magnifier-tool"></i></span>
-                                                    <span class="navi-text">Help</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon"><i class="flaticon2-bell-2"></i></span>
-                                                    <span class="navi-text">Privacy</span>
-                                                    <span class="navi-link-badge">
-                                                        <span class="label label-light-danger label-rounded font-weight-bold">5</span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <!--end::Navigation-->
-                                    </div>
-                                </div>
+                                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5"> Dashboard </h5>
                             </div>
                         </div>
                     </div>
+
                     <div class="d-flex flex-column-fluid">
                         <div class="container">
-
                             <div class="row">
-                                <div class="col-md-12">
+
+                                <div class="col-md-4">
                                     <div class="card card-custom card-stretch gutter-b">
-                                        <div class="card-header pt-6">
-                                            <div class="col-sm-9 my-2 my-md-0"></div>
-                                            <div class="col-sm-3 my-2 my-md-0">
-                                                <div class="form-group">
-                                                    <label class="font-weight-bold" for="BG_CurrentYear">Year</label>
-                                                    <select class="form-control"
-                                                            id="BG_CurrentYear"
-                                                            onchange="callMonthlyLeadsData()">
-                                                        <?php
-                                                        for ($y = $starting_year; $y <= $current_year; $y++) {
-                                                            $s = ($y == $current_year) ? 'selected="selected"' : '';
-                                                            echo '<option value="' . $y . '" ' . $s . '>' . $y . '</option>';
-                                                        }
-                                                        //$months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
-                                                        //$transposed = array_slice($months, date('n'), 12, true) + array_slice($months, 0, date('n'), true);
-                                                        //$last8 = array_reverse(array_slice($transposed, -8, 12, true), true);
-                                                        /*foreach ($months as $num => $name) {
-                                                            printf('<option value="%u">%s</option>', $num, $name);
-                                                        }*/
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2 class="bd-heading"> Business Development Team </h2>
                                             </div>
-                                        </div>
-                                        <div class="card-body d-flex flex-column px-2 py-4">
-                                            <div class="row" id="firstChartRow">
-                                                <div class="col-md-7">
-                                                    <div id="monthlyLeadsHistogramChartWrapper"
-                                                         class="HighChartWrapper">
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="bd_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div id="monthlyLeadsChartWrapper" class="HighChartWrapper"></div>
-                                                </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Calls</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="card card-custom card-stretch gutter-b">
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2 class="seo-heading"> Search Engine Optimization Team </h2>
+                                            </div>
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="seo_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>Submissions</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card card-custom card-stretch gutter-b">
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2 class="smm-heading"> Social Media Marketing </h2>
+                                            </div>
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="smm_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Reached</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12">
+
+                                <div class="col-md-4">
                                     <div class="card card-custom card-stretch gutter-b">
-                                        <div class="card-header pt-6">
-                                            <div class="col-sm-9 my-2 my-md-0"></div>
-                                            <div class="col-sm-3 my-2 my-md-0">
-                                                <div class="form-group">
-                                                    <label class="font-weight-bold" for="BG_Year">Year</label>
-                                                    <select class="form-control"
-                                                            id="BG_Year"
-                                                            onchange="callYearlyLeadsPercentageData()">
-                                                        <?php
-                                                        for ($y = $starting_year; $y <= $current_year; $y++) {
-                                                            $s = ($y == $current_year) ? 'selected="selected"' : '';
-                                                            echo '<option value="' . $y . '" ' . $s . '>' . $y . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2 class="em-heading"> Email Marketing Team </h2>
                                             </div>
-                                        </div>
-                                        <div class="card-body d-flex flex-column px-2 py-4">
-                                            <div class="row" id="secondChartRow">
-                                                <div class="col-md-5">
-                                                    <div id="PieLeadsChartWrapper"
-                                                         class="HighChartWrapper"></div>
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <div id="DrillDownLeadsChartWrapper"
-                                                         class="HighChartWrapper"></div>
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="em_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Reached</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-4">
                                     <div class="card card-custom card-stretch gutter-b">
-                                        <div class="card-header pt-6">
-                                            <div class="col-sm-6 my-2 my-md-0"></div>
-                                            <div class="col-sm-3 my-2 my-md-0">
-                                                <div class="form-group">
-                                                    <label class="font-weight-bold" for="BG_StartYear">From</label>
-                                                    <select class="form-control"
-                                                            id="BG_StartYear"
-                                                            onchange="callYearlyLeadChartData()">
-                                                        <?php
-                                                        for ($y = $starting_year; $y <= $current_year; $y++) {
-                                                            $s = ($y == $last_five_year) ? 'selected="selected"' : '';
-                                                            echo '<option value="' . $y . '" ' . $s . '>' . $y . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                        <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
+                                            <div class="line">
+                                                <h2> Medcare MSO </h2>
                                             </div>
-                                            <div class="col-sm-3 my-2 my-md-0">
-                                                <div class="form-group">
-                                                    <label class="font-weight-bold" for="BG_EndYear">To</label>
-                                                    <select class="form-control"
-                                                            id="BG_EndYear"
-                                                            onchange="callYearlyLeadChartData()">
-                                                        <?php
-                                                        for ($y = $starting_year; $y <= $current_year; $y++) {
-                                                            $s = ($y == $current_year) ? 'selected="selected"' : '';
-                                                            echo '<option value="' . $y . '" ' . $s . '>' . $y . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body d-flex flex-column px-2 py-4">
-                                            <div class="row" id="thirdChartRow">
-                                                <div class="col-md-12">
-                                                    <div id="yearlyLeadsChartWrapper"
-                                                         class="HighChartWrapper"></div>
+                                            <div class="line mt-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="medcare_progress" class="PieChartWrapper">
+                                                            <span class="percent"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Reached</p>
+                                                        <h1>267</h1>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>No Of Leads</p>
+                                                        <h1>21</h1>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card card-custom card-stretch gutter-b">
-                                        <div class="card-header pt-6"><!--border-0-->
-                                            <div class="col-sm-2 my-2 my-md-0"></div>
-                                            <div class="col-sm-4 my-2 my-md-0">
-                                                <div class="form-group">
-                                                    <label class="font-weight-bold"
-                                                           for="BG_CategoryFilter">Category</label>
-                                                    <select class="form-control"
-                                                            id="BG_CategoryFilter"
-                                                            onchange="callSingleLeadChartData()">
-                                                        <?php
-                                                        $select = "SELECT c.id, c.name FROM categories AS c INNER JOIN leads AS l ON c.id=l.category_id WHERE c.company_id='{$global_company_id}' AND c.branch_id='{$global_branch_id}' AND c.deleted_at IS NULL GROUP BY c.id ORDER BY c.sort_by ASC";
-                                                        $query = mysqli_query($db, $select);
-                                                        if (mysqli_num_rows($query) > 0) {
-                                                            while ($result = mysqli_fetch_object($query)) {
-                                                                ?>
-                                                                <option value="<?php echo $result->id; ?>"><?php echo $result->name; ?></option>
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 my-2 my-md-0">
-                                                <div class="form-group">
-                                                    <label class="font-weight-bold" for="BG_RangeStart">From</label>
-                                                    <select class="form-control"
-                                                            id="BG_RangeStart"
-                                                            onchange="callSingleLeadChartData()">
-                                                        <?php
-                                                        for ($y = $starting_year; $y <= $current_year; $y++) {
-                                                            $s = ($y == $last_five_year) ? 'selected="selected"' : '';
-                                                            echo '<option value="' . $y . '" ' . $s . '>' . $y . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 my-2 my-md-0">
-                                                <div class="form-group">
-                                                    <label class="font-weight-bold" for="BG_RangeEnd">To</label>
-                                                    <select class="form-control"
-                                                            id="BG_RangeEnd"
-                                                            onchange="callSingleLeadChartData()">
-                                                        <?php
-                                                        for ($y = $starting_year; $y <= $current_year; $y++) {
-                                                            $s = ($y == $current_year) ? 'selected="selected"' : '';
-                                                            echo '<option value="' . $y . '" ' . $s . '>' . $y . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body d-flex flex-column">
-                                            <div class="row" id="fourthChartRow">
-                                                <div class="col-md-2"></div>
-                                                <div class="col-md-8">
-                                                    <div id="singleLeadChartWrapper" class="HighChartWrapper"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -335,6 +192,152 @@ include_once("../includes/footer.php");
 include_once("../includes/footer_script.php");
 ?>
     <script type="text/javascript">
+
+        getAllPageData();
+
+        function getAllPageData(){
+            getStatistics();
+        }
+
+
+        function getStatistics(){
+            loader(true);
+            setStatistics();
+        }
+
+
+        function setStatistics(){
+            var easing = 'easeOutElastic';
+            var delay = 300;
+            var scaleColor = false;
+            var scaleLength = 5;
+            var trackWidth = 10;
+            var lineWidth = 14;
+            var lineCap = 'butt' /*'round'*/;
+            var size = 95;
+            var rotate = 0;
+            var animate = {
+                duration: 1000,
+                enabled: true
+            };
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                var element = document.getElementById('bd_progress');
+                var rate = "46.22"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#0155e6',
+                    trackColor: '#97c6ff',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+
+                var element = document.getElementById('seo_progress');
+                rate = "59.05"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#04cbfe',
+                    trackColor: '#a4f2ff',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+
+                var element = document.getElementById('smm_progress');
+                var rate = "12.95"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#47c997',
+                    trackColor: '#9bf9d1',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+
+                var element = document.getElementById('em_progress');
+                var rate = "46.45"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#0078ba',
+                    trackColor: '#5fd6ff',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+
+                var element = document.getElementById('medcare_progress');
+                var rate = "65.83"
+                element.setAttribute('data-percent', rate);
+                window.chart = new EasyPieChart(element, {
+                    barColor: '#8bc443',
+                    trackColor: '#c1ed7c',
+                    easing: easing,
+                    delay: delay,
+                    scaleColor: scaleColor,
+                    scaleLength: scaleLength,
+                    trackWidth: trackWidth,
+                    lineWidth: lineWidth,
+                    lineCap: lineCap,
+                    size: size,
+                    rotate: rotate,
+                    animate: animate,
+                    onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = rate;
+                    }
+                });
+            });
+
+            loader(false);
+        }
+
+
+
+
+
+
+
 
 
     </script>

@@ -1,0 +1,248 @@
+#kt_aside_toggle,
+#kt_quick_panel_toggle,
+#kt_quick_user_toggle:not(.user-image-wrapper),
+#kt_subheader,
+#kt_header .topbar,
+.aside-menu .menu-nav li.menu-section {
+    display: none !important;
+    opacity: 0 !important;
+    width: 0 !important;
+}
+
+.line{
+    display: block;
+    float: left;
+    overflow: hidden;
+    width: 100%;
+}
+
+body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
+    background: #f3f7fd !important;
+}
+
+.aside, .aside-menu {
+    background-color: #ffffff;
+}
+
+.aside-menu .menu-nav .menu-item .menu-link {
+    border-left: 4px solid transparent;
+    padding: 22px 30px;
+}
+
+.aside-menu .menu-nav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-link {
+    padding: 14px 25px 14px 40px !important;
+}
+
+.aside-menu .menu-nav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-link {
+    padding: 14px 25px 14px 55px !important;
+}
+
+
+.aside-menu .menu-nav .menu-item .menu-text {
+    font-size: 14px !important;
+    font-family: 'montserratlight' !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px;
+}
+
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item > .menu-link .menu-arrow {
+    color: #b8c9e0;
+}
+
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+    background-color: #f6fbff;
+}
+
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-arrow,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-arrow,
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-arrow {
+    color: #1363ea;
+}
+
+.aside-menu .menu-nav .menu-item .menu-link .menu-icon .dark_color {
+    fill: #b8c9e0;
+}
+
+.aside-menu .menu-nav .menu-item .menu-link .menu-icon .light_color {
+    fill: #d8dfe9
+}
+
+.aside-menu .menu-nav .menu-item.menu-item-active .menu-link .menu-icon .dark_color,
+.aside-menu .menu-nav .menu-item.menu-item-open .menu-link .menu-icon .dark_color,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon .dark_color,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon .dark_color,
+.header.header-fixed .page-name .page-svg-icon-wrapper svg .dark_color {
+    fill: #1363ea;
+}
+
+.aside-menu .menu-nav .menu-item.menu-item-open .menu-link .menu-icon .light_color,
+.aside-menu .menu-nav .menu-item.menu-item-active .menu-link .menu-icon .light_color,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon .light_color,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon .light_color,
+.header.header-fixed .page-name .page-svg-icon-wrapper svg .light_color {
+    fill: #97CEFF;
+}
+
+.aside-menu .menu-nav .menu-item.menu-item-active .menu-link {
+    border-left: 5px solid #1363ea;
+}
+
+.header.header-fixed,
+.header.header-fixed .page-name,
+.brand, .brand-logo-wrapper {
+    height: 80px;
+}
+
+
+.header.header-fixed .page-name,
+.brand-logo-wrapper {
+    align-items: center;
+    display: flex;
+    border-bottom: 2px solid #e8ebf1;
+    color: #16171a;
+    float: left;
+    font-family: 'montserratblack';
+    font-size: 24px;
+    justify-content: center;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+}
+
+.header.header-fixed .page-name .page-svg-icon-wrapper {
+    display: block;
+    margin: 0 10px 0 0;
+    width: 26px;
+}
+
+.header.header-fixed .page-name .page-svg-icon-wrapper svg {
+    vertical-align: text-bottom;
+}
+
+.user-image-portion{
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    padding: 30px 30px 15px 30px;
+    width: 100%;
+}
+
+
+.user-image-portion .user-image-wrapper{
+    border:3px solid #1363ea;
+    border-radius: 50%;
+    cursor: pointer;
+    display: block;
+    height: 110px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 5px;
+    width: 110px;
+
+}
+
+.user-image-portion .user-image-wrapper img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.user-active-label{
+    background-color: #ecf8f6;
+    border:1px solid #ecf8f6;
+    border-radius: 35px;
+    color: #6dc599;
+    font-family:'montserratmedium';
+    font-size: 14px;
+    padding: 20px 30px 17px 30px;
+    width: auto;
+}
+
+.progress-card h2 {
+    color: #8bc443;
+    font-family:'montserratsemibold';
+    font-size: 16px;
+    letter-spacing: 0.2px;
+}
+
+.progress-card h2.bd-heading {color: #0155e6;}
+.progress-card h2.seo-heading {color: #04cbfe;}
+.progress-card h2.smm-heading {color: #47c997;}
+.progress-card h2.em-heading {color: #0078ba;}
+
+.progress-card p{
+    color: #99a6bf;
+    font-family:'montserratmedium';
+    font-size: 12px;
+    text-align: center;
+    margin: 10px 0 5px 0;
+}
+
+.progress-card h1{
+    color: #16171a;
+    font-family:'montserratblack';
+    font-size: 40px;
+    text-align: center;
+    margin: 0 0 5px 0;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 992px) {
+    .header-fixed.subheader-fixed.subheader-enabled .wrapper {
+        padding-top: 80px;
+    }
+}

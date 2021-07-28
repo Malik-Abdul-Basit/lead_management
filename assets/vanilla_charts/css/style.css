@@ -1,8 +1,10 @@
 .PieChartWrapper {
     display: table;
+    height: 100px;
     margin: 0 auto;
     overflow: hidden;
     position: relative;
+    width: 95px;
 }
 
 .PieChartWrapper span {

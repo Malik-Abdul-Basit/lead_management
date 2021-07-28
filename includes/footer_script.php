@@ -65,6 +65,12 @@
         <!--end::Global Config-->
 
         <?php
+        if (in_array($page, ['dashboard'])) {
+            ?>
+            <script type="text/javascript" src="<?php echo $base_url ?>assets/vanilla_charts/js/easypiechart.js"></script>
+            <?php
+        }
+
         if(in_array($page, ['user_image', 'sales_person']) ){
             ?>
             <script src="<?php echo $base_url ?>assets/croppie_assets/js/jquery.js"></script>
@@ -84,9 +90,6 @@
         <script src="<?php echo $ct_assets; ?>js/maxlength.js"></script>
         <script src="<?php echo $ct_assets; ?>js/select2.js"></script>
         <script src="<?php echo $ct_assets; ?>js/touch_spin.js"></script>
-
-<!--        <script src="--><?php //echo $base_url; ?><!--assets/time_picker/js/timepicki.js"></script>-->
-<!--        <script> $('.timepicker').timepicki(); </script>-->
 
         <script type="text/javascript">
 
