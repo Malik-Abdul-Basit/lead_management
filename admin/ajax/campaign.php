@@ -76,9 +76,6 @@ if (isset($_POST['postData'])) {
         $name = $db->real_escape_string(html_entity_decode(stripslashes(strip_tags($name))));
         $date = html_entity_decode(stripslashes(date('Y-m-d', strtotime($date))));
 
-        $continueProcessing = false;
-        $message = '';
-
         $check = mysqli_query($db, "SELECT `id` FROM `campaigns` WHERE `name`='{$name}' AND `date`='{$date}' AND `type`='{$type}' AND `source_id`='{$source_id}' AND `account_id`='{$account_id}' AND `campaign_type_id`='{$campaign_type_id}' AND `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `id`!='{$id}' ORDER BY `id` ASC LIMIT 1");
         if ($check && mysqli_num_rows($check) > 0) {
             echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'This Campaign already exist.']);

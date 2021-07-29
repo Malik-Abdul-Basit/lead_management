@@ -12,9 +12,9 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
     $perPage = 10;
     $sortColumn = 'c.date';
     $sortOrder = 'DESC';
-    $condition = " WHERE c.type='{$filters->T}' AND c.company_id='{$global_company_id}' AND c.branch_id='{$global_branch_id}' AND c.deleted_at IS NULL AND ct.type='{$filters->T}' AND ct.company_id='{$global_company_id}' AND ct.branch_id='{$global_branch_id}' AND ct.deleted_at IS NULL AND s.type='{$filters->T}' AND s.company_id='{$global_company_id}' AND s.branch_id='{$global_branch_id}' AND s.deleted_at IS NULL AND a.type='{$filters->T}' AND a.company_id='{$global_company_id}' AND a.branch_id='{$global_branch_id}' AND a.deleted_at IS NULL ";
+    $condition = " WHERE c.company_id='{$global_company_id}' AND c.branch_id='{$global_branch_id}' AND c.deleted_at IS NULL AND s.type='{$filters->T}' AND s.company_id='{$global_company_id}' AND s.branch_id='{$global_branch_id}' AND s.deleted_at IS NULL ";
     if (isset($filters->SearchQuery) && !empty($filters->SearchQuery) && strlen($filters->SearchQuery) > 0) {
-        $condition .= " AND (c.name LIKE '%{$filters->SearchQuery}%' OR c.reach LIKE '%{$filters->SearchQuery}%' OR c.good_responses LIKE '%{$filters->SearchQuery}%' OR c.bad_responses LIKE '%{$filters->SearchQuery}%' OR c.follow_ups LIKE '%{$filters->SearchQuery}%' OR c.not_responses LIKE '%{$filters->SearchQuery}%') ";
+        $condition .= " AND (c.name LIKE '%{$filters->SearchQuery}%') ";
     }
 
     if (!empty($filters->Filter) && isset($filters->Filter) && count($filters->Filter) > 0) {
@@ -105,7 +105,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
         } else {
             $number_of_record = " LIMIT " . $offset . ", " . $perPage;
         }
-        $select = "SELECT c.*, 
+        $select = "SELECT c.id, c.name, c.date, 
         ct.name AS campaign_type_name, s.name AS source_name,
         a.name AS account_name
         FROM 
@@ -154,7 +154,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                                     </a>';
                     }
                     if (hasRight($filters->L, 'delete')) {
-                        $data .= '<button type="button" onclick="entryDelete(' . $result->id . ', \'' . $filters->T . '\')" class="btn btn-sm btn-danger font-weight-bolder text-uppercase" style="font-size: 10px" title="Delete">
+                        $data .= '<button type="button" onclick="entryDelete(' . $result->id . ', \''.$filters->T.'\')" class="btn btn-sm btn-danger font-weight-bolder text-uppercase" style="font-size: 10px" title="Delete">
                                         <span class="navi-icon"><i class="flaticon-delete" style="font-size: 12px"></i></span> Delete
                                     </button>';
                     }
@@ -178,34 +178,6 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                                 <i id="target_' . $result->id . '" data-open="false"
                                 class="fas fa-chevron-up"></i>
                             </a>
-                        </div>
-                        <div id="collapse_' . $result->id . '" class="collapse">
-                            <div class="card-section">
-                                <div class="card-section-body p-0">
-                                    <div class="lead-card-details pt-4 px-6">
-                                        <div class="card-section-title mb-6">Campaign Detail</div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="small">Contacts</div>
-                                                <span>' . $result->reach . '</span>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="small">Responses</div>
-                                                <span>Good: ' . $result->good_responses . '</span><br>
-                                                <span>Bad: ' . $result->bad_responses . '</span><br>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="small">Not Responses</div>
-                                                <span>' . $result->not_responses . '</span>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="small">Follow Ups</div>
-                                                <span>' . $result->follow_ups . '</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-footer-info">
                             <div class="d-block float-left overflow-hidden">
