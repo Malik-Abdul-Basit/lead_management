@@ -25,7 +25,10 @@
                             </div>
                         </div>
                         <div class="line text-center">
-                            <span class="label user-active-label mt-6">Active Now</span>
+                            <span class="label user-active-label mt-6">
+                                <i class="fas fa-check-circle"></i>
+                                Active Now
+                            </span>
                         </div>
                     </div>
                 </li>

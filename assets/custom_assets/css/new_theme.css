@@ -20,6 +20,10 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     background: #f3f7fd !important;
 }
 
+#kt_content{
+    margin-bottom: 40px;
+}
+
 .aside, .aside-menu {
     background-color: #ffffff;
 }
@@ -197,6 +201,12 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     width: auto;
 }
 
+.user-active-label i{
+    color: #6dc599 !important;
+    font-size: 16px;
+    margin: -4px 8px 0 0;
+}
+
 .progress-card h2 {
     color: #8bc443;
     font-family: 'montserratsemibold';
@@ -235,6 +245,40 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     text-align: center;
     margin: 0 0 5px 0;
 }
+
+.Card-Stretch-Wrapper h1{
+    color: #16171a;
+    font-family: 'montserratsemibold';
+    font-size: 20px;
+    margin: 30px 0 15px 0;
+    padding: 0 0 0 5px;
+}
+
+.Card-Stretch-Wrapper .card.card-custom.card-stretch{
+    height: calc(100% - 24px - 30px - 15px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media (min-width: 992px) {
