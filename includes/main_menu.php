@@ -33,8 +33,6 @@
                     </div>
                 </li>
 
-
-
                 <li aria-haspopup="true" class="menu-item <?php if (in_array($page, array('dashboard'))) {
                     echo 'menu-item-active';
                 } ?>">
