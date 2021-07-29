@@ -9,7 +9,7 @@
     width: 0 !important;
 }
 
-.line{
+.line {
     display: block;
     float: left;
     overflow: hidden;
@@ -26,22 +26,29 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
 
 .aside-menu .menu-nav .menu-item .menu-link {
     border-left: 4px solid transparent;
-    padding: 22px 30px;
+    padding: 20px 30px;
 }
 
+.aside-menu .menu-nav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-link,
+.aside-menu .menu-nav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-link {
+    padding-top: 10px !important;
+    padding-right: 25px !important;
+    padding-bottom: 10px !important;
+}
+
+
 .aside-menu .menu-nav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-link {
-    padding: 14px 25px 14px 40px !important;
+    padding-left: 40px !important;
 }
 
 .aside-menu .menu-nav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-submenu .menu-subnav > .menu-item > .menu-link {
-    padding: 14px 25px 14px 55px !important;
+    padding-left: 55px !important;
 }
 
 
 .aside-menu .menu-nav .menu-item .menu-text {
     font-size: 14px !important;
-    font-family: 'montserratlight' !important;
-    font-weight: 800 !important;
+    font-family: 'montserratregular' !important;
     letter-spacing: 0.5px;
 }
 
@@ -51,7 +58,7 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
 .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-text,
 .aside-menu .menu-nav > .menu-item > .menu-heading .menu-arrow,
 .aside-menu .menu-nav > .menu-item > .menu-link .menu-arrow {
-    color: #b8c9e0;
+    color: #9eaabb;
 }
 
 .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link,
@@ -92,7 +99,7 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
 }
 
 .aside-menu .menu-nav .menu-item .menu-link .menu-icon .dark_color {
-    fill: #b8c9e0;
+    fill: #9eaabb;
 }
 
 .aside-menu .menu-nav .menu-item .menu-link .menu-icon .light_color {
@@ -152,17 +159,17 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     vertical-align: text-bottom;
 }
 
-.user-image-portion{
+.user-image-portion {
     display: block;
     margin: 0;
     overflow: hidden;
-    padding: 30px 30px 15px 30px;
+    padding: 15px 30px 30px 30px;
     width: 100%;
 }
 
 
-.user-image-portion .user-image-wrapper{
-    border:3px solid #1363ea;
+.user-image-portion .user-image-wrapper {
+    border: 3px solid #1363ea;
     border-radius: 50%;
     cursor: pointer;
     display: block;
@@ -174,17 +181,17 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
 
 }
 
-.user-image-portion .user-image-wrapper img{
+.user-image-portion .user-image-wrapper img {
     width: 100%;
     border-radius: 50%;
 }
 
-.user-active-label{
+.user-active-label {
     background-color: #ecf8f6;
-    border:1px solid #ecf8f6;
+    border: 1px solid #ecf8f6;
     border-radius: 35px;
     color: #6dc599;
-    font-family:'montserratmedium';
+    font-family: 'montserratmedium';
     font-size: 14px;
     padding: 20px 30px 17px 30px;
     width: auto;
@@ -192,53 +199,42 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
 
 .progress-card h2 {
     color: #8bc443;
-    font-family:'montserratsemibold';
+    font-family: 'montserratsemibold';
     font-size: 16px;
     letter-spacing: 0.2px;
 }
 
-.progress-card h2.bd-heading {color: #0155e6;}
-.progress-card h2.seo-heading {color: #04cbfe;}
-.progress-card h2.smm-heading {color: #47c997;}
-.progress-card h2.em-heading {color: #0078ba;}
+.progress-card h2.bd-heading {
+    color: #0155e6;
+}
 
-.progress-card p{
+.progress-card h2.seo-heading {
+    color: #04cbfe;
+}
+
+.progress-card h2.smm-heading {
+    color: #47c997;
+}
+
+.progress-card h2.em-heading {
+    color: #0078ba;
+}
+
+.progress-card p {
     color: #99a6bf;
-    font-family:'montserratmedium';
+    font-family: 'montserratmedium';
     font-size: 12px;
     text-align: center;
     margin: 10px 0 5px 0;
 }
 
-.progress-card h1{
+.progress-card h1 {
     color: #16171a;
-    font-family:'montserratblack';
+    font-family: 'montserratblack';
     font-size: 40px;
     text-align: center;
     margin: 0 0 5px 0;
- }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 @media (min-width: 992px) {

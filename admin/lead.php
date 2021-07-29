@@ -540,6 +540,7 @@ include_once("../includes/footer_script.php");
             var E = '<?php echo hasRight($user_right_title, 'edit') ?>';
 
             var statusArray = [<?php echo '"' . implode('","', array_values(config('leads.status.value'))) . '"' ?>];
+            var typeArray = [<?php echo '"' . implode('","', array_values(config('leads.type.value'))) . '"' ?>];
 
             var id = document.getElementById('id');
             var type = document.getElementById('type');
@@ -722,6 +723,9 @@ include_once("../includes/footer_script.php");
                 error = "Invalid Fax number.";
                 errorMessageFax.innerText = error;
                 toasterTrigger(toasterType, error);
+                return false;
+            } else if (type.value == '' || typeArray.includes(type.value) == false) {
+                toasterTrigger(toasterType, 'Sorry! some unexpected error.');
                 return false;
             } else {
 
