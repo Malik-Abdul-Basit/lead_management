@@ -12,23 +12,26 @@
     <!--begin::Aside Menu-->
     <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
 
-        <div class="user-image-portion">
-            <div class="line">
-                <div class="user-image-wrapper" id="kt_quick_user_toggle">
-                    <img src="<?php echo getUserImage($global_employee_id)['image_path']; ?>" alt="User Profile Image"/>
-                </div>
-            </div>
-            <div class="line text-center">
-                <span class="label user-active-label mt-6">Active Now</span>
-            </div>
-        </div>
-
-
         <div id="kt_aside_menu" class="aside-menu"
              data-menu-vertical="1"
              data-menu-scroll="1"
              data-menu-dropdown-timeout="500">
             <ul class="menu-nav">
+                <li aria-haspopup="true" class="menu-item">
+                    <div class="user-image-portion">
+                        <div class="line">
+                            <div class="user-image-wrapper" id="kt_quick_user_toggle">
+                                <img src="<?php echo getUserImage($global_employee_id)['image_path']; ?>" alt="User Profile Image"/>
+                            </div>
+                        </div>
+                        <div class="line text-center">
+                            <span class="label user-active-label mt-6">Active Now</span>
+                        </div>
+                    </div>
+                </li>
+
+
+
                 <li aria-haspopup="true" class="menu-item <?php if (in_array($page, array('dashboard'))) {
                     echo 'menu-item-active';
                 } ?>">

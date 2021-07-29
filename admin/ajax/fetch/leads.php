@@ -44,7 +44,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
 
     $total = 0;
     $data = '';
-    $sql = mysqli_query($db, "SELECT count(l.id) AS total FROM leads AS l INNER JOIN sales_persons AS sp ON sp.id=l.sales_person_id INNER JOIN campaigns AS c ON c.id=l.campaign_id " . $condition);
+    $sql = mysqli_query($db, "SELECT count(l.id) AS total FROM leads AS l INNER JOIN sales_persons AS sp ON sp.id=l.sales_person_id INNER JOIN campaigns AS c ON c.id=l.campaign_id " . $condition . " GROUP BY l.id ");
     if (mysqli_num_rows($sql) > 0) {
         $result = mysqli_fetch_object($sql);
         $total = $result->total;
@@ -116,7 +116,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
             ON sp.id=l.sales_person_id 
         INNER JOIN 
             campaigns AS c 
-            ON c.id=l.campaign_id " . $condition . $sort . $number_of_record;
+            ON c.id=l.campaign_id " . $condition . " GROUP BY l.id " . $sort . $number_of_record;
 
         $query = mysqli_query($db, $select);
         if (mysqli_num_rows($query) > 0) {
@@ -184,7 +184,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                     }
                     $data .= '</div>';
                 } else {
-                    $data .= '<div class="col-md-3 text-vertical-align-center">
+                    $data .= '<div class="col-md-5 text-vertical-align-center">
                                     <div class="flex-grow-0">
                                         <span>' . $result->campaign_name . '</span>
                                         <br>

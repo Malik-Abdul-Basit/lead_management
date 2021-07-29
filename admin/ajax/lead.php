@@ -27,11 +27,7 @@ if (isset($_POST['postData'])) {
     $data = $object->data;
 
     $status_array = array_values(config('leads.status.value'));
-
-    /*echo '<pre>';
-    print_r($object);
-    echo '<pre>';
-    exit();*/
+    $type_array = array_values(config('leads.type.value'));
 
     if ((empty($id) || $id == 0) && (!hasRight($user_right_title, 'add'))) {
         echo json_encode(["code" => 405, "toasterClass" => 'warning', "responseMessage" => 'Sorry! You have no right to add record.']);
@@ -81,6 +77,8 @@ if (isset($_POST['postData'])) {
         echo json_encode(['code' => 422, 'errorField' => 'fax', 'errorDiv' => 'errorMessageFax', 'errorMessage' => 'Invalid Fax number.']);
     } else if (empty($object->data) || sizeof($object->data) < 1) {
         echo json_encode(['code' => 405, "toasterClass" => 'error', 'responseMessage' => 'Please provide at least one Communication.']);
+    } else if (empty($type) || !in_array($type, $type_array)) {
+        echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'Sorry! some unexpected error.']);
     } else {
         $company_id = $_SESSION['company_id'];
         $branch_id = $_SESSION['branch_id'];
