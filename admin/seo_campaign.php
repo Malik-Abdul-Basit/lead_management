@@ -415,7 +415,7 @@ include_once("../includes/footer_script.php");
                 return false;
             } else if (calls.value != '' && (isNaN(calls.value) === true || calls.value.length > 10 || calls.value < 0)) {
                 calls.style.borderColor = '#F00';
-                error = "Please type valid number of Calls.";
+                error = "Please type a valid number of Calls.";
                 errorMessageCalls.innerText = error;
                 toasterTrigger(toasterType, error);
                 return false;
@@ -454,25 +454,11 @@ include_once("../includes/footer_script.php");
                                     if (obj.responseMessage !== undefined && obj.responseMessage != '') {
                                         if (obj.form_reset !== undefined && obj.form_reset) {
                                             document.getElementById("myFORM").reset();
-                                            document.getElementById('account_id').innerHTML = '<option selected="selected" value="0">Select</option>';
-
-                                            var campaign_type_id_container = document.getElementById("select2-campaign_type_id-container");
-                                            if (campaign_type_id_container) {
-                                                campaign_type_id_container.removeAttribute("title");
-                                                campaign_type_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
-                                                campaign_type_id.value = '0';
-                                            }
                                             var source_id_container = document.getElementById("select2-source_id-container");
                                             if (source_id_container) {
                                                 source_id_container.removeAttribute("title");
                                                 source_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
                                                 source_id.value = '0';
-                                            }
-                                            var account_id_container = document.getElementById("select2-account_id-container");
-                                            if (account_id_container) {
-                                                account_id_container.removeAttribute("title");
-                                                account_id_container.innerHTML = '<span class="select2-selection__placeholder">Select</span>';
-                                                account_id.value = '0';
                                             }
                                         }
                                         loader(false);
@@ -481,33 +467,6 @@ include_once("../includes/footer_script.php");
                                         loader(false);
                                     }
                                 }
-                            } else {
-                                loader(false);
-                            }
-                        } else {
-                            loader(false);
-                        }
-                    },
-                    error: function () {
-                        loader(false);
-                    }
-                });
-            }
-        }
-
-        function getAccounts(id, type) {
-            if (id > 0) {
-                loader(true);
-                var postData = {"id": id, "type": type, "account_id": 0};
-                $.ajax({
-                    type: "POST", url: "ajax/common.php",
-                    data: {'postData': postData, 'getAccounts': true},
-                    success: function (resPonse) {
-                        if (resPonse !== undefined && resPonse != '') {
-                            var obj = JSON.parse(resPonse);
-                            if (obj.code !== undefined && obj.code != '' && obj.code === 200 && obj.account_list !== undefined && obj.account_list != '' ) {
-                                document.getElementById('account_id').innerHTML=obj.account_list;
-                                loader(false);
                             } else {
                                 loader(false);
                             }

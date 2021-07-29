@@ -26,12 +26,6 @@ if (isset($_POST['delete_branch'], $_POST['user_right_title'])) {
     }
 }
 
-
-
-
-
-
-
 if (isset($_POST['delete_source'], $_POST['user_right_title'], $_POST['type']) && !empty($_POST['delete_source']) && !empty($_POST['user_right_title']) && !empty($_POST['type']) && is_numeric($_POST['delete_source'])) {
     if (hasRight($_POST['user_right_title'], 'delete')) {
         $id = htmlentities($_POST['delete_source']);
@@ -95,6 +89,25 @@ if (isset($_POST['delete_campaign_type'], $_POST['user_right_title'], $_POST['ty
     }
 }
 
+if (isset($_POST['delete_seo_campaign'], $_POST['user_right_title']) && !empty($_POST['delete_seo_campaign']) && !empty($_POST['user_right_title']) && is_numeric($_POST['delete_seo_campaign'])) {
+    if (hasRight($_POST['user_right_title'], 'delete')) {
+        $id = htmlentities($_POST['delete_seo_campaign']);
+        $query = mysqli_query($db, "SELECT `id` FROM `seo_leads` WHERE `campaign_id`='{$id}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_company_id}' AND `deleted_at` IS NULL");
+        $number_of_record = mysqli_num_rows($query);
+        if ($number_of_record == 0) {
+            if (mysqli_query($db, "UPDATE `seo_campaigns` SET `deleted_by`='{$global_user_id}', `deleted_at`='{$deleted_at}' WHERE `id`='{$id}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_company_id}'")) {
+                echo json_encode(["code" => 200, "toasterClass" => 'success', "responseMessage" => 'Record has been deleted.']);
+            } else {
+                echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'Unexpected error.']);
+            }
+        } else {
+            echo json_encode(["code" => 422, "toasterClass" => 'warning', "responseMessage" => ' Record already in used.']);
+        }
+    } else {
+        echo json_encode(["code" => 405, "toasterClass" => 'warning', "responseMessage" => 'Sorry! You have no right to delete record.']);
+    }
+}
+
 if (isset($_POST['delete_campaign'], $_POST['user_right_title'], $_POST['type']) && !empty($_POST['delete_campaign']) && !empty($_POST['user_right_title']) && !empty($_POST['type']) && is_numeric($_POST['delete_campaign'])) {
     if (hasRight($_POST['user_right_title'], 'delete')) {
         $id = htmlentities($_POST['delete_campaign']);
@@ -108,6 +121,19 @@ if (isset($_POST['delete_campaign'], $_POST['user_right_title'], $_POST['type'])
             }
         } else {
             echo json_encode(["code" => 422, "toasterClass" => 'warning', "responseMessage" => ' Record already in used.']);
+        }
+    } else {
+        echo json_encode(["code" => 405, "toasterClass" => 'warning', "responseMessage" => 'Sorry! You have no right to delete record.']);
+    }
+}
+
+if (isset($_POST['delete_seo_lead'], $_POST['user_right_title']) && !empty($_POST['delete_seo_lead']) && !empty($_POST['user_right_title']) && is_numeric($_POST['delete_seo_lead'])) {
+    if (hasRight($_POST['user_right_title'], 'delete')) {
+        $id = htmlentities($_POST['delete_seo_lead']);
+        if (mysqli_query($db, "UPDATE `seo_leads` SET `deleted_by`='{$global_user_id}', `deleted_at`='{$deleted_at}' WHERE `id`='{$id}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_company_id}'")) {
+            echo json_encode(["code" => 200, "toasterClass" => 'success', "responseMessage" => 'Record has been deleted.']);
+        } else {
+            echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'Unexpected error.']);
         }
     } else {
         echo json_encode(["code" => 405, "toasterClass" => 'warning', "responseMessage" => 'Sorry! You have no right to delete record.']);
