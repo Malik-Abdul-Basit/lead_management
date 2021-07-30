@@ -20,6 +20,10 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     background: #f3f7fd !important;
 }
 
+.datatable.datatable-bordered.datatable-head-custom.datatable-default.datatable-primary.datatable-loaded.datatable-scroll-x{
+    overflow-x: auto;
+}
+
 #kt_content{
     margin-bottom: 40px;
 }
@@ -218,16 +222,16 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     color: #0155e6;
 }
 
-.progress-card h2.seo-heading {
-    color: #04cbfe;
-}
-
 .progress-card h2.smm-heading {
     color: #47c997;
 }
 
 .progress-card h2.em-heading {
     color: #0078ba;
+}
+
+.progress-card h2.seo-heading {
+    color: #04cbfe;
 }
 
 .progress-card p {
@@ -246,6 +250,12 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     margin: 0 0 5px 0;
 }
 
+.Card-Stretch-Wrapper .card .highcharts-container .highcharts-title tspan {
+    color: transparent !important;
+    opacity: 0 !important;
+    width: 0 !important;
+}
+
 .Card-Stretch-Wrapper h1{
     color: #16171a;
     font-family: 'montserratsemibold';
@@ -258,12 +268,76 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     height: calc(100% - 24px - 30px - 15px);
 }
 
-.datatable.datatable-bordered.datatable-head-custom.datatable-default.datatable-primary.datatable-loaded.datatable-scroll-x{
-    overflow-x: auto;
+.duration_buttons_wrapper {
+    float: left;
+    margin: 0 0 0 40px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: auto;
+    z-index: 5;
 }
 
+.duration_buttons_wrapper ul,
+.duration_buttons_wrapper ul li {
+    float: left;
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
 
+.duration_buttons_wrapper ul li button{
+    background: transparent;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+    color: #a7b7d4;
+    font-family: 'montserratsemibold';
+    font-size: 12px;
+    margin: 0 20px 0 0;
+    padding: 4px 6px 4px 4px;
+    text-align: center;
+}
 
+.duration_buttons_wrapper ul li:nth-last-child(1) button{
+    margin: 0 0 0 0;
+}
+
+.BD-Overview-Wrapper .duration_buttons_wrapper ul li button.active {
+    background: rgba(151, 198, 255, 0.4);
+    border-color: rgba(151, 198, 255, 0.4);
+    color: #0155e6;
+}
+
+.SMM-Overview-Wrapper .duration_buttons_wrapper ul li button.active {
+    background: rgba(155, 249, 209, 0.4);
+    border-color: rgba(155, 249, 209, 0.4);
+    color: #47c997;
+}
+
+.EM-Overview-Wrapper .duration_buttons_wrapper ul li button.active {
+    background: rgba(95, 214, 255, 0.4);
+    border-color: rgba(95, 214, 255, 0.4);
+    color: #0078ba;
+}
+
+.SEO-Overview-Wrapper .duration_buttons_wrapper ul li button.active {
+    background: rgba(164, 242, 255, 0.4);
+    border-color: rgba(164, 242, 255, 0.4);
+    color: #04cbfe;
+}
+
+.Chart_Wrapper {
+    float: left;
+    margin: -35px 0 0 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
 
 
 
