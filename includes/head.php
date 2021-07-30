@@ -4,22 +4,14 @@
 <head>
     <meta charset="utf-8"/>
     <title><?php
-        if(array_key_exists($page, config('lang.page_title.title'))){
-            echo config('lang.page_title.title.' . $page);
-        } else{
-            echo ucwords(str_replace("_", " ", $page));
-        }
+        echo $pageHeading;
         if (isset($global_employee_info->company_name) && !empty($global_employee_info->company_name)) {
             echo ' | ' . $global_employee_info->company_name;
         }
         ?></title>
     <meta name="description"
           content="<?php
-          if(array_key_exists($page, config('lang.page_title.title'))){
-              echo config('lang.page_title.title.' . $page);
-          } else{
-              echo ucwords(str_replace("_", " ", $page));
-          }
+          echo $pageHeading;
           if (isset($global_employee_info->company_name) && !empty($global_employee_info->company_name)) {
               echo ' | ' . $global_employee_info->company_name;
           } ?>"/>

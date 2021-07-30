@@ -52,7 +52,7 @@ include_once("../includes/mobile_menu.php");
                                 <div class="card-header flex-wrap py-5">
                                     <div class="card-title">
                                         <h3 class="card-label">
-                                            <?php echo ucwords(str_replace("_", " ", $page)); ?>
+                                            <?php echo $pageHeading; ?>
                                         </h3>
                                     </div>
                                     <div class="card-toolbar">

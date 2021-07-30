@@ -53,7 +53,7 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
 .aside-menu .menu-nav .menu-item .menu-text {
     font-size: 14px !important;
     font-family: 'montserratregular' !important;
-    letter-spacing: 0.5px;
+    letter-spacing: 0;
 }
 
 .aside-menu .menu-nav > .menu-item > .menu-heading .menu-text,
@@ -256,6 +256,10 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
 
 .Card-Stretch-Wrapper .card.card-custom.card-stretch{
     height: calc(100% - 24px - 30px - 15px);
+}
+
+.datatable.datatable-bordered.datatable-head-custom.datatable-default.datatable-primary.datatable-loaded.datatable-scroll-x{
+    overflow-x: auto;
 }
 
 

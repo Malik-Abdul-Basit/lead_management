@@ -45,7 +45,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
         }
     }
 
-    $data .= '<table class="datatable-table d-block"><thead class="datatable-head"><tr style="left:0" class="datatable-row">';
+    $data .= '<div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded datatable-scroll-x"><table class="datatable-table d-block" style="width: 1280px !important;"><thead class="datatable-head"><tr style="left:0" class="datatable-row">';
 
     if (isset($filters->Numbering) && !empty($filters->Numbering) && sizeof($filters->Numbering) > 0) {
         $sr = (object)$filters->Numbering;
@@ -113,7 +113,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
         }
     }
 
-    $data .= '</tr></thead>';
+    $data .= '</tr></thead></div>';
     $not_found = '</table><div style="display:block;font-size:13px;font-weight:bold;padding:15px;text-align:center;width:100%">Record Not Found.</div>';
 
     if ($total > 0) {
@@ -135,6 +135,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
         $select = "SELECT b.id, b.name, b.address, b.type, b.status,
         CONCAT('Company: ', b.company_email,'<br>HR: ',b.hr_email,'<br>Other: ',other_email) AS emails,
         CONCAT('Mobile: +', b.dial_code,' ',b.mobile,'<br>Phone: ',phone,'<br>Fax: ',fax) AS numbers,
+        CONCAT('Country: ', c.country_name,'<br>State: ',s.state_name,'<br>City: ',ci.city_name) AS country,
         c.country_name,s.state_name,ci.city_name
         FROM 
             branches AS b 
@@ -201,7 +202,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                 }
                 $data .= '</tr>';
             }
-            $data .= '</tbody></table>';
+            $data .= '</tbody></table></div>';
             $data .= '<input type="hidden" id="BG_SortColumn" value="' . $sortColumn . '"><input type="hidden" id="BG_SortOrder" value="' . $sortOrder . '">';
             $data .= getPaginationNumbering($pageNo, $perPage, $total, $filters->PageSizeStack);
         } else {

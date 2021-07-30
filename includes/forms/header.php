@@ -2,7 +2,7 @@
 <meta charset="utf-8"/>
     <meta name="description" content="Latest updates and statistic charts">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title><?php echo ucwords(str_replace("_", " ", $page)); ?></title>
+    <title><?php echo $pageHeading; ?></title>
     <!--<script src="<?php //echo $base_url; ?>assets/custom_assets/js/vue.js"></script>-->
     <script src="<?php echo $ct_assets; ?>js/jquery-3.5.1.min.js"></script>
     <script src="<?php echo $base_url; ?>assets/forms_assets/js/webfont.js"></script>

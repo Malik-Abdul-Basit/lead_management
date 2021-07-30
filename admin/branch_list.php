@@ -32,13 +32,13 @@ include_once("../includes/mobile_menu.php");
                                 <div class="card-header flex-wrap py-5">
                                     <div class="card-title">
                                         <h3 class="card-label">
-                                            <?php echo ucwords(str_replace("_", " ", $page)); ?>
+                                            <?php echo $pageHeading; ?>
                                         </h3>
                                     </div>
                                     <div class="card-toolbar">
                                         <?php
                                         if (hasRight($user_right_title, 'add')) {
-                                            echo '<a href="' . $admin_url . 'branch" class="btn btn-primary font-weight-bolder">'.config('lang.button.title.new_record').'</a>';
+                                            echo '<a href="' . $admin_url . 'branch" class="btn btn-primary font-weight-bolder">' . config('lang.button.title.new_record') . '</a>';
                                         }
                                         ?>
                                     </div>
@@ -53,7 +53,8 @@ include_once("../includes/mobile_menu.php");
                                                         <div class="form-group">
                                                             <label for="BG_SearchQuery">Search</label>
                                                             <div class="input-icon">
-                                                                <input type="text" onkeyup="getData()" class="form-control"
+                                                                <input type="text" onkeyup="getData()"
+                                                                       class="form-control"
                                                                        placeholder="Search..." id="BG_SearchQuery">
                                                                 <span><i class="flaticon2-search-1 text-muted"></i></span>
                                                             </div>
@@ -62,7 +63,8 @@ include_once("../includes/mobile_menu.php");
                                                     <div class="col-md-3 my-2 my-md-0">
                                                         <div class="form-group">
                                                             <label for="BG_CountryIdFilter">Country</label>
-                                                            <select id="BG_CountryIdFilter" onchange="getData(), getStates(this.value)" <?php echo $ApplySelect2; ?>>
+                                                            <select id="BG_CountryIdFilter"
+                                                                    onchange="getData(), getStates(this.value)" <?php echo $ApplySelect2; ?>>
                                                                 <option value="-1">All</option>
                                                                 <?php
                                                                 $select = "SELECT `id`,`country_name` FROM `countries`";
@@ -81,7 +83,8 @@ include_once("../includes/mobile_menu.php");
                                                     <div class="col-md-3 my-2 my-md-0">
                                                         <div class="form-group">
                                                             <label for="state_id">State</label>
-                                                            <select id="state_id" onchange="getCities(event), getData()" <?php echo $ApplySelect2; ?>>
+                                                            <select id="state_id"
+                                                                    onchange="getCities(event), getData()" <?php echo $ApplySelect2; ?>>
                                                                 <option value="-1">All</option>
                                                             </select>
                                                         </div>
@@ -89,7 +92,8 @@ include_once("../includes/mobile_menu.php");
                                                     <div class="col-md-3 my-2 my-md-0">
                                                         <div class="form-group">
                                                             <label for="city_id">City</label>
-                                                            <select id="city_id" onchange="getData()" <?php echo $ApplySelect2; ?>>
+                                                            <select id="city_id"
+                                                                    onchange="getData()" <?php echo $ApplySelect2; ?>>
                                                                 <option value="-1">All</option>
                                                             </select>
                                                         </div>
@@ -100,7 +104,8 @@ include_once("../includes/mobile_menu.php");
                                         </div>
                                     </div>
                                     <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded"
-                                         id="dataListingWrapper"></div>
+                                         id="dataListingWrapper">
+                                    </div>
                                 </div>
                             </div>
                             <!--end::Card-->
@@ -230,6 +235,13 @@ include_once("../includes/footer_script.php");
                         'sort': true
                     },
                     {
+                        'field': 'country',
+                        'title': 'Country',
+                        'text': 'left',
+                        'style': 'style="font-size: 11px;width:150px"',
+                        'sort': true
+                    },
+                    /*{
                         'field': 'country_name',
                         'title': 'Country',
                         'text': 'left',
@@ -249,26 +261,26 @@ include_once("../includes/footer_script.php");
                         'text': 'left',
                         'style': 'style="font-size: 11px;width:65px"',
                         'sort': true
-                    },
+                    },*/
                     {
                         'field': 'address',
                         'title': 'Address',
                         'text': 'left',
-                        'style': 'style="font-size: 11px;width:135px"',
+                        'style': 'style="font-size: 11px;width:150px"',
                         'sort': true
                     },
                     {
                         'field': 'type',
                         'title': 'Type',
                         'text': 'left',
-                        'style': 'style="font-size: 11px;width:115px"',
+                        'style': 'style="font-size: 11px;width:120px"',
                         'sort': true
                     },
                     {
                         'field': 'status',
                         'title': 'Status',
                         'text': 'left',
-                        'style': 'style="font-size: 11px;width:70px"',
+                        'style': 'style="font-size: 11px;width:80px"',
                         'sort': true
                     },
                 ],
