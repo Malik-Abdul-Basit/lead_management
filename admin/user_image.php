@@ -34,7 +34,7 @@ include_once("../includes/mobile_menu.php");
                                             <div class="card-title">
                                                 <h3 class="card-label">
                                                     <?php
-                                                    echo ucwords(str_replace("_", " ", $page));
+                                                    echo $pageHeading;
                                                     $emp_code = '';
                                                     if (isset($_GET['emp_code']) && is_numeric($_GET['emp_code']) && !empty($_GET['emp_code'])) {
                                                         $emp_code = $_GET['emp_code'];

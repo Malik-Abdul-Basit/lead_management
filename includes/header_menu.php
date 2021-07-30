@@ -32,13 +32,7 @@ $list_of_notifications = $get_notification['list_of_notifications'];
                             <?php
                         }
                         else {
-                            echo '<span class="page-svg-icon-wrapper">'.$page_icon.'</span>';
-
-                            if(array_key_exists($page, config('lang.page_title.title'))){
-                                echo config('lang.page_title.title.' . $page);
-                            } else{
-                                echo ucwords(str_replace("_", " ", $page));
-                            }
+                            echo '<span class="page-svg-icon-wrapper">'.$page_icon.'</span>'.$pageHeading;
                         }
                         ?>
                     </div>

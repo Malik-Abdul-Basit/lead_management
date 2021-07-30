@@ -39,7 +39,7 @@ include_once("../includes/mobile_menu.php");
                                                         header('Location: ' . $page_not_found_url);
                                                         exit();
                                                     }
-                                                    echo 'Edit ' . ucwords(str_replace("_", " ", $page));
+                                                    echo 'Edit ' . $pageHeading;
                                                     $id = htmlentities($_GET['id']);
                                                     $Q = "SELECT * FROM `sources` WHERE `id`='{$id}' AND `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
                                                     $Qry = mysqli_query($db, $Q);
@@ -57,7 +57,7 @@ include_once("../includes/mobile_menu.php");
                                                         header('Location: ' . $page_not_found_url);
                                                         exit();
                                                     }
-                                                    echo 'Add ' . ucwords(str_replace("_", " ", $page));
+                                                    echo 'Add ' . $pageHeading;
                                                     $id = 0;
                                                     $name = '';
                                                     $sort_by = '';

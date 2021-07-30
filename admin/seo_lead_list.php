@@ -37,7 +37,7 @@ include_once("../includes/mobile_menu.php");
                                             <h3 class="card-label">
                                                 <?php
                                                 $type = config('lang.page_type.title.'.$page);
-                                                echo ucwords(str_replace("_", " ", $page));
+                                                echo $pageHeading;
                                                 ?>
                                             </h3>
                                         </div>

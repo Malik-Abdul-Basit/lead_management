@@ -38,7 +38,7 @@ include_once("../includes/mobile_menu.php");
                                                         header('Location: ' . $page_not_found_url);
                                                         exit();
                                                     }
-                                                    echo 'Edit ' . ucwords(str_replace("_", " ", $page));
+                                                    echo 'Edit ' . $pageHeading;
                                                     $id = htmlentities($_GET['id']);
                                                     $Q = "SELECT * FROM `companies` WHERE `id`='{$id}' AND `deleted_at` IS NULL";
                                                     $Qry = mysqli_query($db, $Q);
@@ -56,7 +56,7 @@ include_once("../includes/mobile_menu.php");
                                                         header('Location: ' . $page_not_found_url);
                                                         exit();
                                                     }
-                                                    echo 'Add ' . ucwords(str_replace("_", " ", $page));
+                                                    echo 'Add ' . $pageHeading;
                                                     $id = 0;
                                                     $name = '';
                                                     $status = '-1';

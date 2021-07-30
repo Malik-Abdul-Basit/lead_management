@@ -38,7 +38,7 @@ include_once("../includes/mobile_menu.php");
                                                         header('Location: ' . $page_not_found_url);
                                                         exit();
                                                     }
-                                                    echo 'Edit ' . ucwords(str_replace("_", " ", $page));
+                                                    echo 'Edit ' . $pageHeading;
                                                     $id = htmlentities($_GET['id']);
                                                     $Q = "SELECT * FROM `branches` WHERE `id`='{$id}' AND `company_id`='{$global_company_id}' AND `deleted_at` IS NULL";
                                                     $Qry = mysqli_query($db, $Q);
@@ -71,7 +71,7 @@ include_once("../includes/mobile_menu.php");
                                                         header('Location: ' . $page_not_found_url);
                                                         exit();
                                                     }
-                                                    echo 'Add ' . ucwords(str_replace("_", " ", $page));
+                                                    echo 'Add ' . $pageHeading;
                                                     $id = $state_id = $city_id = 0;
                                                     $country_id = 166;
                                                     $name = $company_email = $hr_email = $other_email = '';

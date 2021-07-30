@@ -70,7 +70,6 @@
             <script type="text/javascript" src="<?php echo $base_url ?>assets/vanilla_charts/js/easypiechart.js"></script>
             <?php
         }
-
         if(in_array($page, ['user_image', 'sales_person']) ){
             ?>
             <script src="<?php echo $base_url ?>assets/croppie_assets/js/jquery.js"></script>
