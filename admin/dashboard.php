@@ -33,7 +33,7 @@ include_once("../includes/mobile_menu.php");
                                     <div class="card card-custom card-stretch gutter-b">
                                         <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
                                             <div class="line">
-                                                <h2 class="bd-heading"> Business Development Team </h2>
+                                                <h2 class="bd-heading"> Business Development </h2>
                                             </div>
                                             <div class="line mt-6">
                                                 <div class="row">
@@ -61,7 +61,7 @@ include_once("../includes/mobile_menu.php");
                                     <div class="card card-custom card-stretch gutter-b">
                                         <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
                                             <div class="line">
-                                                <h2 class="seo-heading"> Search Engine Optimization Team </h2>
+                                                <h2 class="seo-heading"> Search Engine Optimization </h2>
                                             </div>
                                             <div class="line mt-6">
                                                 <div class="row">
@@ -121,7 +121,7 @@ include_once("../includes/mobile_menu.php");
                                     <div class="card card-custom card-stretch gutter-b">
                                         <div class="card-body progress-card d-flex flex-column pt-8 pr-5 pb-5 pl-5">
                                             <div class="line">
-                                                <h2 class="em-heading"> Email Marketing Team </h2>
+                                                <h2 class="em-heading"> Email Marketing </h2>
                                             </div>
                                             <div class="line mt-6">
                                                 <div class="row">
@@ -174,6 +174,68 @@ include_once("../includes/mobile_menu.php");
                                 </div>
 
                             </div>
+
+                            <div class="d-flex flex-row mb-3">
+
+                                <div class="col-md-6 Card-Stretch-Wrapper BD-Overview-Wrapper">
+                                    <h1>Business Development</h1>
+                                    <div class="card card-custom card-stretch">
+                                        <div class="card-body px-3">
+                                            <h2>card-body</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 Card-Stretch-Wrapper SEO-Overview-Wrapper">
+                                    <h1>Search Engine Optimization</h1>
+                                    <div class="card card-custom card-stretch">
+                                        <div class="card-body px-3">
+                                            <h2>card-body</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex flex-row mb-3">
+
+                                <div class="col-md-6 Card-Stretch-Wrapper SMM-Overview-Wrapper">
+                                    <h1>Social Media Marketing</h1>
+                                    <div class="card card-custom card-stretch">
+                                        <div class="card-body px-5">
+                                            <h2>card-body</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 Card-Stretch-Wrapper EM-Overview-Wrapper">
+                                    <h1>Email Marketing</h1>
+                                    <div class="card card-custom card-stretch">
+                                        <div class="card-body px-5">
+                                            <h2>card-body</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex flex-row mb-3">
+
+                                <div class="col-md-6 Card-Stretch-Wrapper MSO-Overview-Wrapper">
+                                    <h1>Medcare MSO</h1>
+                                    <div class="card card-custom card-stretch">
+                                        <div class="card-body px-5">
+                                            <h2>card-body</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -199,12 +261,10 @@ include_once("../includes/footer_script.php");
             getStatistics();
         }
 
-
         function getStatistics(){
             loader(true);
             setStatistics();
         }
-
 
         function setStatistics(){
             var easing = 'easeOutElastic';
@@ -331,14 +391,6 @@ include_once("../includes/footer_script.php");
 
             loader(false);
         }
-
-
-
-
-
-
-
-
 
     </script>
 
