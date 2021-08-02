@@ -6,166 +6,109 @@ $branch_id = $_SESSION['branch_id'];
 $user_id = $_SESSION['user_id'];
 global $db;
 
-if (isset($_POST['monthlyLeadsChart'])) {
-    $data = $return = [];
-    $object = (object)$_POST['monthlyLeadsChart'];
-    $checkExist = mysqli_query($db, "SELECT COUNT(l.id) AS total, MONTH(l.date) AS lead_month, c.name AS category_name, category_id FROM leads AS l INNER JOIN categories AS c ON c.id=l.category_id WHERE l.company_id='{$company_id}' AND l.branch_id='{$branch_id}' AND l.deleted_at IS NULL AND c.deleted_at IS NULL AND YEAR(l.date) BETWEEN '{$object->CurrentYear}' AND '{$object->CurrentYear}' GROUP BY MONTH(l.date),l.category_id ORDER BY c.sort_by ASC");
-    if (mysqli_num_rows($checkExist) > 0) {
-        while ($result = mysqli_fetch_object($checkExist)) {
-            $data[$result->category_id]['category_name'] = $result->category_name;
-            //$data[$result->category_id]['lead_month'][$result->lead_month] = $result->lead_month;
-            $data[$result->category_id]['total_leads'][$result->lead_month] = $result->total;
-        }
-    }
+if (isset($_POST['getStatistics'])) {
+    $data = [];
+    $object = (object)$_POST['getStatistics'];
+    $type_array = array_values(config('lang.type.value'));
 
-    if ($data && sizeof($data) > 0 && count($data) > 0) {
-        $checkCategories = mysqli_query($db, "SELECT `id`, `name` FROM `categories` WHERE `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `deleted_at` IS NULL ORDER BY `sort_by` ASC");
-        if (mysqli_num_rows($checkCategories) > 0) {
-            while ($category_object = mysqli_fetch_object($checkCategories)) {
-                $setArray = [];
+    $seo_reach = $seo_leads = $seo_rate = $smm_reach = $smm_leads = $smm_rate = $em_reach = $em_leads = $em_rate = $bd_reach = $bd_leads = $bd_rate = 0;
 
-                if (array_key_exists($category_object->id, $data)) {
-                    $setArray['name'] = $category_object->name;
-
-                    $total_leads = $data[$category_object->id]['total_leads'];
-                    //$lead_month = $data[$category_object->id]['lead_month'];
-
-                    if ($total_leads && sizeof($total_leads) > 0 && count($total_leads) > 0) {
-                        for ($m = 1; $m <= 12; $m++) {
-                            if (array_key_exists($m, $total_leads)) {
-                                $setArray['data'][] = (int)$total_leads[$m];
-                            } else {
-                                $setArray['data'][] = 0;
+    foreach ($type_array as $type) {
+        if ($type == config('lang.type.value.search_engine_optimization')) {
+            $checkExist = mysqli_query($db, "SELECT SUM(`reach`) AS `total_reach` FROM `seo_campaigns` WHERE `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `deleted_at` IS NULL AND (`from` BETWEEN '{$object->PreviousMonth}' AND '{$object->PreviousDay}' || `to` BETWEEN '{$object->PreviousMonth}' AND '{$object->PreviousDay}') ORDER BY `from` DESC");
+            if (mysqli_num_rows($checkExist) > 0) {
+                if ($result = mysqli_fetch_object($checkExist)) {
+                    if (!empty($result->total_reach)) {
+                        $seo_reach = $result->total_reach;
+                        $checkLeads = mysqli_query($db, "SELECT COUNT(l.id) AS total_leads FROM seo_leads AS l INNER JOIN seo_campaigns AS c ON c.id=l.campaign_id WHERE c.company_id='{$company_id}' AND c.branch_id='{$branch_id}' AND c.deleted_at IS NULL AND (c.from BETWEEN '{$object->PreviousMonth}' AND '{$object->PreviousDay}' || c.to BETWEEN '{$object->PreviousMonth}' AND '{$object->PreviousDay}') AND l.company_id='{$company_id}' AND l.branch_id='{$branch_id}' AND l.deleted_at IS NULL ORDER BY c.from DESC");
+                        if (mysqli_num_rows($checkLeads) > 0) {
+                            if ($res = mysqli_fetch_object($checkLeads)) {
+                                if (!empty($res->total_leads)) {
+                                    $seo_leads = $res->total_leads;
+                                    $seo_rate = round(($seo_leads / $seo_reach) * 100,2);
+                                }
                             }
                         }
                     }
-                    $return[] = $setArray;
-                    $setArray = [];
                 }
             }
-        }
-    }
-
-    if ($data && sizeof($data) > 0 && count($data) > 0 && $return && sizeof($return) > 0 && count($return) > 0) {
-        echo json_encode(["code" => 200, "data" => $return]);
-    } else {
-        echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">Leads not found.</div></div>']);
-    }
-}
-
-if (isset($_POST['yearlyLeadsPercentageChart'])) {
-    $object = (object)$_POST['yearlyLeadsPercentageChart'];
-    $year = $object->BG_Year;
-    $pai_chart_data = $drill_down_chart_data = [];
-
-    $sql_total = mysqli_query($db, "SELECT COUNT(l.id) AS total_leads FROM leads AS l INNER JOIN categories AS c ON c.id=l.category_id WHERE l.company_id='{$company_id}' AND l.branch_id='{$branch_id}' AND l.deleted_at IS NULL AND c.deleted_at IS NULL AND YEAR(l.date) = '{$year}' ORDER BY c.sort_by ASC");
-    if ($sql_total && mysqli_num_rows($sql_total) > 0) {
-        if ($obj_total = mysqli_fetch_object($sql_total)) {
-            $total_leads = $obj_total->total_leads;
-            if ($total_leads && $total_leads > 0) {
-                $checkExist = mysqli_query($db, "SELECT category_id, c.name AS category_name, COUNT(l.id) AS total FROM leads AS l INNER JOIN categories AS c ON c.id=l.category_id WHERE l.company_id='{$company_id}' AND l.branch_id='{$branch_id}' AND l.deleted_at IS NULL AND c.deleted_at IS NULL AND YEAR(l.date) = '{$year}' GROUP BY l.category_id ORDER BY c.sort_by ASC");
-                if (mysqli_num_rows($checkExist) > 0) {
-                    while ($result = mysqli_fetch_object($checkExist)) {
-                        $pai_chart_data[] = ['name' => $result->category_name, 'y' => (int)$result->total];
-                        $total_percentage = round((($result->total) / ($total_leads) * 100), 2);
-                        $drill_down_chart_data[] = ['name' => $result->category_name, 'y' => $total_percentage];
-                    }
-                }
-                $data = ['year' => $year, 'pai_chart_data' => $pai_chart_data, 'drill_down_chart_data' => $drill_down_chart_data];
-                echo json_encode(["code" => 200, "data" => $data]);
-            } else {
-                echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">Leads not found.</div></div>']);
-            }
-        }
-    } else {
-        echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">Leads not found.</div></div>']);
-    }
-}
-
-if (isset($_POST['yearlyLeadsChart'])) {
-    $object = (object)$_POST['yearlyLeadsChart'];
-    $from = $object->StartYear;
-    $to = $object->EndYear;
-    $data = $return = $years = $categories = [];
-
-    if ($from <= $to) {
-        $sql = mysqli_query($db, "SELECT COUNT(l.id) AS total, YEAR(l.date) AS lead_year, c.name AS category_name, category_id FROM leads AS l INNER JOIN categories AS c ON c.id=l.category_id WHERE l.company_id='{$company_id}' AND l.branch_id='{$branch_id}' AND l.deleted_at IS NULL AND c.deleted_at IS NULL AND YEAR(l.date) BETWEEN '{$from}' AND '{$to}' GROUP BY YEAR(l.date),l.category_id ORDER BY YEAR(l.date) ASC");
-        if ($sql && mysqli_num_rows($sql) > 0) {
-            while ($result = mysqli_fetch_object($sql)) {
-                $categories[$result->category_id] = $result->category_name;
-                $data[$result->category_id][$result->lead_year] = $result->total;
-            }
-
-            if ($data && sizeof($data) > 0 && count($data) > 0 && $categories && sizeof($categories) > 0 && count($categories) > 0) {
-                $categories = array_unique($categories);
-                foreach ($categories as $key => $value) {
-                    $setArray = [];
-                    $setArray['name'] = $value;
-                    if (array_key_exists($key, $data)) {
-                        for ($y = $from; $y <= $to; $y++) {
-                            $years [] = (int)$y;
-                            if (array_key_exists($y, $data[$key])) {
-                                $setArray['data'][] = (int)$data[$key][$y];
-                            } else {
-                                $setArray['data'][] = 0;
+        } else if (in_array($type, array_values(config('campaigns.type.value')))) {
+            $reach = $leads = $rate = 0;
+            $checkExist = mysqli_query($db, "SELECT SUM(`reach`) AS `total_reach` FROM `campaigns` WHERE `type`='{$type}' AND `date` BETWEEN '{$object->PreviousMonth}' AND '{$object->PreviousDay}' AND `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `deleted_at` IS NULL ORDER BY `date` DESC");
+            if (mysqli_num_rows($checkExist) > 0) {
+                if ($result = mysqli_fetch_object($checkExist)) {
+                    if (!empty($result->total_reach)) {
+                        $reach = $result->total_reach;
+                        $checkLeads = mysqli_query($db, "SELECT COUNT(l.id) AS total_leads FROM leads AS l INNER JOIN campaigns AS c ON c.id=l.campaign_id WHERE c.type='{$type}' AND c.date BETWEEN '{$object->PreviousMonth}' AND '{$object->PreviousDay}' AND c.company_id='{$company_id}' AND c.branch_id='{$branch_id}' AND c.deleted_at IS NULL AND l.type='{$type}' AND l.company_id='{$company_id}' AND l.branch_id='{$branch_id}' AND l.deleted_at IS NULL ORDER BY c.date DESC");
+                        if (mysqli_num_rows($checkLeads) > 0) {
+                            if ($res = mysqli_fetch_object($checkLeads)) {
+                                if (!empty($res->total_leads)) {
+                                    $leads = $res->total_leads;
+                                    $rate = round(($leads / $reach) * 100,2);
+                                }
                             }
                         }
-                    } else {
-                        for ($y = $from; $y <= $to; $y++) {
-                            $setArray['data'][] = 0;
-                        }
                     }
-                    $return[] = $setArray;
                 }
-                echo json_encode(["code" => 200, 'return' => $return, 'years' => array_unique($years)]);
-            } else {
-                echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">Leads not found.</div></div>']);
             }
-        } else {
-            echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">Leads not found.</div></div>']);
-        }
-    } else {
-        echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">"From" should less than "To".</div></div>']);
-    }
-}
 
-if (isset($_POST['singleLeadChart'])) {
-    $object = (object)$_POST['singleLeadChart'];
-    $from = $object->RangeStart;
-    $to = $object->RangeEnd;
-    $category_id = $object->CategoryFilter;
-    $category_name = '';
-    $data = $return = [];
-
-    $sql_category = mysqli_query($db, "SELECT `name` FROM `categories` WHERE `id`='{$category_id}' AND `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `deleted_at` IS NULL ORDER BY `sort_by` ASC LIMIT 1");
-    if ($sql_category && mysqli_num_rows($sql_category) > 0) {
-        if ($obj = mysqli_fetch_object($sql_category)) {
-            $category_name = $obj->name;
-            if ($from <= $to) {
-                $checkExist = mysqli_query($db, "SELECT COUNT(l.id) AS total, YEAR(l.date) AS lead_year, c.name AS category_name FROM leads AS l INNER JOIN categories AS c ON c.id=l.category_id WHERE l.category_id='{$category_id}' AND l.company_id='{$company_id}' AND l.branch_id='{$branch_id}' AND l.deleted_at IS NULL AND c.deleted_at IS NULL AND YEAR(l.date) BETWEEN '{$from}' AND '{$to}' GROUP BY YEAR(l.date) ORDER BY YEAR(l.date) ASC");
-                if (mysqli_num_rows($checkExist) > 0) {
-                    while ($result = mysqli_fetch_object($checkExist)) {
-                        $data[$result->lead_year] = $result->total;
-                    }
-                    for ($y = $from; $y <= $to; $y++) {
-                        if (array_key_exists($y, $data)) {
-                            $return[] = [(int)$y, (int)$data[$y]];
-                        } else {
-                            $return[] = [(int)$y, 0];
-                        }
-                    }
-                    echo json_encode(["code" => 200, 'RangeStart' => $from, 'RangeEnd' => $to, 'Category' => $category_name, 'data' => $return]);
-
-                } else {
-                    echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">Leads not found.</div></div>']);
-                }
+            if ($type == config('campaigns.type.value.social_media_marketing')) {
+                $smm_reach=$reach;
+                $smm_leads=$leads;
+                $smm_rate=$rate;
             } else {
-                echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">"From" should less than "To".</div></div>']);
+                $em_reach=$reach;
+                $em_leads=$leads;
+                $em_rate=$rate;
             }
         }
-    } else {
-        echo json_encode(["code" => 500, "data" => '<div class="col-md-12"><div class="alert alert-danger text-center">Selected category not exist.</div></div>']);
     }
+
+    $total_reach = $total_leads = $total_rate = 0;
+
+    $total_reach = $seo_reach+$smm_reach+$em_reach+$bd_reach;
+    $total_leads = $seo_leads+$smm_leads+$em_leads+$bd_leads;
+    $total_rate = round($seo_rate+$smm_rate+$em_rate+$bd_rate,2);
+
+    $data = [
+        "seo_reach" => $seo_reach,
+        "seo_leads" => $seo_leads,
+        "seo_rate" => $seo_rate,
+
+        "smm_reach" => $smm_reach,
+        "smm_leads" => $smm_leads,
+        "smm_rate" => $smm_rate,
+
+        "em_reach" => $em_reach,
+        "em_leads" => $em_leads,
+        "em_rate" => $em_rate,
+
+        "bd_reach" => $bd_reach,
+        "bd_leads" => $bd_leads,
+        "bd_rate" => $bd_rate,
+
+        "total_reach" => $total_reach,
+        "total_leads" => $total_leads,
+        "total_rate" => $total_rate
+    ];
+
+    echo json_encode(["code" => 200, "data" => $data]);
 }
+
+/*
+$today     = new DateTime();
+$begin     = $today->sub(new DateInterval('P30D'));
+$end       = new DateTime();
+$end       = $end->modify('+1 day');
+$interval  = new DateInterval('P1D');
+$daterange = new DatePeriod($begin, $interval, $end);
+foreach ($daterange as $date) {
+    $d[] = $date->format("Y-m-d");
+}
+echo '<pre>';
+print_r($d);
+echo '</pre>';
+
+exit();*/
 
 ?>
