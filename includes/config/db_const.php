@@ -5,6 +5,7 @@ include_once("db_tables/campaign_types.php");
 include_once("db_tables/campaigns.php");
 include_once("db_tables/child_menus.php");
 include_once("db_tables/companies.php");
+include_once("db_tables/dashboard.php");
 include_once("db_tables/lang.php");
 include_once("db_tables/leads.php");
 include_once("db_tables/main_menus.php");

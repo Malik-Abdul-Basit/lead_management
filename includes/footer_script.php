@@ -492,4 +492,18 @@
                 }
             }
 
+            function removeAllClasses(e) {
+                if(!e.classList.contains('active')){
+                    var removeAbleClass = document.getElementsByClassName(e.className);
+                    function removeAllClasses() {
+                        [].forEach.call(removeAbleClass, function(el) {
+                            el.classList.remove("active");
+                        });
+                    }
+                    removeAllClasses();
+                    e.classList.add('active');
+                }
+            }
+
+
         </script>

@@ -192,12 +192,12 @@ include_once("../includes/footer_script.php");
                     'sort': false
                 },
                 'Header': [
-                    {'field': 'name', 'title': 'Name', 'text': 'left', 'style': 'style="width:250px"', 'sort': true},
+                    {'field': 'name', 'title': 'Name', 'text': 'left', 'style': 'style="width:300px"', 'sort': true},
                     {
                         'field': 'source_name',
                         'title': 'Source',
                         'text': 'left',
-                        'style': 'style="width:250px"',
+                        'style': 'style="width:200px"',
                         'sort': true
                     },
                 ],
