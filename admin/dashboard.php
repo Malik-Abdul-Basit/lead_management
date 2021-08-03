@@ -3,7 +3,7 @@ include_once("header/check_login.php");
 include_once("../includes/head.php");
 include_once("../includes/mobile_menu.php");
 $duration_array = config('dashboard.duration.title');
-$duration_one_month = config('dashboard.duration.value.one_month');
+$active_duration = config('dashboard.duration.value.one_month');
 
 $date = new DateTime();
 $today = $current_date = $date->format("Y-m-d");
@@ -34,22 +34,22 @@ $date->sub($interval);
 $prev_year = $date->format("Y-m-d");
 
 $duration_value_array = [
-        '1d' => [
-                'from' => $prev_day,
-                'to' => $prev_day,
-        ],
-        '1w' => [
-            'from' => $prev_week,
-            'to' => $prev_day,
-        ],
-        '1m' => [
-            'from' => $prev_month,
-            'to' => $prev_day,
-        ],
-        '1y' => [
-            'from' => $prev_year,
-            'to' => $prev_day,
-        ],
+    '1d' => [
+        'from' => $prev_day,
+        'to' => $prev_day,
+    ],
+    '1w' => [
+        'from' => $prev_week,
+        'to' => $prev_day,
+    ],
+    '1m' => [
+        'from' => $prev_month,
+        'to' => $prev_day,
+    ],
+    '1y' => [
+        'from' => $prev_year,
+        'to' => $prev_day,
+    ],
 ];
 
 /*echo '<pre>';
@@ -239,19 +239,19 @@ exit();*/
                                             <div class="duration_buttons_wrapper">
                                                 <ul>
                                                     <?php
-                                                    foreach ($duration_array as $duration_key => $duration_value){
-                                                        $classes = ($duration_key == $duration_one_month) ? ' class="active BD_duration_button" ' : ' class="BD_duration_button" ';
+                                                    foreach ($duration_array as $duration_key => $duration_value) {
+                                                        $classes = ($duration_key == $active_duration) ? ' class="active bd_duration_button" ' : ' class="bd_duration_button" ';
                                                         ?>
-                                                            <li>
-                                                                <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
-                                                                        data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
-                                                                        data-value="<?php echo $duration_key; ?>"
-                                                                        title="<?php echo $duration_value; ?>" <?php echo $classes; ?>
-                                                                        onclick="callForBDData(this)"
-                                                                >
-                                                                    <?php echo strtoupper($duration_key); ?>
-                                                                </button>
-                                                            </li>
+                                                        <li>
+                                                            <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
+                                                                    data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
+                                                                    data-value="<?php echo $duration_key; ?>"
+                                                                    title="<?php echo $duration_value; ?>" <?php echo $classes; ?>
+                                                                    onclick="callForBDData(this)"
+                                                            >
+                                                                <?php echo strtoupper($duration_key); ?>
+                                                            </button>
+                                                        </li>
                                                         <?php
                                                     }
                                                     ?>
@@ -262,18 +262,163 @@ exit();*/
                                     </div>
                                 </div>
 
+                                <div class="col-md-6 Card-Stretch-Wrapper SEO-Overview-Wrapper">
+                                    <h1>Search Engine Optimization</h1>
+                                    <div class="card card-custom card-stretch">
+
+                                        <div class="card-header-tabs m-0">
+                                            <div class="tab-example seo-tabs-example">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="hide-li"></li>
+                                                    <li class="nav-item">
+                                                        <a role="tab" data-toggle="tab" aria-selected="true"
+                                                           class="nav-link active show" id="form-submissions-tab"
+                                                           href="#form-submissions" aria-controls="home">Form
+                                                            Submissions</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a role="tab" data-toggle="tab" aria-selected="false"
+                                                           class="nav-link" id="daily-traffic-tab" href="#daily-traffic"
+                                                           aria-controls="profile">Daily Traffic</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body px-3">
+
+                                            <div class="tab-content" id="myTabContent">
+                                                <div class="tab-pane fade active show" id="form-submissions"
+                                                     role="tabpanel" aria-labelledby="form-submissions-tab">
+                                                    <div class="duration_buttons_wrapper">
+                                                        <ul>
+                                                            <?php
+                                                            foreach ($duration_array as $duration_key => $duration_value) {
+                                                                $classes = ($duration_key == $active_duration) ? ' class="active seo_duration_button" ' : ' class="seo_duration_button" ';
+                                                                ?>
+                                                                <li>
+                                                                    <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
+                                                                            data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
+                                                                            data-value="<?php echo $duration_key; ?>"
+                                                                            title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                                        <?php echo strtoupper($duration_key); ?>
+                                                                    </button>
+                                                                </li>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="Chart_Wrapper" id="SEO_Chart_Wrapper"></div>
+                                                </div>
+                                                <div class="tab-pane fade" id="daily-traffic" role="tabpanel"
+                                                     aria-labelledby="daily-traffic-tab">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex flex-row mb-3">
+
                                 <div class="col-md-6 Card-Stretch-Wrapper SMM-Overview-Wrapper">
                                     <h1>Social Media Marketing</h1>
                                     <div class="card card-custom card-stretch">
                                         <div class="card-body px-5">
+
+                                            <div class="line mb-1">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-3">
+
+                                                    </div>
+                                                    <div class="col-md-8 col-sm-9">
+                                                        <div class="form-group m-0">
+                                                            <?php $type = config('sources.type.value.social_media_marketing'); ?>
+                                                            <select id="<?php echo $type; ?>_source_id"
+                                                                    onchange="getAccounts(this.id, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
+                                                                <option selected="selected" value="-1">All</option>
+                                                                <?php
+                                                                $select = "SELECT `id`, `name` FROM `sources` WHERE `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
+                                                                $query = mysqli_query($db, $select);
+                                                                if (mysqli_num_rows($query) > 0) {
+                                                                    while ($result = mysqli_fetch_object($query)) {
+                                                                        echo '<option value="' . $result->id . '">' . $result->name . '</option>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line mb-6 account_wrapper"
+                                                 id="<?php echo $type; ?>_account_wrapper">
+                                                <ul>
+                                                    <li>
+                                                        <div class="sales_person_info_wrapper">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                                <div>
+                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
+                                                                         alt="account-image">
+                                                                </div>
+                                                                <span>abcdefghiabcd</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="sales_person_info_wrapper">
+                                                            <a class="<?php echo $type; ?>_account_id active"
+                                                               data-id="">
+                                                                <div>
+                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
+                                                                         alt="account-image">
+                                                                </div>
+                                                                <span>abcdefghiabcd</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="sales_person_info_wrapper">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                                <div>
+                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
+                                                                         alt="account-image">
+                                                                </div>
+                                                                <span>abcdefghiabcd</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="sales_person_info_wrapper">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                                <div>
+                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
+                                                                         alt="account-image">
+                                                                </div>
+                                                                <span>abcdefghiabcd</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+
                                             <div class="duration_buttons_wrapper">
                                                 <ul>
                                                     <?php
-                                                    foreach ($duration_array as $duration_key => $duration_value){
-                                                        $classes = ($duration_key == $duration_one_month) ? ' class="active SMM_duration_button" ' : ' class="SMM_duration_button" ';
+                                                    foreach ($duration_array as $duration_key => $duration_value) {
+                                                        $classes = ($duration_key == $active_duration) ? ' class="active smm_duration_button" ' : ' class="smm_duration_button" ';
                                                         ?>
                                                         <li>
-                                                            <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>" data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>" data-value="<?php echo $duration_key; ?>" title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                            <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
+                                                                    data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
+                                                                    data-value="<?php echo $duration_key; ?>"
+                                                                    title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
                                                                 <?php echo strtoupper($duration_key); ?>
                                                             </button>
                                                         </li>
@@ -287,22 +432,101 @@ exit();*/
                                     </div>
                                 </div>
 
-                            </div>
-
-                            <div class="d-flex flex-row mb-3">
-
                                 <div class="col-md-6 Card-Stretch-Wrapper EM-Overview-Wrapper">
                                     <h1>Email Marketing</h1>
                                     <div class="card card-custom card-stretch">
                                         <div class="card-body px-5">
+
+                                            <div class="line mb-1">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-3">
+
+                                                    </div>
+                                                    <div class="col-md-8 col-sm-9">
+                                                        <div class="form-group m-0">
+                                                            <?php $type = config('sources.type.value.email_marketing'); ?>
+                                                            <select id="<?php echo $type; ?>_source_id"
+                                                                    onchange="getAccounts(this.id, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
+                                                                <option selected="selected" value="-1">All</option>
+                                                                <?php
+                                                                $select = "SELECT `id`, `name` FROM `sources` WHERE `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
+                                                                $query = mysqli_query($db, $select);
+                                                                if (mysqli_num_rows($query) > 0) {
+                                                                    while ($result = mysqli_fetch_object($query)) {
+                                                                        echo '<option value="' . $result->id . '">' . $result->name . '</option>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line mb-6 account_wrapper"
+                                                 id="<?php echo $type; ?>_account_wrapper">
+                                                <ul>
+                                                    <li>
+                                                        <div class="sales_person_info_wrapper">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                                <div>
+                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
+                                                                         alt="account-image">
+                                                                </div>
+                                                                <span>abcdefghiabcd</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="sales_person_info_wrapper">
+                                                            <a class="<?php echo $type; ?>_account_id active"
+                                                               data-id="">
+                                                                <div>
+                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
+                                                                         alt="account-image">
+                                                                </div>
+                                                                <span>abcdefghiabcd</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="sales_person_info_wrapper">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                                <div>
+                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
+                                                                         alt="account-image">
+                                                                </div>
+                                                                <span>abcdefghiabcd</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="sales_person_info_wrapper">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                                <div>
+                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
+                                                                         alt="account-image">
+                                                                </div>
+                                                                <span>abcdefghiabcd</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+
+
                                             <div class="duration_buttons_wrapper">
                                                 <ul>
                                                     <?php
-                                                    foreach ($duration_array as $duration_key => $duration_value){
-                                                        $classes = ($duration_key == $duration_one_month) ? ' class="active EM_duration_button" ' : ' class="EM_duration_button" ';
+                                                    foreach ($duration_array as $duration_key => $duration_value) {
+                                                        $classes = ($duration_key == $active_duration) ? ' class="active em_duration_button" ' : ' class="em_duration_button" ';
                                                         ?>
                                                         <li>
-                                                            <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>" data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>" data-value="<?php echo $duration_key; ?>" title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                            <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
+                                                                    data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
+                                                                    data-value="<?php echo $duration_key; ?>"
+                                                                    title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
                                                                 <?php echo strtoupper($duration_key); ?>
                                                             </button>
                                                         </li>
@@ -312,31 +536,6 @@ exit();*/
                                                 </ul>
                                             </div>
                                             <div class="Chart_Wrapper" id="EM_Chart_Wrapper"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 Card-Stretch-Wrapper SEO-Overview-Wrapper">
-                                    <h1>Search Engine Optimization</h1>
-                                    <div class="card card-custom card-stretch">
-                                        <div class="card-body px-3">
-                                            <div class="duration_buttons_wrapper">
-                                                <ul>
-                                                    <?php
-                                                    foreach ($duration_array as $duration_key => $duration_value){
-                                                        $classes = ($duration_key == $duration_one_month) ? ' class="active SEO_duration_button" ' : ' class="SEO_duration_button" ';
-                                                        ?>
-                                                        <li>
-                                                            <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>" data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>" data-value="<?php echo $duration_key; ?>" title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
-                                                                <?php echo strtoupper($duration_key); ?>
-                                                            </button>
-                                                        </li>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </ul>
-                                            </div>
-                                            <div class="Chart_Wrapper" id="SEO_Chart_Wrapper"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -355,9 +554,6 @@ exit();*/
                                 </div>
 
                             </div>-->
-
-
-
 
 
                         </div>
@@ -381,22 +577,27 @@ include_once("../includes/footer_script.php");
 
         getAllPageData();
 
-        function getAllPageData(){
+        function getAllPageData() {
             var BG_CurrentDate = '<?php echo $today;?>';
             var BG_PreviousDay = '<?php echo $prev_day;?>';
             var BG_PreviousMonth = '<?php echo $prev_month;?>';
             var BG_PreviousYear = '<?php echo $prev_year;?>';
+            var BG_ActiveDuration = '<?php echo $active_duration;?>';
 
             var filter = {
+                'from': BG_PreviousMonth,
+                'to': BG_PreviousDay,
+                'duration_type': BG_ActiveDuration,
                 'CurrentDate': BG_CurrentDate,
                 'PreviousDay': BG_PreviousDay,
                 'PreviousMonth': BG_PreviousMonth,
                 'PreviousYear': BG_PreviousYear,
             };
             getStatistics(filter);
+            getBDData(filter);
         }
 
-        function getStatistics(filter){
+        function getStatistics(filter) {
             loader(true);
             $.ajax({
                 type: "POST", url: "ajax/dashboard.php",
@@ -419,7 +620,7 @@ include_once("../includes/footer_script.php");
             });
         }
 
-        function setStatistics(data){
+        function setStatistics(data) {
 
             var easing = 'easeOutElastic';
             var delay = 300;
@@ -452,7 +653,7 @@ include_once("../includes/footer_script.php");
                 size: size,
                 rotate: rotate,
                 animate: animate,
-                onStep: function(from, to, percent) {
+                onStep: function (from, to, percent) {
                     this.el.children[0].innerHTML = data.bd_rate;
                 }
             });
@@ -474,7 +675,7 @@ include_once("../includes/footer_script.php");
                 size: size,
                 rotate: rotate,
                 animate: animate,
-                onStep: function(from, to, percent) {
+                onStep: function (from, to, percent) {
                     this.el.children[0].innerHTML = data.smm_rate;
                 }
             });
@@ -496,7 +697,7 @@ include_once("../includes/footer_script.php");
                 size: size,
                 rotate: rotate,
                 animate: animate,
-                onStep: function(from, to, percent) {
+                onStep: function (from, to, percent) {
                     this.el.children[0].innerHTML = data.em_rate;
                 }
             });
@@ -518,7 +719,7 @@ include_once("../includes/footer_script.php");
                 size: size,
                 rotate: rotate,
                 animate: animate,
-                onStep: function(from, to, percent) {
+                onStep: function (from, to, percent) {
                     this.el.children[0].innerHTML = data.seo_rate;
                 }
             });
@@ -540,7 +741,7 @@ include_once("../includes/footer_script.php");
                 size: size,
                 rotate: rotate,
                 animate: animate,
-                onStep: function(from, to, percent) {
+                onStep: function (from, to, percent) {
                     this.el.children[0].innerHTML = data.total_rate;
                 }
             });
@@ -548,79 +749,99 @@ include_once("../includes/footer_script.php");
             loader(false);
         }
 
-        function callForBDData(e){
+        function callForBDData(e) {
             removeAllClasses(e);
+            var filter = {
+                'from': e.getAttribute("data-from"),
+                'to': e.getAttribute("data-to"),
+                'duration_type': e.getAttribute("data-value"),
+            };
+            getBDData(filter);
         }
 
-        Highcharts.chart('BD_Chart_Wrapper', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Business Development Chart'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        function getBDData(filter) {
+            loader(true);
+            $.ajax({
+                type: "POST", url: "ajax/dashboard.php",
+                data: {'getBDData': filter},
+                success: function (resPonse) {
+                    if (resPonse !== undefined && resPonse != '') {
+                        var response = JSON.parse(resPonse);
+                        if (response.code === 200) {
+                            setBDData(response.data);
+                        } else {
+                            loader(false);
+                        }
+                    } else {
+                        loader(false);
+                    }
+                },
+                error: function () {
+                    loader(false);
+                }
+            });
+        }
+
+        function setBDData(data) {
+            Highcharts.chart('BD_Chart_Wrapper', {
+                chart: {
+                    type: 'column'
+                },
                 title: {
+                    text: 'Business Development Chart'
+                },
+                subtitle: {
                     text: ''
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Calls',
-                data: [49, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54]
+                },
+                xAxis: {
+                    categories: data.category,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: 'Calls',
+                    data: data.calls
 
-            }, {
-                name: 'Good Responses',
-                data: [83, 78, 98, 93, 106, 84, 105, 104, 91, 83, 106, 92]
+                }, {
+                    name: 'Good Responses',
+                    data: data.good_responses
 
-            }, {
-                name: 'Bad Responses',
-                data: [48, 38, 39, 41, 47, 48, 59, 59, 52, 65, 59, 51]
+                }, {
+                    name: 'Bad Responses',
+                    data: data.bad_responses
 
-            }, {
-                name: 'Follow Ups',
-                data: [42, 33, 34, 39, 52, 75, 57, 60, 47, 39, 46, 51]
+                }, {
+                    name: 'Follow Ups',
+                    data: data.follow_ups
 
-            }, {
-                name: 'Leads',
-                data: [42, 33, 34, 39, 52, 75, 57, 60, 47, 39, 46, 51]
+                }, {
+                    name: 'Leads',
+                    data: data.lead_conversion
 
-            }]
-        });
+                }]
+            });
+            loader(false);
+        }
+
 
         Highcharts.chart('SEO_Chart_Wrapper', {
             chart: {
@@ -819,6 +1040,30 @@ include_once("../includes/footer_script.php");
                 }
             ]
         });
+
+        function getAccounts(id, type) {
+            var postData = {"id": id, "type": type};
+            $.ajax({
+                type: "POST", url: "ajax/dashboard.php",
+                data: {'postData': postData, 'getAccounts': true},
+                success: function (resPonse) {
+                    if (resPonse !== undefined && resPonse != '') {
+                        var obj = JSON.parse(resPonse);
+                        if (obj.code !== undefined && obj.code != '' && obj.code === 200 && obj.account_list !== undefined && obj.account_list != '') {
+                            document.getElementById('BG_AccountFilter').innerHTML = obj.account_list;
+                            loader(false);
+                        } else {
+                            loader(false);
+                        }
+                    } else {
+                        loader(false);
+                    }
+                },
+                error: function () {
+                    loader(false);
+                }
+            });
+        }
 
 
     </script>

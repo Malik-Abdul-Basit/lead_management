@@ -20,11 +20,11 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     background: #f3f7fd !important;
 }
 
-.datatable.datatable-bordered.datatable-head-custom.datatable-default.datatable-primary.datatable-loaded.datatable-scroll-x{
+.datatable.datatable-bordered.datatable-head-custom.datatable-default.datatable-primary.datatable-loaded.datatable-scroll-x {
     overflow-x: auto;
 }
 
-#kt_content{
+#kt_content {
     margin-bottom: 40px;
 }
 
@@ -205,7 +205,7 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     width: auto;
 }
 
-.user-active-label i{
+.user-active-label i {
     color: #6dc599 !important;
     font-size: 16px;
     margin: -4px 8px 0 0;
@@ -250,13 +250,7 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     margin: 0 0 5px 0;
 }
 
-.Card-Stretch-Wrapper .card .highcharts-container .highcharts-title tspan {
-    color: transparent !important;
-    opacity: 0 !important;
-    width: 0 !important;
-}
-
-.Card-Stretch-Wrapper h1{
+.Card-Stretch-Wrapper h1 {
     color: #16171a;
     font-family: 'montserratsemibold';
     font-size: 20px;
@@ -264,7 +258,72 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     padding: 0 0 0 5px;
 }
 
-.Card-Stretch-Wrapper .card.card-custom.card-stretch{
+.Card-Stretch-Wrapper .card .highcharts-container .highcharts-title tspan {
+    color: transparent !important;
+    opacity: 0 !important;
+    width: 0 !important;
+}
+
+
+.Card-Stretch-Wrapper .card .card-header-tabs .tab-example ul {
+    border: none;
+    position: relative;
+}
+
+.Card-Stretch-Wrapper .card .card-header-tabs .tab-example ul li {
+    margin: 0;
+    position: relative;
+    width: 50%;
+    z-index: 1;
+}
+
+
+.Card-Stretch-Wrapper .card .card-header-tabs .tab-example ul li.hide-li {
+    background: #eaf0fa;
+    height: 6px;
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 100%;
+}
+
+
+
+
+
+.Card-Stretch-Wrapper .card .card-header-tabs .tab-example ul li a {
+    background: #eaf0fa;
+    border: none !important;
+    border-radius: 6px !important;
+    color: #a7b7d4;
+    display: block;
+    font-family: 'montserratsemibold';
+    font-size: 15px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.Card-Stretch-Wrapper .card .card-header-tabs .tab-example ul li.nav-item:nth-child(1) a {
+    border-radius: 6px 6px 6px 0 !important;
+}
+
+.Card-Stretch-Wrapper .card .card-header-tabs .tab-example ul li.nav-item:nth-last-child(1) a {
+    border-radius: 6px 6px 0 6px !important;
+}
+
+.Card-Stretch-Wrapper .card .card-header-tabs .tab-example ul li a.active {
+    background: #fff;
+    color: #00afd8;
+}
+
+.Card-Stretch-Wrapper .card .card-header-tabs .tab-example ul li a:not(.active):hover {
+    background: #f0f4fb;
+}
+
+
+.Card-Stretch-Wrapper .card.card-custom.card-stretch {
     height: calc(100% - 24px - 30px - 15px);
 }
 
@@ -287,7 +346,7 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     padding: 0;
 }
 
-.duration_buttons_wrapper ul li button{
+.duration_buttons_wrapper ul li button {
     background: transparent;
     border-color: transparent;
     border-style: solid;
@@ -301,7 +360,7 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     text-align: center;
 }
 
-.duration_buttons_wrapper ul li:nth-last-child(1) button{
+.duration_buttons_wrapper ul li:nth-last-child(1) button {
     margin: 0 0 0 0;
 }
 
@@ -339,24 +398,82 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     z-index: 1;
 }
 
+.Card-Stretch-Wrapper .account_wrapper {
+    text-align: center;
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul,
+.Card-Stretch-Wrapper .account_wrapper ul li {
+    float: left;
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul {
+    display: inline-block;
+    float: none;
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper {
+    float: left;
+    margin: 0 2px;
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+    width: 110px;
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper a {
+    cursor: pointer;
+    display: block;
+    float: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper a div {
+    border: 1px solid #E4E6EF;
+    border-radius: 50% !important;
+    cursor: pointer;
+    display: block;
+    float: none;
+    height: 75px;
+    margin: 12px auto 8px;
+    overflow: hidden;
+    padding: 0;
+    width: 75px;
+
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper a div img {
+    height: auto;
+    width: 100%;
+}
 
 
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper a span {
+    color: #a7b7d4;
+    display: block;
+    float: left;
+    font-family: 'montserratlight';
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    width: 100%;
+}
 
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper a.active > div {
+    -webkit-box-shadow: 1px 6px 8px 2px rgba(136, 136, 136, 0.45);
+    box-shadow: 1px 6px 8px 2px rgba(136, 136, 136, 0.45);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper a.active > span {
+    color: #16171a;
+}
 
 
 @media (min-width: 992px) {
