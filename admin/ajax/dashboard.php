@@ -158,7 +158,7 @@ if (isset($_POST['getBDData'])) {
                 }
             }
 
-            foreach ($category as $month_name){
+            foreach ($category as $month_name) {
                 if (!empty($result_array) && count($result_array) > 0 && sizeof($result_array) > 0 && array_key_exists($month_name, $result_array)) {
                     $calls[] = (int)$result_array[$month_name]['calls'];
                     $follow_ups[] = (int)$result_array[$month_name]['follow_ups'];
@@ -234,5 +234,72 @@ if (isset($_POST['getBDData'])) {
     ]);
 }
 
+if (isset($_POST['postData'], $_POST['getAccounts']) && $_POST['getAccounts'] == true) {
+    $object = (object)$_POST['postData'];
+
+    if (!empty($object) && !empty($object->id) && $object->id > 0 && is_numeric($object->id) && !empty($object->type) && in_array($object->type, array_values(config('accounts.type.value')))) {
+        $id = $object->id;
+        $type = $object->type;
+
+        $number_of_display = 4;
+        $inner_items='';
+
+        $account_list = '<ul>';
+        $account_list .= '<li>
+            <div class="sales_person_info_wrapper">
+                <a class="' . $type . '_account_id active" data-id="-1" onclick="removeAllClasses(this), callForMarketingData(\'' . $type . '\')">
+                    <div>
+                        <img src="' . $base_url . 'storage/accounts/sales_person.png" alt="account-image">
+                    </div>
+                    <span>All</span>
+                </a>
+            </div>
+        </li>';
+        $select = "SELECT `id`, `name` FROM `accounts` WHERE `type`='{$type}' AND `source_id`='{$id}' AND `deleted_at` IS NULL ORDER BY `name` ASC";
+        $query = mysqli_query($db, $select);
+        $num_rows = mysqli_num_rows($query);
+        if ($num_rows > 0) {
+            $i=0;
+            while ($result = mysqli_fetch_object($query)) {
+                $i++;
+                if ($num_rows > $number_of_display && $i >= $number_of_display) {
+                    $inner_items .= '<a class="' . $type . '_account_id" data-id="' . $result->id . '" onclick="removeAllClasses(this), callForMarketingData(\'' . $type . '\')">
+                        <div>
+                            <img src="' . $base_url . 'storage/accounts/sales_person.png" alt="account-image">
+                        </div>' . $result->name . '
+                    </a>';
+
+                } else {
+                    $account_list .= '<li>
+                        <div class="sales_person_info_wrapper">
+                            <a class="' . $type . '_account_id" data-id="' . $result->id . '" onclick="removeAllClasses(this), callForMarketingData(\'' . $type . '\')">
+                                <div>
+                                    <img src="' . $base_url . 'storage/accounts/sales_person.png" alt="account-image">
+                                </div>
+                                <span>' . $result->name . '</span>
+                            </a>
+                        </div>
+                    </li>';
+                }
+            }
+            if ($num_rows > $number_of_display) {
+                $account_list .= '<li>
+                        <div class="sales_person_info_wrapper">
+                            <a class="' . $type . '_account_id dropdown-toggle" role="button" id="'.$type.'otherAccountsList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div>
+                                    <span>+ '.(($num_rows+1)-($number_of_display)).'</span>
+                                    <img src="' . $base_url . 'storage/accounts/sales_person_plane.png" alt="account-image">
+                                </div>
+                                <span>More</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="'.$type.'otherAccountsList">'.$inner_items.'</div>
+                        </div>
+                    </li>';
+            }
+        }
+        $account_list .= '</ul>';
+        echo json_encode(["code" => 200, "account_list" => $account_list]);
+    }
+}
 
 ?>

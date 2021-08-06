@@ -435,6 +435,29 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     width: 100%;
 }
 
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper a.dropdown-toggle div span {
+    color: #16171a;
+    font-family: 'montserratlight';
+    font-size: 16px;
+    position: absolute;
+    top: 34%;
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper .dropdown-menu a {
+    color: #a7b7d4;
+    font-family: 'montserratlight';
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    line-height: 34px;
+    padding: 4px 12px 8px 12px;
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper .dropdown-menu a.active,
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper .dropdown-menu a:hover {
+    background-color: #f6fbff;
+}
+
 .Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper a div {
     border: 1px solid #E4E6EF;
     border-radius: 50% !important;
@@ -445,7 +468,17 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     margin: 12px auto 8px;
     overflow: hidden;
     padding: 0;
+    position: relative;
     width: 75px;
+
+}
+
+.Card-Stretch-Wrapper .account_wrapper ul li .sales_person_info_wrapper .dropdown-menu a div {
+    float: left;
+    height: 25px;
+    line-height: normal;
+    margin: 5px 8px 5px 0;
+    width: 25px;
 
 }
 

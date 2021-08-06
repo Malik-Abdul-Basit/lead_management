@@ -230,7 +230,7 @@ exit();*/
 
                             </div>
 
-                            <div class="d-flex flex-row mb-3">
+                            <div class="row d-flex mb-3">
 
                                 <div class="col-md-6 Card-Stretch-Wrapper BD-Overview-Wrapper">
                                     <h1>Business Development</h1>
@@ -257,7 +257,7 @@ exit();*/
                                                     ?>
                                                 </ul>
                                             </div>
-                                            <div class="Chart_Wrapper" id="BD_Chart_Wrapper"></div>
+                                            <div class="Chart_Wrapper" id="bd_Chart_Wrapper"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -309,7 +309,7 @@ exit();*/
                                                             ?>
                                                         </ul>
                                                     </div>
-                                                    <div class="Chart_Wrapper" id="SEO_Chart_Wrapper"></div>
+                                                    <div class="Chart_Wrapper" id="seo_Chart_Wrapper"></div>
                                                 </div>
                                                 <div class="tab-pane fade" id="daily-traffic" role="tabpanel"
                                                      aria-labelledby="daily-traffic-tab">
@@ -323,7 +323,7 @@ exit();*/
 
                             </div>
 
-                            <div class="d-flex flex-row mb-3">
+                            <div class="row d-flex mb-3">
 
                                 <div class="col-md-6 Card-Stretch-Wrapper SMM-Overview-Wrapper">
                                     <h1>Social Media Marketing</h1>
@@ -339,8 +339,7 @@ exit();*/
                                                         <div class="form-group m-0">
                                                             <?php $type = config('sources.type.value.social_media_marketing'); ?>
                                                             <select id="<?php echo $type; ?>_source_id"
-                                                                    onchange="getAccounts(this.id, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
-                                                                <option selected="selected" value="-1">All</option>
+                                                                    onchange="getAccounts(this.value, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
                                                                 <?php
                                                                 $select = "SELECT `id`, `name` FROM `sources` WHERE `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
                                                                 $query = mysqli_query($db, $select);
@@ -357,55 +356,7 @@ exit();*/
                                             </div>
                                             <div class="line mb-6 account_wrapper"
                                                  id="<?php echo $type; ?>_account_wrapper">
-                                                <ul>
-                                                    <li>
-                                                        <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
-                                                                <div>
-                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
-                                                                         alt="account-image">
-                                                                </div>
-                                                                <span>abcdefghiabcd</span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id active"
-                                                               data-id="">
-                                                                <div>
-                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
-                                                                         alt="account-image">
-                                                                </div>
-                                                                <span>abcdefghiabcd</span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
-                                                                <div>
-                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
-                                                                         alt="account-image">
-                                                                </div>
-                                                                <span>abcdefghiabcd</span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
-                                                                <div>
-                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
-                                                                         alt="account-image">
-                                                                </div>
-                                                                <span>abcdefghiabcd</span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
 
-
-                                                </ul>
                                             </div>
 
                                             <div class="duration_buttons_wrapper">
@@ -418,7 +369,7 @@ exit();*/
                                                             <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
                                                                     data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
                                                                     data-value="<?php echo $duration_key; ?>"
-                                                                    title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                                    title="<?php echo $duration_value; ?>" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')" <?php echo $classes; ?>>
                                                                 <?php echo strtoupper($duration_key); ?>
                                                             </button>
                                                         </li>
@@ -427,7 +378,7 @@ exit();*/
                                                     ?>
                                                 </ul>
                                             </div>
-                                            <div class="Chart_Wrapper" id="SMM_Chart_Wrapper"></div>
+                                            <div class="Chart_Wrapper" id="smm_Chart_Wrapper"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -446,8 +397,7 @@ exit();*/
                                                         <div class="form-group m-0">
                                                             <?php $type = config('sources.type.value.email_marketing'); ?>
                                                             <select id="<?php echo $type; ?>_source_id"
-                                                                    onchange="getAccounts(this.id, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
-                                                                <option selected="selected" value="-1">All</option>
+                                                                    onchange="getAccounts(this.value, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
                                                                 <?php
                                                                 $select = "SELECT `id`, `name` FROM `sources` WHERE `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
                                                                 $query = mysqli_query($db, $select);
@@ -467,7 +417,7 @@ exit();*/
                                                 <ul>
                                                     <li>
                                                         <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')">
                                                                 <div>
                                                                     <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
                                                                          alt="account-image">
@@ -479,7 +429,7 @@ exit();*/
                                                     <li>
                                                         <div class="sales_person_info_wrapper">
                                                             <a class="<?php echo $type; ?>_account_id active"
-                                                               data-id="">
+                                                               data-id="" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')">
                                                                 <div>
                                                                     <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
                                                                          alt="account-image">
@@ -490,7 +440,7 @@ exit();*/
                                                     </li>
                                                     <li>
                                                         <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')">
                                                                 <div>
                                                                     <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
                                                                          alt="account-image">
@@ -501,7 +451,7 @@ exit();*/
                                                     </li>
                                                     <li>
                                                         <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')">
                                                                 <div>
                                                                     <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
                                                                          alt="account-image">
@@ -526,7 +476,7 @@ exit();*/
                                                             <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
                                                                     data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
                                                                     data-value="<?php echo $duration_key; ?>"
-                                                                    title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                                    title="<?php echo $duration_value; ?>" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')" <?php echo $classes; ?>>
                                                                 <?php echo strtoupper($duration_key); ?>
                                                             </button>
                                                         </li>
@@ -535,7 +485,7 @@ exit();*/
                                                     ?>
                                                 </ul>
                                             </div>
-                                            <div class="Chart_Wrapper" id="EM_Chart_Wrapper"></div>
+                                            <div class="Chart_Wrapper" id="em_Chart_Wrapper"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -576,6 +526,37 @@ include_once("../includes/footer_script.php");
     <script type="text/javascript">
 
         getAllPageData();
+
+        var source_id = document.getElementById('<?php echo config("sources.type.value.social_media_marketing"); ?>'+ '_source_id');
+        getAccounts(source_id.value, '<?php echo config("sources.type.value.social_media_marketing"); ?>');
+
+        var source_id = document.getElementById('<?php echo config("sources.type.value.email_marketing"); ?>'+ '_source_id');
+        getAccounts(source_id.value, '<?php echo config("sources.type.value.email_marketing"); ?>');
+
+        function getAccounts(id, type) {
+            var postData = {"id": id, "type": type};
+            $.ajax({
+                type: "POST", url: "ajax/dashboard.php",
+                data: {'postData': postData, 'getAccounts': true},
+                success: function (resPonse) {
+                    if (resPonse !== undefined && resPonse != '') {
+                        var obj = JSON.parse(resPonse);
+                        if (obj.code !== undefined && obj.code != '' && obj.code === 200 && obj.account_list !== undefined && obj.account_list != '') {
+                            document.getElementById(type+'_account_wrapper').innerHTML = obj.account_list;
+                            callForMarketingData(type);
+                            loader(false);
+                        } else {
+                            loader(false);
+                        }
+                    } else {
+                        loader(false);
+                    }
+                },
+                error: function () {
+                    loader(false);
+                }
+            });
+        }
 
         function getAllPageData() {
             var BG_CurrentDate = '<?php echo $today;?>';
@@ -783,7 +764,7 @@ include_once("../includes/footer_script.php");
         }
 
         function setBDData(data) {
-            Highcharts.chart('BD_Chart_Wrapper', {
+            Highcharts.chart('bd_Chart_Wrapper', {
                 chart: {
                     type: 'column'
                 },
@@ -842,8 +823,20 @@ include_once("../includes/footer_script.php");
             loader(false);
         }
 
+        function callForMarketingData(type) {
+            var source_id = document.getElementById(type+'_source_id').value;
+            var account_element = document.getElementsByClassName(type+'_account_id active')[0];
+            var account_id = account_element.getAttribute("data-id");
 
-        Highcharts.chart('SEO_Chart_Wrapper', {
+            var duration_element = document.getElementsByClassName(type+'_duration_button active')[0];
+            var from = duration_element.getAttribute("data-from");
+            var to = duration_element.getAttribute("data-to");
+
+            console.log(from);
+        }
+
+
+        Highcharts.chart('seo_Chart_Wrapper', {
             chart: {
                 type: 'bar'
             },
@@ -899,7 +892,7 @@ include_once("../includes/footer_script.php");
             },]
         });
 
-        Highcharts.chart('SMM_Chart_Wrapper', {
+        Highcharts.chart('smm_Chart_Wrapper', {
             chart: {
                 type: 'column'
             },
@@ -970,7 +963,7 @@ include_once("../includes/footer_script.php");
             ]
         });
 
-        Highcharts.chart('EM_Chart_Wrapper', {
+        Highcharts.chart('em_Chart_Wrapper', {
             chart: {
                 type: 'column'
             },
@@ -1041,29 +1034,6 @@ include_once("../includes/footer_script.php");
             ]
         });
 
-        function getAccounts(id, type) {
-            var postData = {"id": id, "type": type};
-            $.ajax({
-                type: "POST", url: "ajax/dashboard.php",
-                data: {'postData': postData, 'getAccounts': true},
-                success: function (resPonse) {
-                    if (resPonse !== undefined && resPonse != '') {
-                        var obj = JSON.parse(resPonse);
-                        if (obj.code !== undefined && obj.code != '' && obj.code === 200 && obj.account_list !== undefined && obj.account_list != '') {
-                            document.getElementById('BG_AccountFilter').innerHTML = obj.account_list;
-                            loader(false);
-                        } else {
-                            loader(false);
-                        }
-                    } else {
-                        loader(false);
-                    }
-                },
-                error: function () {
-                    loader(false);
-                }
-            });
-        }
 
 
     </script>
