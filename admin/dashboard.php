@@ -824,6 +824,7 @@ include_once("../includes/footer_script.php");
         }
 
         function callForMarketingData(type) {
+            loader(true);
             var source_id = document.getElementById(type+'_source_id').value;
             var account_element = document.getElementsByClassName(type+'_account_id active')[0];
             var account_id = account_element.getAttribute("data-id");
@@ -832,9 +833,108 @@ include_once("../includes/footer_script.php");
             var from = duration_element.getAttribute("data-from");
             var to = duration_element.getAttribute("data-to");
 
-            console.log(from);
+            var filter = {
+                'source_id': source_id,
+                'account_id': account_id,
+                'from': from,
+                'to': to,
+                'type': type,
+            };
+            console.log(filter);
+            $.ajax({
+                type: "POST", url: "ajax/dashboard.php",
+                data: {'getMarketingData': filter},
+                success: function (resPonse) {
+                    if (resPonse !== undefined && resPonse != '') {
+                        var response = JSON.parse(resPonse);
+                        if (response.code === 200) {
+                            setMarketingData(response.data, type);
+                        } else {
+                            loader(false);
+                        }
+                    } else {
+                        loader(false);
+                    }
+                },
+                error: function () {
+                    loader(false);
+                }
+            });
         }
 
+        function setMarketingData(data, type){
+            Highcharts.chart(type+'_Chart_Wrapper', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Social Media Marketing Chart'
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
+                },
+
+                "series": [
+                    {
+                        "name": " ",
+                        "colorByPoint": true,
+                        "data": [
+                            {
+                                "name": "Reach",
+                                "y": 62
+                            },
+                            {
+                                "name": "Good Responses",
+                                "y": 10
+                            },
+                            {
+                                "name": "Bad Responses",
+                                "y": 7
+                            },
+                            {
+                                "name": "Follow Ups",
+                                "y": 5
+                            },
+                            {
+                                "name": "No Response",
+                                "y": 12
+                            },
+                            {
+                                "name": "Leads",
+                                "y": 4
+                            }
+                        ]
+                    }
+                ]
+            });
+            loader(false);
+        }
 
         Highcharts.chart('seo_Chart_Wrapper', {
             chart: {
@@ -891,150 +991,6 @@ include_once("../includes/footer_script.php");
                 data: [50, 68, 90, 107, 30]
             },]
         });
-
-        Highcharts.chart('smm_Chart_Wrapper', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Social Media Marketing Chart'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                }
-
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
-                    }
-                }
-            },
-
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
-            },
-
-            "series": [
-                {
-                    "name": " ",
-                    "colorByPoint": true,
-                    "data": [
-                        {
-                            "name": "Reach",
-                            "y": 62
-                        },
-                        {
-                            "name": "Good Responses",
-                            "y": 10
-                        },
-                        {
-                            "name": "Bad Responses",
-                            "y": 7
-                        },
-                        {
-                            "name": "Follow Ups",
-                            "y": 5
-                        },
-                        {
-                            "name": "No Response",
-                            "y": 12
-                        },
-                        {
-                            "name": "Leads",
-                            "y": 4
-                        }
-                    ]
-                }
-            ]
-        });
-
-        Highcharts.chart('em_Chart_Wrapper', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Email Marketing Chart'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                }
-
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
-                    }
-                }
-            },
-
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
-            },
-
-            "series": [
-                {
-                    "name": " ",
-                    "colorByPoint": true,
-                    "data": [
-                        {
-                            "name": "Reach",
-                            "y": 62
-                        },
-                        {
-                            "name": "Good Responses",
-                            "y": 10
-                        },
-                        {
-                            "name": "Bad Responses",
-                            "y": 7
-                        },
-                        {
-                            "name": "Follow Ups",
-                            "y": 5
-                        },
-                        {
-                            "name": "No Response",
-                            "y": 12
-                        },
-                        {
-                            "name": "Leads",
-                            "y": 4
-                        }
-                    ]
-                }
-            ]
-        });
-
-
 
     </script>
 

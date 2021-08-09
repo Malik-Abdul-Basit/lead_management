@@ -242,7 +242,7 @@ if (isset($_POST['postData'], $_POST['getAccounts']) && $_POST['getAccounts'] ==
         $type = $object->type;
 
         $number_of_display = 4;
-        $inner_items='';
+        $inner_items = '';
 
         $account_list = '<ul>';
         $account_list .= '<li>
@@ -255,11 +255,11 @@ if (isset($_POST['postData'], $_POST['getAccounts']) && $_POST['getAccounts'] ==
                 </a>
             </div>
         </li>';
-        $select = "SELECT `id`, `name` FROM `accounts` WHERE `type`='{$type}' AND `source_id`='{$id}' AND `deleted_at` IS NULL ORDER BY `name` ASC";
+        $select = "SELECT a.id, a.name FROM accounts AS a LEFT JOIN campaigns AS c ON a.id=c.account_id WHERE a.type='{$type}' AND a.source_id='{$id}' AND a.deleted_at IS NULL GROUP BY a.id ORDER BY c.date DESC";
         $query = mysqli_query($db, $select);
         $num_rows = mysqli_num_rows($query);
         if ($num_rows > 0) {
-            $i=0;
+            $i = 0;
             while ($result = mysqli_fetch_object($query)) {
                 $i++;
                 if ($num_rows > $number_of_display && $i >= $number_of_display) {
@@ -285,14 +285,14 @@ if (isset($_POST['postData'], $_POST['getAccounts']) && $_POST['getAccounts'] ==
             if ($num_rows > $number_of_display) {
                 $account_list .= '<li>
                         <div class="sales_person_info_wrapper">
-                            <a class="' . $type . '_account_id dropdown-toggle" role="button" id="'.$type.'otherAccountsList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="' . $type . '_account_id dropdown-toggle" role="button" id="' . $type . 'otherAccountsList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div>
-                                    <span>+ '.(($num_rows+1)-($number_of_display)).'</span>
+                                    <span>+ ' . (($num_rows + 1) - ($number_of_display)) . '</span>
                                     <img src="' . $base_url . 'storage/accounts/sales_person_plane.png" alt="account-image">
                                 </div>
                                 <span>More</span>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="'.$type.'otherAccountsList">'.$inner_items.'</div>
+                            <div class="dropdown-menu" aria-labelledby="' . $type . 'otherAccountsList">' . $inner_items . '</div>
                         </div>
                     </li>';
             }
@@ -300,6 +300,76 @@ if (isset($_POST['postData'], $_POST['getAccounts']) && $_POST['getAccounts'] ==
         $account_list .= '</ul>';
         echo json_encode(["code" => 200, "account_list" => $account_list]);
     }
+}
+
+if (isset($_POST['getMarketingData'])) {
+    $object = (object)$_POST['getMarketingData'];
+    $source_id = $object->source_id;
+    $account_id = $object->account_id;
+    $from = $object->from;
+    $to = $object->to;
+    $type = $object->type;
+
+    $c = '';
+
+    if ($account_id > 0) {
+        $c = " AND `account_id`='{$account_id}'";
+    }
+
+    $reach = $good_responses = $bad_responses = $follow_ups = $not_responses = $leads = 0;
+
+    $sql = mysqli_query($db, "SELECT 
+                SUM(`reach`) AS `total_reach`,
+                SUM(`good_responses`) AS `total_good_responses`,
+                SUM(`bad_responses`) AS `total_bad_responses`,
+                SUM(`follow_ups`) AS `total_follow_ups`,
+                SUM(`not_responses`) AS `total_not_responses`
+                FROM 
+                    `campaigns` 
+                WHERE
+                `type`='{$type}' AND
+                `source_id`='{$source_id}' ".$c." AND
+                `company_id`='{$company_id}' AND
+                `branch_id`='{$branch_id}' AND
+                `deleted_at` IS NULL AND
+                `date` BETWEEN '{$from}' AND '{$to}' ORDER BY `date` ASC");
+    if ($sql && mysqli_num_rows($sql) > 0) {
+        if ($result = mysqli_fetch_object($sql)) {
+            $reach = $result->total_reach;
+            $good_responses = $result->total_good_responses;
+            $bad_responses = $result->total_bad_responses;
+            $follow_ups = $result->total_follow_ups;
+            $not_responses = $result->total_not_responses;
+        }
+    }
+    $data = [
+        [
+            'name' => 'Reach',
+            'y' => (int)$reach,
+        ],
+        [
+            'name' => 'Good Responses',
+            'y' => (int)$good_responses,
+        ],
+        [
+            'name' => 'Bad Responses',
+            'y' => (int)$bad_responses,
+        ],
+        [
+            'name' => 'Follow Ups',
+            'y' => (int)$follow_ups,
+        ],
+        [
+            'name' => 'No Response',
+            'y' => (int)$not_responses,
+        ],
+        [
+            'name' => 'Leads',
+            'y' => (int)$leads,
+        ],
+    ];
+
+    echo json_encode(["code" => 200, "data" => $data]);
 }
 
 ?>
