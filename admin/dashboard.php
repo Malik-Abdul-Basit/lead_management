@@ -840,7 +840,6 @@ include_once("../includes/footer_script.php");
                 'to': to,
                 'type': type,
             };
-            console.log(filter);
             $.ajax({
                 type: "POST", url: "ajax/dashboard.php",
                 data: {'getMarketingData': filter},
@@ -868,7 +867,7 @@ include_once("../includes/footer_script.php");
                     type: 'column'
                 },
                 title: {
-                    text: 'Social Media Marketing Chart'
+                    text: type+' Chart'
                 },
                 subtitle: {
                     text: ''
@@ -894,42 +893,15 @@ include_once("../includes/footer_script.php");
                         }
                     }
                 },
-
                 tooltip: {
                     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                     pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
                 },
-
                 "series": [
                     {
                         "name": " ",
                         "colorByPoint": true,
-                        "data": [
-                            {
-                                "name": "Reach",
-                                "y": 62
-                            },
-                            {
-                                "name": "Good Responses",
-                                "y": 10
-                            },
-                            {
-                                "name": "Bad Responses",
-                                "y": 7
-                            },
-                            {
-                                "name": "Follow Ups",
-                                "y": 5
-                            },
-                            {
-                                "name": "No Response",
-                                "y": 12
-                            },
-                            {
-                                "name": "Leads",
-                                "y": 4
-                            }
-                        ]
+                        "data": data
                     }
                 ]
             });

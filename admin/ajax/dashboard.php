@@ -310,10 +310,11 @@ if (isset($_POST['getMarketingData'])) {
     $to = $object->to;
     $type = $object->type;
 
-    $c = '';
+    $c = $cl = '';
 
     if ($account_id > 0) {
         $c = " AND `account_id`='{$account_id}'";
+        $cl = " AND c.account_id='{$account_id}'";
     }
 
     $reach = $good_responses = $bad_responses = $follow_ups = $not_responses = $leads = 0;
@@ -340,6 +341,30 @@ if (isset($_POST['getMarketingData'])) {
             $bad_responses = $result->total_bad_responses;
             $follow_ups = $result->total_follow_ups;
             $not_responses = $result->total_not_responses;
+
+            $sql_lead = mysqli_query($db, "SELECT 
+                COUNT(l.id) AS `total_leads`
+                FROM 
+                    leads AS l
+                INNER JOIN 
+                    campaigns AS c
+                    ON c.id=l.campaign_id
+                WHERE
+                l.type='{$type}' AND
+                c.type='{$type}' AND
+                c.source_id='{$source_id}' ".$cl." AND
+                l.company_id='{$company_id}' AND
+                c.company_id='{$company_id}' AND
+                l.branch_id='{$branch_id}' AND
+                c.branch_id='{$branch_id}' AND
+                l.deleted_at IS NULL AND
+                c.deleted_at IS NULL AND
+                c.date BETWEEN '{$from}' AND '{$to}' ORDER BY c.date ASC");
+            if ($sql_lead && mysqli_num_rows($sql_lead) > 0) {
+                if ($res = mysqli_fetch_object($sql_lead)) {
+                    $leads = $res->total_leads;
+                }
+            }
         }
     }
     $data = [
