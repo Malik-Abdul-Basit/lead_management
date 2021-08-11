@@ -230,7 +230,7 @@ exit();*/
 
                             </div>
 
-                            <div class="d-flex flex-row mb-3">
+                            <div class="row d-flex mb-3">
 
                                 <div class="col-md-6 Card-Stretch-Wrapper BD-Overview-Wrapper">
                                     <h1>Business Development</h1>
@@ -257,7 +257,7 @@ exit();*/
                                                     ?>
                                                 </ul>
                                             </div>
-                                            <div class="Chart_Wrapper" id="BD_Chart_Wrapper"></div>
+                                            <div class="Chart_Wrapper" id="bd_Chart_Wrapper"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -300,7 +300,8 @@ exit();*/
                                                                     <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
                                                                             data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
                                                                             data-value="<?php echo $duration_key; ?>"
-                                                                            title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                                            title="<?php echo $duration_value; ?>" <?php echo $classes; ?>
+                                                                            onclick="callForSeoData(this)">
                                                                         <?php echo strtoupper($duration_key); ?>
                                                                     </button>
                                                                 </li>
@@ -309,7 +310,7 @@ exit();*/
                                                             ?>
                                                         </ul>
                                                     </div>
-                                                    <div class="Chart_Wrapper" id="SEO_Chart_Wrapper"></div>
+                                                    <div class="Chart_Wrapper" id="seo_Chart_Wrapper"></div>
                                                 </div>
                                                 <div class="tab-pane fade" id="daily-traffic" role="tabpanel"
                                                      aria-labelledby="daily-traffic-tab">
@@ -323,7 +324,7 @@ exit();*/
 
                             </div>
 
-                            <div class="d-flex flex-row mb-3">
+                            <div class="row d-flex mb-3">
 
                                 <div class="col-md-6 Card-Stretch-Wrapper SMM-Overview-Wrapper">
                                     <h1>Social Media Marketing</h1>
@@ -339,8 +340,7 @@ exit();*/
                                                         <div class="form-group m-0">
                                                             <?php $type = config('sources.type.value.social_media_marketing'); ?>
                                                             <select id="<?php echo $type; ?>_source_id"
-                                                                    onchange="getAccounts(this.id, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
-                                                                <option selected="selected" value="-1">All</option>
+                                                                    onchange="getAccounts(this.value, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
                                                                 <?php
                                                                 $select = "SELECT `id`, `name` FROM `sources` WHERE `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
                                                                 $query = mysqli_query($db, $select);
@@ -357,55 +357,7 @@ exit();*/
                                             </div>
                                             <div class="line mb-6 account_wrapper"
                                                  id="<?php echo $type; ?>_account_wrapper">
-                                                <ul>
-                                                    <li>
-                                                        <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
-                                                                <div>
-                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
-                                                                         alt="account-image">
-                                                                </div>
-                                                                <span>abcdefghiabcd</span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id active"
-                                                               data-id="">
-                                                                <div>
-                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
-                                                                         alt="account-image">
-                                                                </div>
-                                                                <span>abcdefghiabcd</span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
-                                                                <div>
-                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
-                                                                         alt="account-image">
-                                                                </div>
-                                                                <span>abcdefghiabcd</span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
-                                                                <div>
-                                                                    <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
-                                                                         alt="account-image">
-                                                                </div>
-                                                                <span>abcdefghiabcd</span>
-                                                            </a>
-                                                        </div>
-                                                    </li>
 
-
-                                                </ul>
                                             </div>
 
                                             <div class="duration_buttons_wrapper">
@@ -418,7 +370,7 @@ exit();*/
                                                             <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
                                                                     data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
                                                                     data-value="<?php echo $duration_key; ?>"
-                                                                    title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                                    title="<?php echo $duration_value; ?>" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')" <?php echo $classes; ?>>
                                                                 <?php echo strtoupper($duration_key); ?>
                                                             </button>
                                                         </li>
@@ -427,7 +379,7 @@ exit();*/
                                                     ?>
                                                 </ul>
                                             </div>
-                                            <div class="Chart_Wrapper" id="SMM_Chart_Wrapper"></div>
+                                            <div class="Chart_Wrapper" id="smm_Chart_Wrapper"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -446,8 +398,7 @@ exit();*/
                                                         <div class="form-group m-0">
                                                             <?php $type = config('sources.type.value.email_marketing'); ?>
                                                             <select id="<?php echo $type; ?>_source_id"
-                                                                    onchange="getAccounts(this.id, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
-                                                                <option selected="selected" value="-1">All</option>
+                                                                    onchange="getAccounts(this.value, '<?php echo $type; ?>')" <?php echo $ApplySelect2; ?>>
                                                                 <?php
                                                                 $select = "SELECT `id`, `name` FROM `sources` WHERE `type`='{$type}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_branch_id}' AND `deleted_at` IS NULL";
                                                                 $query = mysqli_query($db, $select);
@@ -467,7 +418,7 @@ exit();*/
                                                 <ul>
                                                     <li>
                                                         <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')">
                                                                 <div>
                                                                     <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
                                                                          alt="account-image">
@@ -479,7 +430,7 @@ exit();*/
                                                     <li>
                                                         <div class="sales_person_info_wrapper">
                                                             <a class="<?php echo $type; ?>_account_id active"
-                                                               data-id="">
+                                                               data-id="" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')">
                                                                 <div>
                                                                     <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
                                                                          alt="account-image">
@@ -490,7 +441,7 @@ exit();*/
                                                     </li>
                                                     <li>
                                                         <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')">
                                                                 <div>
                                                                     <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
                                                                          alt="account-image">
@@ -501,7 +452,7 @@ exit();*/
                                                     </li>
                                                     <li>
                                                         <div class="sales_person_info_wrapper">
-                                                            <a class="<?php echo $type; ?>_account_id" data-id="">
+                                                            <a class="<?php echo $type; ?>_account_id" data-id="" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')">
                                                                 <div>
                                                                     <img src="<?php echo $base_url . 'storage/accounts/sales_person.png' ?>"
                                                                          alt="account-image">
@@ -526,7 +477,7 @@ exit();*/
                                                             <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
                                                                     data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
                                                                     data-value="<?php echo $duration_key; ?>"
-                                                                    title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                                    title="<?php echo $duration_value; ?>" onclick="removeAllClasses(this), callForMarketingData('<?php echo $type; ?>')" <?php echo $classes; ?>>
                                                                 <?php echo strtoupper($duration_key); ?>
                                                             </button>
                                                         </li>
@@ -535,7 +486,7 @@ exit();*/
                                                     ?>
                                                 </ul>
                                             </div>
-                                            <div class="Chart_Wrapper" id="EM_Chart_Wrapper"></div>
+                                            <div class="Chart_Wrapper" id="em_Chart_Wrapper"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -577,6 +528,37 @@ include_once("../includes/footer_script.php");
 
         getAllPageData();
 
+        var source_id = document.getElementById('<?php echo config("sources.type.value.social_media_marketing"); ?>'+ '_source_id');
+        getAccounts(source_id.value, '<?php echo config("sources.type.value.social_media_marketing"); ?>');
+
+        var source_id = document.getElementById('<?php echo config("sources.type.value.email_marketing"); ?>'+ '_source_id');
+        getAccounts(source_id.value, '<?php echo config("sources.type.value.email_marketing"); ?>');
+
+        function getAccounts(id, type) {
+            var postData = {"id": id, "type": type};
+            $.ajax({
+                type: "POST", url: "ajax/dashboard.php",
+                data: {'postData': postData, 'getAccounts': true},
+                success: function (resPonse) {
+                    if (resPonse !== undefined && resPonse != '') {
+                        var obj = JSON.parse(resPonse);
+                        if (obj.code !== undefined && obj.code != '' && obj.code === 200 && obj.account_list !== undefined && obj.account_list != '') {
+                            document.getElementById(type+'_account_wrapper').innerHTML = obj.account_list;
+                            callForMarketingData(type);
+                            loader(false);
+                        } else {
+                            loader(false);
+                        }
+                    } else {
+                        loader(false);
+                    }
+                },
+                error: function () {
+                    loader(false);
+                }
+            });
+        }
+
         function getAllPageData() {
             var BG_CurrentDate = '<?php echo $today;?>';
             var BG_PreviousDay = '<?php echo $prev_day;?>';
@@ -595,6 +577,7 @@ include_once("../includes/footer_script.php");
             };
             getStatistics(filter);
             getBDData(filter);
+            getSeoData(filter);
         }
 
         function getStatistics(filter) {
@@ -783,7 +766,7 @@ include_once("../includes/footer_script.php");
         }
 
         function setBDData(data) {
-            Highcharts.chart('BD_Chart_Wrapper', {
+            Highcharts.chart('bd_Chart_Wrapper', {
                 chart: {
                     type: 'column'
                 },
@@ -842,216 +825,26 @@ include_once("../includes/footer_script.php");
             loader(false);
         }
 
+        function callForSeoData(e){
+            removeAllClasses(e);
+            var filter = {
+                'from': e.getAttribute("data-from"),
+                'to': e.getAttribute("data-to"),
+                'duration_type': e.getAttribute("data-value"),
+            };
+            getSeoData(filter);
+        }
 
-        Highcharts.chart('SEO_Chart_Wrapper', {
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Search Engine Optimization Chart'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: ['Reach', 'Clicks', 'Form Submissions', 'Calls', 'Leads'],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: '',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' '
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 80,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'One Month Record',
-                data: [50, 68, 90, 107, 30]
-            },]
-        });
-
-        Highcharts.chart('SMM_Chart_Wrapper', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Social Media Marketing Chart'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                }
-
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
-                    }
-                }
-            },
-
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
-            },
-
-            "series": [
-                {
-                    "name": " ",
-                    "colorByPoint": true,
-                    "data": [
-                        {
-                            "name": "Reach",
-                            "y": 62
-                        },
-                        {
-                            "name": "Good Responses",
-                            "y": 10
-                        },
-                        {
-                            "name": "Bad Responses",
-                            "y": 7
-                        },
-                        {
-                            "name": "Follow Ups",
-                            "y": 5
-                        },
-                        {
-                            "name": "No Response",
-                            "y": 12
-                        },
-                        {
-                            "name": "Leads",
-                            "y": 4
-                        }
-                    ]
-                }
-            ]
-        });
-
-        Highcharts.chart('EM_Chart_Wrapper', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Email Marketing Chart'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                }
-
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
-                    }
-                }
-            },
-
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
-            },
-
-            "series": [
-                {
-                    "name": " ",
-                    "colorByPoint": true,
-                    "data": [
-                        {
-                            "name": "Reach",
-                            "y": 62
-                        },
-                        {
-                            "name": "Good Responses",
-                            "y": 10
-                        },
-                        {
-                            "name": "Bad Responses",
-                            "y": 7
-                        },
-                        {
-                            "name": "Follow Ups",
-                            "y": 5
-                        },
-                        {
-                            "name": "No Response",
-                            "y": 12
-                        },
-                        {
-                            "name": "Leads",
-                            "y": 4
-                        }
-                    ]
-                }
-            ]
-        });
-
-        function getAccounts(id, type) {
-            var postData = {"id": id, "type": type};
+        function getSeoData(filter){
+            loader(true);
             $.ajax({
                 type: "POST", url: "ajax/dashboard.php",
-                data: {'postData': postData, 'getAccounts': true},
+                data: {'getSeoData': filter},
                 success: function (resPonse) {
                     if (resPonse !== undefined && resPonse != '') {
-                        var obj = JSON.parse(resPonse);
-                        if (obj.code !== undefined && obj.code != '' && obj.code === 200 && obj.account_list !== undefined && obj.account_list != '') {
-                            document.getElementById('BG_AccountFilter').innerHTML = obj.account_list;
-                            loader(false);
+                        var response = JSON.parse(resPonse);
+                        if (response.code === 200) {
+                            setSeoData(response.data);
                         } else {
                             loader(false);
                         }
@@ -1065,6 +858,146 @@ include_once("../includes/footer_script.php");
             });
         }
 
+        function setSeoData(data){
+            Highcharts.chart('seo_Chart_Wrapper', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Search Engine Optimization Chart'
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: data.category,
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' '
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -40,
+                    y: 80,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                    shadow: true
+                },
+                credits: {
+                    enabled: false
+                },
+                series: data.series
+            });
+            loader(false);
+        }
+
+        function callForMarketingData(type) {
+            loader(true);
+            var source_id = document.getElementById(type+'_source_id').value;
+            var account_element = document.getElementsByClassName(type+'_account_id active')[0];
+            var account_id = account_element.getAttribute("data-id");
+
+            var duration_element = document.getElementsByClassName(type+'_duration_button active')[0];
+            var from = duration_element.getAttribute("data-from");
+            var to = duration_element.getAttribute("data-to");
+
+            var filter = {
+                'source_id': source_id,
+                'account_id': account_id,
+                'from': from,
+                'to': to,
+                'type': type,
+            };
+            $.ajax({
+                type: "POST", url: "ajax/dashboard.php",
+                data: {'getMarketingData': filter},
+                success: function (resPonse) {
+                    if (resPonse !== undefined && resPonse != '') {
+                        var response = JSON.parse(resPonse);
+                        if (response.code === 200) {
+                            setMarketingData(response.data, type);
+                        } else {
+                            loader(false);
+                        }
+                    } else {
+                        loader(false);
+                    }
+                },
+                error: function () {
+                    loader(false);
+                }
+            });
+        }
+
+        function setMarketingData(data, type){
+            Highcharts.chart(type+'_Chart_Wrapper', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: type+' Chart'
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
+                },
+                "series": [
+                    {
+                        "name": " ",
+                        "colorByPoint": true,
+                        "data": data
+                    }
+                ]
+            });
+            loader(false);
+        }
 
     </script>
 
