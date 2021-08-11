@@ -234,6 +234,76 @@ if (isset($_POST['getBDData'])) {
     ]);
 }
 
+if (isset($_POST['getSeoData'])) {
+
+    $data = $result_array = $series = [];
+    $code = 420;
+
+    $object = (object)$_POST['getSeoData'];
+    $from = $object->from;
+    $to = $object->to;
+    $duration_type = $object->duration_type;
+
+    $duration_array = array_values(config('dashboard.duration.value'));
+    $category = ['Reach', 'Clicks', 'Form Submissions', 'Calls', 'Leads'];
+
+
+    if (!empty($object) && !empty($duration_type) && in_array($duration_type, $duration_array) && !empty($from) && strlen($from) === 10 && !empty($to) && strlen($to) === 10 && $from <= $to) {
+
+        $sql = mysqli_query($db, "SELECT 
+                SUM(`reach`) AS `total_reach`,
+                SUM(`clicks`) AS `total_clicks`,
+                SUM(`form_submissions`) AS `total_form_submissions`,
+                SUM(`calls`) AS `total_calls`
+                FROM 
+                    `seo_campaigns` 
+                WHERE
+                `company_id`='{$company_id}' AND `branch_id`='{$branch_id}' AND `deleted_at` IS NULL 
+                AND (`from` BETWEEN '{$from}' AND '{$to}' || `to` BETWEEN '{$from}' AND '{$to}') ORDER BY `from` ASC");
+
+        if ($sql && mysqli_num_rows($sql) > 0) {
+            if ($result = mysqli_fetch_object($sql)) {
+                $code = 200;
+                $leads = 0;
+
+                $sql_lead = mysqli_query($db, "SELECT 
+                COUNT(l.id) AS `total_leads`
+                FROM 
+                    seo_leads AS l
+                INNER JOIN
+                    seo_campaigns AS c
+                    ON c.id=l.campaign_id
+                WHERE
+                l.company_id='{$company_id}' AND l.branch_id='{$branch_id}' AND l.deleted_at IS NULL AND
+                c.company_id='{$company_id}' AND c.branch_id='{$branch_id}' AND c.deleted_at IS NULL AND
+                (c.from BETWEEN '{$from}' AND '{$to}' || c.to BETWEEN '{$from}' AND '{$to}') ORDER BY c.from ASC");
+
+                if ($sql_lead && mysqli_num_rows($sql_lead) > 0) {
+                    if ($res = mysqli_fetch_object($sql_lead)) {
+                        $leads = (int)$res->total_leads;
+                    }
+                }
+
+                $series = [
+                    [
+                        'name' => config('dashboard.duration.title.'.$object->duration_type).' Record',
+                        'data' => [(int)$result->total_reach, (int)$result->total_clicks, (int)$result->total_form_submissions, (int)$result->total_calls, $leads]
+                    ]
+                ];
+            }
+        }
+    }
+
+    echo json_encode([
+        "code" => $code,
+        "data" => [
+            'category' => $category,
+            'series' => $series
+        ]
+    ]);
+}
+
+
 if (isset($_POST['postData'], $_POST['getAccounts']) && $_POST['getAccounts'] == true) {
     $object = (object)$_POST['postData'];
 
@@ -329,7 +399,7 @@ if (isset($_POST['getMarketingData'])) {
                     `campaigns` 
                 WHERE
                 `type`='{$type}' AND
-                `source_id`='{$source_id}' ".$c." AND
+                `source_id`='{$source_id}' " . $c . " AND
                 `company_id`='{$company_id}' AND
                 `branch_id`='{$branch_id}' AND
                 `deleted_at` IS NULL AND
@@ -352,7 +422,7 @@ if (isset($_POST['getMarketingData'])) {
                 WHERE
                 l.type='{$type}' AND
                 c.type='{$type}' AND
-                c.source_id='{$source_id}' ".$cl." AND
+                c.source_id='{$source_id}' " . $cl . " AND
                 l.company_id='{$company_id}' AND
                 c.company_id='{$company_id}' AND
                 l.branch_id='{$branch_id}' AND

@@ -300,7 +300,8 @@ exit();*/
                                                                     <button data-from="<?php echo $duration_value_array[$duration_key]['from']; ?>"
                                                                             data-to="<?php echo $duration_value_array[$duration_key]['to']; ?>"
                                                                             data-value="<?php echo $duration_key; ?>"
-                                                                            title="<?php echo $duration_value; ?>" <?php echo $classes; ?>>
+                                                                            title="<?php echo $duration_value; ?>" <?php echo $classes; ?>
+                                                                            onclick="callForSeoData(this)">
                                                                         <?php echo strtoupper($duration_key); ?>
                                                                     </button>
                                                                 </li>
@@ -576,6 +577,7 @@ include_once("../includes/footer_script.php");
             };
             getStatistics(filter);
             getBDData(filter);
+            getSeoData(filter);
         }
 
         function getStatistics(filter) {
@@ -823,6 +825,95 @@ include_once("../includes/footer_script.php");
             loader(false);
         }
 
+        function callForSeoData(e){
+            removeAllClasses(e);
+            var filter = {
+                'from': e.getAttribute("data-from"),
+                'to': e.getAttribute("data-to"),
+                'duration_type': e.getAttribute("data-value"),
+            };
+            getSeoData(filter);
+        }
+
+        function getSeoData(filter){
+            loader(true);
+            $.ajax({
+                type: "POST", url: "ajax/dashboard.php",
+                data: {'getSeoData': filter},
+                success: function (resPonse) {
+                    if (resPonse !== undefined && resPonse != '') {
+                        var response = JSON.parse(resPonse);
+                        if (response.code === 200) {
+                            setSeoData(response.data);
+                        } else {
+                            loader(false);
+                        }
+                    } else {
+                        loader(false);
+                    }
+                },
+                error: function () {
+                    loader(false);
+                }
+            });
+        }
+
+        function setSeoData(data){
+            Highcharts.chart('seo_Chart_Wrapper', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Search Engine Optimization Chart'
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: data.category,
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' '
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -40,
+                    y: 80,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                    shadow: true
+                },
+                credits: {
+                    enabled: false
+                },
+                series: data.series
+            });
+            loader(false);
+        }
+
         function callForMarketingData(type) {
             loader(true);
             var source_id = document.getElementById(type+'_source_id').value;
@@ -907,62 +998,6 @@ include_once("../includes/footer_script.php");
             });
             loader(false);
         }
-
-        Highcharts.chart('seo_Chart_Wrapper', {
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Search Engine Optimization Chart'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: ['Reach', 'Clicks', 'Form Submissions', 'Calls', 'Leads'],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: '',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' '
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 80,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'One Month Record',
-                data: [50, 68, 90, 107, 30]
-            },]
-        });
 
     </script>
 
