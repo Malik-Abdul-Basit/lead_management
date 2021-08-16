@@ -303,7 +303,6 @@ if (isset($_POST['getSeoData'])) {
     ]);
 }
 
-
 if (isset($_POST['postData'], $_POST['getAccounts']) && $_POST['getAccounts'] == true) {
     $object = (object)$_POST['postData'];
 
