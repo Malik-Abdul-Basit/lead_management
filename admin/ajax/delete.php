@@ -153,7 +153,6 @@ if (isset($_POST['delete_lead'], $_POST['user_right_title'], $_POST['type']) && 
     }
 }
 
-
 if (isset($_POST['delete_daily_progress'], $_POST['user_right_title']) && !empty($_POST['delete_daily_progress']) && !empty($_POST['user_right_title']) && is_numeric($_POST['delete_daily_progress'])) {
     if (hasRight($_POST['user_right_title'], 'delete')) {
 
