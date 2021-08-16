@@ -942,12 +942,15 @@ div.highcharts-data-table table th {
 }
 
 .report_user_title {
+    background: #f9f9f9;
+    color: #3a3a3a;
     display: block;
     border: 1px solid rgb(228, 230, 239);
     border-bottom: none;
     border-radius: 0.42rem 0.42rem 0 0;
     float: left;
-    font-size: 12px;
+    font-family: 'montserratsemibold';
+    font-size: 14px;
     margin: 0;
     overflow: hidden;
     padding: 12px 0 5px 0;
@@ -964,6 +967,7 @@ div.highcharts-data-table table th {
 .report_table td {
     border-collapse: collapse;
     border: 1px solid rgb(228, 230, 239);
+    font-family:'montserratlight';
     font-size: 12px;
 }
 

@@ -508,7 +508,6 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
     color: #16171a;
 }
 
-
 @media (min-width: 992px) {
     .header-fixed.subheader-fixed.subheader-enabled .wrapper {
         padding-top: 80px;
