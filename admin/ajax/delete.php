@@ -154,4 +154,26 @@ if (isset($_POST['delete_lead'], $_POST['user_right_title'], $_POST['type']) && 
 }
 
 
+if (isset($_POST['delete_daily_progress'], $_POST['user_right_title']) && !empty($_POST['delete_daily_progress']) && !empty($_POST['user_right_title']) && is_numeric($_POST['delete_daily_progress'])) {
+    if (hasRight($_POST['user_right_title'], 'delete')) {
+
+        $condition='';
+        $employee_info = getUserInfoFromId($global_user_id);
+        if ($employee_info->user_type != config('users.type.value.super_admin') && $employee_info->user_type != config('users.type.value.admin')) {
+            $condition .= " AND `user_id`='{$global_user_id}'";
+        }
+
+        $id = htmlentities($_POST['delete_daily_progress']);
+        if (mysqli_query($db, "UPDATE `daily_progress_details` SET `deleted_by`='{$global_user_id}', `deleted_at`='{$deleted_at}' WHERE `id`='{$id}' AND `company_id`='{$global_company_id}' AND `branch_id`='{$global_company_id}'".$condition)) {
+            echo json_encode(["code" => 200, "toasterClass" => 'success', "responseMessage" => 'Record has been deleted.']);
+        } else {
+            echo json_encode(["code" => 405, "toasterClass" => 'error', "responseMessage" => 'Unexpected error.']);
+        }
+
+    } else {
+        echo json_encode(["code" => 405, "toasterClass" => 'warning', "responseMessage" => 'Sorry! You have no right to delete record.']);
+    }
+}
+
+
 ?>
