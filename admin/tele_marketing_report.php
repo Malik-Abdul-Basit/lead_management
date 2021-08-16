@@ -278,7 +278,7 @@ include_once("../includes/footer_script.php");
                     };
                     loader(true);
                     $.ajax({
-                        type: "POST", url: "ajax/fetch/bd_lead_reports.php",
+                        type: "POST", url: "ajax/fetch/daily_progress_reports.php",
                         data: {"postData": postData},
                         success: function (resPonse) {
                             if (resPonse !== undefined && resPonse !== '' && resPonse !== null) {
@@ -286,7 +286,6 @@ include_once("../includes/footer_script.php");
                                 if (obj.code === 200 && obj.html !== undefined && obj.html !== '' && obj.html !== null) {
                                     resultBody.innerHTML=obj.html;
                                     loader(false);
-                                    //console.log(obj);
                                 } else {
                                     loader(false);
                                 }
