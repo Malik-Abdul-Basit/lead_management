@@ -109,8 +109,8 @@ if (isset($_GET['n']) && !empty($_GET['n'])) {
 
         $user_array = array(6, 7, 8);
         foreach ($user_array as $user_id) {
-            $start = '2021-01-01';
-            $end = '2021-01-31';
+            $start = '2021-08-01';
+            $end = '2021-08-31';
             $start_date = new DateTime($start);
             $end = new DateTime($end);
             $end = $end->modify('+1 day');
@@ -146,8 +146,8 @@ if (isset($_GET['n']) && !empty($_GET['n'])) {
     }
     else if ($get == "add_seo_campaign") {
         $source_id = '1';
-        $start = '2021-01-01';
-        $end = '2021-08-10';
+        $start = '2021-01-11';
+        $end = '2021-08-31';
         $start_date = new DateTime($start);
         $end = new DateTime($end);
         $end = $end->modify('+1 day');
@@ -187,8 +187,8 @@ if (isset($_GET['n']) && !empty($_GET['n'])) {
             $campaign_type_id = '2';
         }
 
-        $start = '2021-01-01';
-        $end = '2021-01-31';
+        $start = '2021-08-11';
+        $end = '2021-08-31';
         $start_date = new DateTime($start);
         $end = new DateTime($end);
         $end = $end->modify('+1 day');
@@ -219,8 +219,8 @@ if (isset($_GET['n']) && !empty($_GET['n'])) {
     }
     else if ($get == "add_seo_leads"){
 
-        $from = '2021-08-01';
-        $to = '2021-08-10';
+        $from = '2021-08-11';
+        $to = '2021-08-31';
 
         $get = mysqli_query($db, "SELECT `id`,`from`,`to`,`source_id`,`reach` FROM `seo_campaigns` WHERE `from` BETWEEN '{$from}' AND '{$to}'");
         if ($get && mysqli_num_rows($get) > 0) {
@@ -255,8 +255,8 @@ if (isset($_GET['n']) && !empty($_GET['n'])) {
             $type = 'em';
         }
 
-        $from = '2021-08-01';
-        $to = '2021-08-10';
+        $from = '2021-08-11';
+        $to = '2021-08-31';
 
         $get = mysqli_query($db, "SELECT `id`,`date`,`reach` FROM `campaigns` WHERE `type`='{$type}' AND `date` BETWEEN '{$from}' AND '{$to}'");
         if ($get && mysqli_num_rows($get) > 0) {
