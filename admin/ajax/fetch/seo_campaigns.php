@@ -104,12 +104,15 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
         } else {
             $number_of_record = " LIMIT " . $offset . ", " . $perPage;
         }
-        $select = "SELECT c.*, s.name AS source_name
+        $select = "SELECT c.*, s.name AS source_name, COUNT(l.id) AS total_leads
         FROM 
             seo_campaigns AS c 
         INNER JOIN 
             sources AS s 
-            ON c.source_id=s.id " . $condition . $sort . $number_of_record;
+            ON c.source_id=s.id
+        LEFT JOIN 
+            seo_leads AS l 
+            ON c.id=l.campaign_id " . $condition . " GROUP BY c.id " . $sort . $number_of_record;
 
         $query = mysqli_query($db, $select);
         if (mysqli_num_rows($query) > 0) {
@@ -178,19 +181,23 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                                     <div class="lead-card-details pt-4 px-6">
                                         <div class="card-section-title mb-6">Campaign Detail</div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="small">Cost</div>
                                                 <span>' . $result->cost . '</span>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="small">Reach & Clicks</div>
                                                 <span>Reach: ' . $result->reach . '</span><br>
                                                 <span>Clicks: ' . $result->clicks . '</span>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="small">Form Submissions & Calls</div>
                                                 <span>Submissions: ' . $result->form_submissions . '</span><br>
                                                 <span>Clicks: ' . $result->calls . '</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="small">Leads</div>
+                                                <span>' . $result->total_leads . '</span>
                                             </div>
                                         </div>
                                     </div>
