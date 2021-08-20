@@ -45,7 +45,7 @@ RewriteRule ^([^\.]+)$ $1.php [NC,L]
 #RewriteRule ^([a-zA-Z0-9-+]+)/?$ cms.php?page=$1 [L,QSA]
 
 #If the rule above didn't match, and the file does not exist, use the ErrorDocument
-ErrorDocument 404 https://leadmanagement.medcaremso.com/404_not_found
+ErrorDocument 404 https://leadmanagement.medcaredemo.online/404_not_found
 
 #ErrorDocument 500 http://example.com/500/
 # or map them to one error document:

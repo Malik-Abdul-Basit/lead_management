@@ -107,7 +107,7 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
         }
         $select = "SELECT c.*, 
         ct.name AS campaign_type_name, s.name AS source_name,
-        a.name AS account_name
+        a.name AS account_name, COUNT(l.id) AS total_leads
         FROM 
             campaigns AS c 
         INNER JOIN 
@@ -117,7 +117,11 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
             sources AS s 
             ON c.source_id=s.id 
         INNER JOIN 
-            accounts AS a ON c.account_id=a.id " . $condition . $sort . $number_of_record;
+            accounts AS a 
+            ON c.account_id=a.id
+        LEFT JOIN 
+            leads AS l 
+            ON c.id=l.campaign_id " . $condition . " GROUP BY c.id " . $sort . $number_of_record;
 
         $query = mysqli_query($db, $select);
         if (mysqli_num_rows($query) > 0) {
@@ -193,14 +197,15 @@ if (isset($_POST['filters']) && !empty($_POST['filters'])) {
                                                 <div class="small">Responses</div>
                                                 <span>Good: ' . $result->good_responses . '</span><br>
                                                 <span>Bad: ' . $result->bad_responses . '</span><br>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="small">Not Responses</div>
-                                                <span>' . $result->not_responses . '</span>
+                                                <span>Not Responses: ' . $result->not_responses . '</span>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="small">Follow Ups</div>
                                                 <span>' . $result->follow_ups . '</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="small">Leads</div>
+                                                <span>' . $result->total_leads . '</span>
                                             </div>
                                         </div>
                                     </div>
