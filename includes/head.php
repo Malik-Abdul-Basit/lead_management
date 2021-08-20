@@ -68,7 +68,7 @@
 <!--begin::Body-->
 <body id="kt_body"
       class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading"
-    <?php //if($user_id!=1){echo 'oncontextmenu="return false" onselectstart="return false"  onkeydown="if ((arguments[0] || window.event).ctrlKey) return false"';} ?>>
+      <?php //echo 'oncontextmenu="return false" onselectstart="return false"  onkeydown="if ((arguments[0] || window.event).ctrlKey) return false"'; ?>>
 <div id="loader-wrapper">
     <div class="vertical-center">
         <div class="loader-box">
