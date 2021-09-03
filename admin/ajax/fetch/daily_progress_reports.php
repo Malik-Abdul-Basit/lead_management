@@ -89,10 +89,10 @@ if (isset($_POST['postData']) && !empty($_POST['postData'])) {
                     $t_emails_sent = round(round($t_emails_sent) + round($result->emails_sent));
 
                     if (!empty($result->calls) && !empty($result->good_responses) && $result->calls > 0 && $result->good_responses > 0) {
-                        $response_percentage = round(($result->good_responses) / ($result->calls) * (100), 3);
+                        $response_percentage = round(($result->good_responses) / ($result->calls + $result->follow_ups) * (100), 3);
                     }
                     if (!empty($result->calls) && !empty($result->lead_conversion) && $result->calls > 0 && $result->lead_conversion > 0) {
-                        $lead_percentage = round(($result->lead_conversion) / ($result->calls) * (100), 3);
+                        $lead_percentage = round(($result->lead_conversion) / ($result->calls + $result->follow_ups) * (100), 3);
                     }
 
                     if ($report_type == config('daily_progress_details.type.value.day_by_day')) {

@@ -513,3 +513,11 @@ body, #kt_header, #kt_content, .gridListingStyleWrapper table.datatable-table {
         padding-top: 80px;
     }
 }
+
+
+
+.btn.btn-light.dropdown-toggle:after,
+.bootstrap-select > .dropdown-toggle.btn-light .filter-option,
+.bootstrap-select > .dropdown-toggle.btn-secondary .filter-option{
+    color: #3F4254;
+}
